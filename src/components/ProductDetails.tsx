@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useProducts } from '@/hooks/useProducts';
 import { ProductCard } from './ProductCard';
+import { ReviewsSection } from './ReviewsSection';
 
 interface ProductDetailsProps {
   product: {
@@ -246,6 +247,8 @@ export function ProductDetails({ product }: ProductDetailsProps) {
           </div>
         </div>
       </section>
+
+      <ReviewsSection productName={product.title} />
 
       {/* Combine with other products */}
       {sameLine.length > 0 && (
