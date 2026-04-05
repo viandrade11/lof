@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useProducts } from '@/hooks/useProducts';
 import { ProductCard } from './ProductCard';
-import { ReviewsSection } from './ReviewsSection';
+
 
 interface ProductDetailsProps {
   product: {
