@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import heroBanner from '@/assets/hero-banner.jpg';
+import aliancaGrafismo from '@/assets/alianca-grafismo.png';
 
 export function HeroBanner() {
   return (
