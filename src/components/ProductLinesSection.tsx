@@ -43,7 +43,7 @@ export function ProductLinesSection() {
   return (
     <section className="w-full">
       {/* Desktop: horizontal row | Mobile: 2-column grid */}
-      <div className="grid grid-cols-2 md:flex">
+      <div className="grid grid-cols-2 md:grid-cols-6">
         {productLines.map((line) => (
           <Link
             key={line.name}
