@@ -101,3 +101,11 @@ export const CartDrawer = () => {
     </Sheet>
   );
 };
+
+function CartRecommendations() {
+  const items = useCartStore(state => state.items);
+  const { data: allProducts } = useProducts(50);
+  if (!allProducts || items.length === 0) return null;
+  const recs = getCartRecommendations(items, allProducts, 3);
+  return <CartUpsellBlock recommendations={recs} />;
+}
