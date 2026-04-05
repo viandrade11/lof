@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import heroBanner from '@/assets/hero-banner.jpg';
 
 export function HeroBanner() {
@@ -12,7 +13,7 @@ export function HeroBanner() {
           width={1920}
           height={800}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-lof-black/60 via-lof-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-lof-black/80 via-lof-black/50 to-transparent" />
         <div className="absolute inset-0 flex items-center">
           <div className="container">
             <div className="max-w-lg">
@@ -20,18 +21,18 @@ export function HeroBanner() {
                 Sofisticadamente Simples
               </p>
               <h2 className="font-display text-4xl md:text-6xl lg:text-7xl text-white font-light leading-[0.95]">
-                Cabelos que<br />
-                <span className="italic">encantam</span>
+                Alta performance<br />
+                <span className="italic">capilar</span>
               </h2>
               <p className="mt-5 text-white/70 text-sm md:text-base leading-relaxed max-w-md">
-                Ingredientes naturais, fórmulas livres de parabenos. Produtos profissionais de altíssima performance para todos os tipos de cabelo.
+                A LOF Professional desenvolve produtos de altíssima performance com ingredientes naturais e fórmulas livres de parabenos. Ciência e natureza juntas para transformar seus cabelos.
               </p>
-              <a
-                href="#produtos"
+              <Link
+                to="/collections/all"
                 className="inline-flex items-center mt-6 h-12 px-8 bg-white text-foreground text-xs uppercase tracking-[0.2em] font-medium hover:bg-white/90 transition-colors"
               >
-                Ver Produtos
-              </a>
+                Conheça Nossas Linhas
+              </Link>
             </div>
           </div>
         </div>
