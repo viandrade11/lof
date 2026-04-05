@@ -202,6 +202,9 @@ const ProductPage = () => {
               )}
             </Button>
 
+            {/* Upsell Block */}
+            <ProductPageUpsell product={product} />
+
             {/* Description */}
             <div className="mt-10 border-t border-border">
               <details className="group" open>
