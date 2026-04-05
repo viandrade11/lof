@@ -352,6 +352,13 @@ const CrystalOilPage = () => {
         </div>
       </section>
 
+      {/* Upsell / Cross-sell */}
+      <section className="py-16 md:py-20 bg-secondary/30">
+        <div className="container max-w-2xl">
+          <CrystalOilUpsell product={activeProduct} />
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="py-20 md:py-28">
         <div className="container max-w-3xl">
