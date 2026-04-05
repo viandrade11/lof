@@ -47,13 +47,15 @@ export function HighlightBlocks() {
       </Link>
 
       {/* Boosters Block */}
-      <Link to="/collections/all?linha=Booster" className="group relative overflow-hidden aspect-[4/3] bg-[#0a0a0a]">
-        <img
-          src={boostersHighlight}
-          alt="Boosters - Tratamento intensivo"
-          className="absolute inset-0 w-full h-full object-contain object-center opacity-40 group-hover:opacity-50 transition-opacity duration-700 group-hover:scale-105 transition-transform"
-          loading="lazy"
-        />
+      <Link to="/products/serum-crystal-oil-laranja-60ml-6903bb190ee85" className="group relative overflow-hidden aspect-[4/3] bg-[#0a0a0a]">
+        {crystalImage && (
+          <img
+            src={crystalImage}
+            alt="Crystal Oil - Sérum Multi Óleos"
+            className="absolute inset-0 w-full h-full object-contain object-center opacity-40 group-hover:opacity-50 transition-opacity duration-700 group-hover:scale-105 transition-transform"
+            loading="lazy"
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/70 to-transparent" />
         <img
           src={aliancaGrafismo}
