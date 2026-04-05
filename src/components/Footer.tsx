@@ -5,8 +5,9 @@ import aliancaGrafismo from '@/assets/alianca-grafismo.png';
 
 export function Footer() {
   return (
-    <footer className="bg-foreground text-background">
-      <div className="container py-16 md:py-20">
+    <footer className="relative bg-foreground text-background overflow-hidden">
+      <img src={aliancaGrafismo} alt="" className="absolute right-[-5%] bottom-[-15%] w-[300px] md:w-[400px] opacity-[0.05] invert pointer-events-none select-none" aria-hidden="true" />
+      <div className="container relative py-16 md:py-20">
         <div className="grid md:grid-cols-4 gap-10 md:gap-12">
           <div className="md:col-span-1">
             <img src={logoLof} alt="LOF Professional" className="h-8 invert mb-4" />

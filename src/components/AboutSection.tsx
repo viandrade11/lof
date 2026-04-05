@@ -5,8 +5,9 @@ import aliancaGrafismo from '@/assets/alianca-grafismo.png';
 
 export function AboutSection() {
   return (
-    <section id="sobre" className="py-20 md:py-28">
-      <div className="container">
+    <section id="sobre" className="relative py-20 md:py-28 overflow-hidden">
+      <img src={aliancaGrafismo} alt="" className="absolute left-[-10%] top-[15%] w-[350px] md:w-[500px] opacity-[0.03] pointer-events-none select-none" aria-hidden="true" />
+      <div className="container relative">
         {/* Sobre a LOF */}
         <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
           <div className="relative">
