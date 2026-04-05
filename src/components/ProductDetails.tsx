@@ -6,6 +6,7 @@ import { ReviewsSection } from './ReviewsSection';
 interface ProductDetailsProps {
   product: {
     title: string;
+    handle?: string;
     productType?: string;
     description: string;
   };
