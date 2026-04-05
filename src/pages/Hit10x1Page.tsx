@@ -319,7 +319,7 @@ const Hit10x1Page = () => {
         </div>
       </section>
 
-      <ReviewsSection productHandle={['leave-in-hit-10x1-200ml', 'leave-in-hit-10x1-200ml-6903bafe7954e']} productName="Hit 10x1" />
+      
 
       {/* FAQ */}
       <section className="py-20 md:py-28">
