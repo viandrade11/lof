@@ -92,7 +92,7 @@ export function Header() {
         <nav className="hidden md:flex items-center gap-8">
           <NavDropdown label="Linhas" items={linhas} />
           <NavDropdown label="Produtos" items={produtos} />
-          <Link to="/collections/all?linha=Finalizadores" className="text-xs font-medium uppercase tracking-[0.2em] text-foreground/70 hover:text-foreground transition-colors">
+          <Link to="/hit-10x1" className="text-xs font-medium uppercase tracking-[0.2em] text-foreground/70 hover:text-foreground transition-colors">
             Hit 10x1
           </Link>
           <Link to="/profissional" className="text-xs font-medium uppercase tracking-[0.2em] text-foreground/70 hover:text-foreground transition-colors">
