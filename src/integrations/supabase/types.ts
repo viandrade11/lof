@@ -14,48 +14,7 @@ export type Database = {
   }
   public: {
     Tables: {
-      reviews: {
-        Row: {
-          content: string
-          created_at: string
-          id: string
-          product_handle: string
-          product_title: string
-          rating: number
-          reviewer_email: string | null
-          reviewer_name: string
-          status: string
-          updated_at: string
-          user_id: string | null
-        }
-        Insert: {
-          content: string
-          created_at?: string
-          id?: string
-          product_handle: string
-          product_title: string
-          rating: number
-          reviewer_email?: string | null
-          reviewer_name: string
-          status?: string
-          updated_at?: string
-          user_id?: string | null
-        }
-        Update: {
-          content?: string
-          created_at?: string
-          id?: string
-          product_handle?: string
-          product_title?: string
-          rating?: number
-          reviewer_email?: string | null
-          reviewer_name?: string
-          status?: string
-          updated_at?: string
-          user_id?: string | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Views: {
       [_ in never]: never

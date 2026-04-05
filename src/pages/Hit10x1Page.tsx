@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import aliancaGrafismo from '@/assets/alianca-grafismo.png';
-import { ReviewsSection } from '@/components/ReviewsSection';
+
 import { useSEO } from '@/hooks/useSEO';
 
 const PRODUCT_HANDLE = 'leave-in-hit-10x1-200ml-6903bafe7954e';
@@ -319,7 +319,7 @@ const Hit10x1Page = () => {
         </div>
       </section>
 
-      <ReviewsSection productHandle={['leave-in-hit-10x1-200ml', 'leave-in-hit-10x1-200ml-6903bafe7954e']} productName="Hit 10x1" />
+      
 
       {/* FAQ */}
       <section className="py-20 md:py-28">
