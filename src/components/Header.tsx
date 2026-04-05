@@ -11,7 +11,7 @@ const linhas = [
   { label: 'Purifying', href: '/collections/all?linha=Purifying' },
   { label: 'Wavy', href: '/collections/all?linha=Wavy' },
   { label: 'Hydrate', href: '/collections/all?linha=Hydrate' },
-  { label: 'Chroma', href: '/collections/all?linha=Chroma' },
+  
   { label: 'Crystal Oil', href: '/collections/all?linha=Crystal Oil' },
   { label: 'Hit 10x1', href: '/hit-10x1' },
 ];
