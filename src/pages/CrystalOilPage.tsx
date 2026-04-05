@@ -353,8 +353,17 @@ const CrystalOilPage = () => {
       </section>
 
       {/* Upsell / Cross-sell */}
-      <section className="py-16 md:py-20 bg-secondary/30">
-        <div className="container max-w-2xl">
+      <section className="py-20 md:py-28 bg-[#1a1510] text-amber-50">
+        <div className="container">
+          <div className="text-center mb-12">
+            <p className="text-xs uppercase tracking-[0.3em] text-amber-400/60 font-semibold mb-3">Complete sua Rotina</p>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-white">
+              Potencialize o resultado do Crystal Oil
+            </h2>
+            <p className="mt-3 text-amber-100/50 max-w-lg mx-auto text-sm">
+              Combine com os melhores produtos LOF para nutrição e brilho completos.
+            </p>
+          </div>
           <CrystalOilUpsell product={activeProduct} />
         </div>
       </section>
