@@ -6,6 +6,7 @@ import { ReviewsSection } from './ReviewsSection';
 interface ProductDetailsProps {
   product: {
     title: string;
+    handle?: string;
     productType?: string;
     description: string;
   };
@@ -248,7 +249,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
         </div>
       </section>
 
-      <ReviewsSection productName={product.title} />
+      <ReviewsSection productHandle={product.handle || ''} productName={product.title} />
 
       {/* Combine with other products */}
       {sameLine.length > 0 && (
