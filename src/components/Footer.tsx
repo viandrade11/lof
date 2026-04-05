@@ -1,4 +1,5 @@
 import { Instagram, Facebook, Youtube } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import logoLof from '@/assets/logo-lof.png';
 
 export function Footer() {
@@ -13,20 +14,21 @@ export function Footer() {
             </p>
           </div>
           <div>
-            <h4 className="text-xs uppercase tracking-[0.2em] font-semibold mb-4">Produtos</h4>
+            <h4 className="text-xs uppercase tracking-[0.2em] font-semibold mb-4">Linhas</h4>
             <ul className="space-y-2 text-xs text-background/60">
-              <li><a href="#produtos" className="hover:text-background transition-colors">Repair</a></li>
-              <li><a href="#produtos" className="hover:text-background transition-colors">Nutritive</a></li>
-              <li><a href="#produtos" className="hover:text-background transition-colors">Silver</a></li>
-              <li><a href="#produtos" className="hover:text-background transition-colors">Wavy</a></li>
-              <li><a href="#produtos" className="hover:text-background transition-colors">Purifying</a></li>
+              <li><Link to="/produtos?linha=Repair" className="hover:text-background transition-colors">Repair</Link></li>
+              <li><Link to="/produtos?linha=Nutritive" className="hover:text-background transition-colors">Nutritive</Link></li>
+              <li><Link to="/produtos?linha=Silver" className="hover:text-background transition-colors">Silver</Link></li>
+              <li><Link to="/produtos?linha=Wavy" className="hover:text-background transition-colors">Wavy</Link></li>
+              <li><Link to="/produtos?linha=Purifying" className="hover:text-background transition-colors">Purifying</Link></li>
+              <li><Link to="/produtos?linha=Hydrate" className="hover:text-background transition-colors">Hydrate</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="text-xs uppercase tracking-[0.2em] font-semibold mb-4">Institucional</h4>
             <ul className="space-y-2 text-xs text-background/60">
-              <li><a href="#sobre" className="hover:text-background transition-colors">Sobre a LOF</a></li>
-              <li><a href="#" className="hover:text-background transition-colors">Onde Encontrar</a></li>
+              <li><Link to="/#sobre" className="hover:text-background transition-colors">Sobre a LOF</Link></li>
+              <li><Link to="/produtos" className="hover:text-background transition-colors">Todos os Produtos</Link></li>
               <li><a href="#" className="hover:text-background transition-colors">Contato</a></li>
               <li><a href="#" className="hover:text-background transition-colors">Política de Privacidade</a></li>
             </ul>

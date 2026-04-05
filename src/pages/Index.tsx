@@ -2,7 +2,8 @@ import { Header } from '@/components/Header';
 import { ProductLinesSection } from '@/components/ProductLinesSection';
 import { HighlightBlocks } from '@/components/HighlightBlocks';
 import { HeroBanner } from '@/components/HeroBanner';
-import { ProductsSection } from '@/components/ProductsSection';
+import { LineScienceSection } from '@/components/LineScienceSection';
+import { RoutineSection } from '@/components/RoutineSection';
 import { EducationSection } from '@/components/EducationSection';
 import { AboutSection } from '@/components/AboutSection';
 import { Footer } from '@/components/Footer';
@@ -15,7 +16,8 @@ const Index = () => {
         <ProductLinesSection />
         <HighlightBlocks />
         <HeroBanner />
-        <ProductsSection />
+        <LineScienceSection />
+        <RoutineSection />
         <EducationSection />
         <AboutSection />
       </div>

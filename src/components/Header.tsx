@@ -6,7 +6,8 @@ import { CartDrawer } from './CartDrawer';
 
 const navLinks = [
   { label: 'Linhas', href: '/#linhas' },
-  { label: 'Produtos', href: '/#produtos' },
+  { label: 'Produtos', href: '/produtos' },
+  { label: 'Hit 10x1', href: '/produtos?linha=Finalizadores' },
   { label: 'Sobre', href: '/#sobre' },
 ];
 
@@ -33,13 +34,13 @@ export function Header() {
 
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.label}
-              href={link.href}
+              to={link.href}
               className="text-xs font-medium uppercase tracking-[0.2em] text-foreground/70 hover:text-foreground transition-colors"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -62,14 +63,14 @@ export function Header() {
         <div className="md:hidden bg-background border-t border-border">
           <nav className="container py-6 flex flex-col gap-4">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.label}
-                href={link.href}
+                to={link.href}
                 className="text-sm font-medium uppercase tracking-[0.15em] text-foreground/70 hover:text-foreground"
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>

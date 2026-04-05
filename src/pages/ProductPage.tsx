@@ -5,6 +5,7 @@ import { useCartStore } from '@/stores/cartStore';
 import { formatPrice } from '@/lib/shopify';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { ProductDetails } from '@/components/ProductDetails';
 import { Loader2, ChevronLeft, ShoppingBag, Minus, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
@@ -70,11 +71,15 @@ const ProductPage = () => {
             <ChevronLeft className="h-3 w-3 mr-1" /> Home
           </Link>
           <span className="text-xs text-muted-foreground mx-2">/</span>
+          <Link to="/produtos" className="text-xs uppercase tracking-wider text-muted-foreground hover:text-foreground">
+            Produtos
+          </Link>
+          <span className="text-xs text-muted-foreground mx-2">/</span>
           <span className="text-xs text-foreground">{product.title}</span>
         </div>
 
         <div className="grid md:grid-cols-[1fr_420px] lg:grid-cols-[1fr_480px]">
-          {/* Left: Image Grid - like basicamente 2-column grid */}
+          {/* Left: Image Grid */}
           <div className="grid grid-cols-2">
             {images.length > 0 ? (
               images.map((img: { node: { url: string; altText: string | null } }, i: number) => (
@@ -96,7 +101,12 @@ const ProductPage = () => {
 
           {/* Right: Sticky Product Info */}
           <div className="md:sticky md:top-20 md:h-fit md:self-start p-6 md:p-10 lg:p-12">
-            <h1 className="font-display text-2xl md:text-3xl lg:text-4xl font-light leading-tight">{product.title}</h1>
+            {product.productType && (
+              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">
+                Linha {product.productType}
+              </p>
+            )}
+            <h1 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">{product.title}</h1>
             
             <div className="mt-4 flex items-baseline gap-3">
               <p className="text-xl md:text-2xl font-semibold">
@@ -174,7 +184,7 @@ const ProductPage = () => {
               )}
             </Button>
 
-            {/* Description Accordion */}
+            {/* Description */}
             <div className="mt-10 border-t border-border">
               <details className="group" open>
                 <summary className="flex items-center justify-between py-4 cursor-pointer text-xs uppercase tracking-wider font-semibold">
@@ -187,29 +197,11 @@ const ProductPage = () => {
                 />
               </details>
             </div>
-
-            {/* Share */}
-            <div className="mt-4 border-t border-border pt-4 flex items-center gap-3">
-              <span className="text-xs text-muted-foreground uppercase tracking-wider">Compartilhar:</span>
-              <a
-                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors text-xs"
-              >
-                Facebook
-              </a>
-              <a
-                href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(product.title)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors text-xs"
-              >
-                Twitter
-              </a>
-            </div>
           </div>
         </div>
+
+        {/* Rich Content Sections */}
+        <ProductDetails product={product} />
       </div>
       <Footer />
     </div>

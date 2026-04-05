@@ -5,70 +5,58 @@ const productLines = [
     name: 'Repair',
     description: 'Reparação profunda\n+ Reconstrução capilar',
     colorClass: 'bg-lof-repair',
-    textColor: 'text-white',
-    query: 'repair',
+    query: 'Repair',
   },
   {
     name: 'Nutritive',
     description: 'Nutrição intensa\n+ Saúde capilar',
     colorClass: 'bg-lof-nutritive',
-    textColor: 'text-white',
-    query: 'nutritive',
+    query: 'Nutritive',
   },
   {
     name: 'Silver',
     description: 'Matização perfeita\n+ Hidratação loiros',
     colorClass: 'bg-lof-silver',
-    textColor: 'text-white',
-    query: 'silver',
+    query: 'Silver',
   },
   {
     name: 'Purifying',
     description: 'Limpeza vegana\n+ Livre de sulfatos',
     colorClass: 'bg-lof-purifying',
-    textColor: 'text-white',
-    query: 'purifying',
+    query: 'Purifying',
   },
   {
     name: 'Wavy',
     description: 'Definição de cachos\n+ Controle de frizz',
     colorClass: 'bg-lof-wavy',
-    textColor: 'text-white',
-    query: 'wavy',
+    query: 'Wavy',
   },
   {
-    name: 'Crystal Oil',
-    description: 'Sérum multi óleos\n+ Brilho intenso',
-    colorClass: 'bg-lof-crystal',
-    textColor: 'text-white',
-    query: 'crystal',
-  },
-  {
-    name: 'Cold Plex',
-    description: 'Proteção térmica\n+ Blindagem capilar',
-    colorClass: 'bg-lof-cold',
-    textColor: 'text-white',
-    query: 'cold',
+    name: 'Hydrate',
+    description: 'Hidratação profunda\n+ Maciez e brilho',
+    colorClass: 'bg-lof-hydrate',
+    query: 'Hydrate',
   },
 ];
 
 export function ProductLinesSection() {
   return (
     <section className="w-full">
-      <div className="flex overflow-x-auto scrollbar-hide">
+      {/* Desktop: horizontal row | Mobile: 2-column grid */}
+      <div className="grid grid-cols-2 md:flex">
         {productLines.map((line) => (
           <Link
             key={line.name}
-            to={`/#produtos`}
-            className={`group relative flex-1 min-w-[180px] md:min-w-0 ${line.colorClass} flex flex-col items-center justify-center py-12 md:py-20 px-4 transition-all duration-300 hover:flex-[1.3]`}
+            to={`/produtos?linha=${line.query}`}
+            className={`group relative md:flex-1 ${line.colorClass} flex flex-col items-center justify-center py-14 md:py-20 px-4 transition-all duration-300 md:hover:flex-[1.3]`}
           >
-            <h3 className={`font-display text-2xl md:text-3xl lg:text-4xl font-light uppercase tracking-wider ${line.textColor} text-center`}>
+            <h3 className="font-display text-xl md:text-2xl lg:text-3xl font-bold uppercase tracking-wider text-white text-center">
               {line.name}
             </h3>
-            <p className={`text-xs md:text-sm ${line.textColor}/80 text-center mt-2 whitespace-pre-line leading-relaxed`}>
+            <p className="text-[10px] md:text-xs text-white/80 text-center mt-2 whitespace-pre-line leading-relaxed">
               {line.description}
             </p>
-            <span className={`mt-4 text-xs uppercase tracking-[0.2em] ${line.textColor}/60 group-hover:${line.textColor} underline underline-offset-4 transition-colors`}>
+            <span className="mt-3 text-[10px] md:text-xs uppercase tracking-[0.2em] text-white/60 group-hover:text-white underline underline-offset-4 transition-colors">
               Comprar
             </span>
           </Link>
