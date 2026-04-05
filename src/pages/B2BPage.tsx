@@ -2,6 +2,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { MessageCircle, TrendingUp, Package, Headphones, ShieldCheck, CreditCard, Star, Truck, ArrowRight } from 'lucide-react';
 import b2bHero from '@/assets/b2b-hero.jpg';
+import aliancaGrafismo from '@/assets/alianca-grafismo.png';
 
 const WHATSAPP_URL = 'https://wa.me/5511952134275?text=Ol%C3%A1%2C%20Vi%20no%20Site%20e%20quero%20conhecer%20os%20produtos%20LOF';
 
@@ -173,8 +174,9 @@ const B2BPage = () => {
       </section>
 
       {/* Sobre a LOF B2B */}
-      <section className="py-20 md:py-28">
-        <div className="container">
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <img src={aliancaGrafismo} alt="" className="absolute right-[-8%] top-[10%] w-[350px] md:w-[450px] opacity-[0.03] pointer-events-none select-none" aria-hidden="true" />
+        <div className="container relative">
           <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">A LOF é para você</p>
