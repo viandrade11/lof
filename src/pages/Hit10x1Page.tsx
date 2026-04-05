@@ -394,4 +394,16 @@ const Hit10x1Page = () => {
   );
 };
 
+function HitUpsell({ product }: { product: any }) {
+  const { data: allProducts } = useProducts(50);
+  if (!allProducts || !product) return null;
+  const recs = getSmartRecommendations(
+    { title: product.title, handle: product.handle, productType: product.productType || 'Finalizadores' },
+    allProducts,
+    [],
+    4,
+  );
+  return <UpsellBlock recommendations={recs} title="Complete sua rotina capilar" />;
+}
+
 export default Hit10x1Page;
