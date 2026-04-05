@@ -53,7 +53,7 @@ export function Footer() {
           </div>
         </div>
         <div className="border-t border-background/10 mt-12 pt-8 text-center">
-          <p className="text-xs text-background/40">&copy; {new Date().getFullYear()} LOF Professional. Neuf Cosmétique. Todos os direitos reservados.</p>
+          <p className="text-xs text-background/40">&copy; {new Date().getFullYear()} LOF Professional. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>
