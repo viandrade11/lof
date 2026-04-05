@@ -6,8 +6,8 @@ import { CartDrawer } from './CartDrawer';
 
 const navLinks = [
   { label: 'Linhas', href: '/#linhas' },
-  { label: 'Produtos', href: '/produtos' },
-  { label: 'Hit 10x1', href: '/produtos?linha=Finalizadores' },
+  { label: 'Produtos', href: '/collections/all' },
+  { label: 'Hit 10x1', href: '/collections/all?linha=Finalizadores' },
   { label: 'Sobre', href: '/#sobre' },
 ];
 

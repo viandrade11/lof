@@ -264,7 +264,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
             </div>
             <div className="text-center mt-10">
               <Link
-                to={`/produtos?linha=${productType}`}
+                to={`/collections/all?linha=${productType}`}
                 className="inline-flex items-center h-11 px-6 border border-foreground text-foreground text-xs uppercase tracking-[0.2em] font-medium hover:bg-foreground hover:text-background transition-colors"
               >
                 Ver toda linha {productType}

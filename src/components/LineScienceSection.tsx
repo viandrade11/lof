@@ -95,7 +95,7 @@ export function LineScienceSection() {
                   </div>
                 </div>
                 <Link
-                  to={`/produtos?linha=${line.query}`}
+                  to={`/collections/all?linha=${line.query}`}
                   className="inline-flex items-center mt-6 h-11 px-6 border border-foreground text-foreground text-xs uppercase tracking-[0.2em] font-medium hover:bg-foreground hover:text-background transition-colors"
                 >
                   Ver Produtos {line.name}

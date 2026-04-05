@@ -35,7 +35,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <Link
-      to={`/produto/${node.handle}`}
+      to={`/products/${node.handle}`}
       className="group block"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}

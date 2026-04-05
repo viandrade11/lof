@@ -16,8 +16,9 @@ function AppContent() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/produtos" element={<CollectionPage />} />
-        <Route path="/produto/:handle" element={<ProductPage />} />
+        <Route path="/collections/all" element={<CollectionPage />} />
+        <Route path="/collections/:collection" element={<CollectionPage />} />
+        <Route path="/products/:handle" element={<ProductPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

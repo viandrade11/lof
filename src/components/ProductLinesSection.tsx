@@ -47,7 +47,7 @@ export function ProductLinesSection() {
         {productLines.map((line) => (
           <Link
             key={line.name}
-            to={`/produtos?linha=${line.query}`}
+            to={`/collections/all?linha=${line.query}`}
             className={`group relative md:flex-1 ${line.colorClass} flex flex-col items-center justify-center py-14 md:py-20 px-4 transition-all duration-300 md:hover:flex-[1.3]`}
           >
             <h3 className="font-display text-xl md:text-2xl lg:text-3xl font-bold uppercase tracking-wider text-white text-center">

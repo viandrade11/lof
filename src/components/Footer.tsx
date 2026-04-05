@@ -16,19 +16,19 @@ export function Footer() {
           <div>
             <h4 className="text-xs uppercase tracking-[0.2em] font-semibold mb-4">Linhas</h4>
             <ul className="space-y-2 text-xs text-background/60">
-              <li><Link to="/produtos?linha=Repair" className="hover:text-background transition-colors">Repair</Link></li>
-              <li><Link to="/produtos?linha=Nutritive" className="hover:text-background transition-colors">Nutritive</Link></li>
-              <li><Link to="/produtos?linha=Silver" className="hover:text-background transition-colors">Silver</Link></li>
-              <li><Link to="/produtos?linha=Wavy" className="hover:text-background transition-colors">Wavy</Link></li>
-              <li><Link to="/produtos?linha=Purifying" className="hover:text-background transition-colors">Purifying</Link></li>
-              <li><Link to="/produtos?linha=Hydrate" className="hover:text-background transition-colors">Hydrate</Link></li>
+              <li><Link to="/collections/all?linha=Repair" className="hover:text-background transition-colors">Repair</Link></li>
+              <li><Link to="/collections/all?linha=Nutritive" className="hover:text-background transition-colors">Nutritive</Link></li>
+              <li><Link to="/collections/all?linha=Silver" className="hover:text-background transition-colors">Silver</Link></li>
+              <li><Link to="/collections/all?linha=Wavy" className="hover:text-background transition-colors">Wavy</Link></li>
+              <li><Link to="/collections/all?linha=Purifying" className="hover:text-background transition-colors">Purifying</Link></li>
+              <li><Link to="/collections/all?linha=Hydrate" className="hover:text-background transition-colors">Hydrate</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="text-xs uppercase tracking-[0.2em] font-semibold mb-4">Institucional</h4>
             <ul className="space-y-2 text-xs text-background/60">
               <li><Link to="/#sobre" className="hover:text-background transition-colors">Sobre a LOF</Link></li>
-              <li><Link to="/produtos" className="hover:text-background transition-colors">Todos os Produtos</Link></li>
+              <li><Link to="/collections/all" className="hover:text-background transition-colors">Todos os Produtos</Link></li>
               <li><a href="#" className="hover:text-background transition-colors">Contato</a></li>
               <li><a href="#" className="hover:text-background transition-colors">Política de Privacidade</a></li>
             </ul>
