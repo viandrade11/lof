@@ -248,6 +248,8 @@ export function ProductDetails({ product }: ProductDetailsProps) {
         </div>
       </section>
 
+      <ReviewsSection productName={product.title} />
+
       {/* Combine with other products */}
       {sameLine.length > 0 && (
         <section className="py-16 md:py-24 bg-secondary/30 border-t border-border">
