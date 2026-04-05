@@ -436,14 +436,55 @@ const CrystalOilPage = () => {
 
 function CrystalOilUpsell({ product }: { product: any }) {
   const { data: allProducts } = useProducts(50);
+  const addItem = useCartStore(state => state.addItem);
+  const [addingId, setAddingId] = useState<string | null>(null);
+
   if (!allProducts || !product) return null;
   const recs = getSmartRecommendations(
     { title: product.title, handle: product.handle, productType: product.productType || 'Finalizadores' },
-    allProducts,
-    [],
-    4,
+    allProducts, [], 4,
   );
-  return <UpsellBlock recommendations={recs} title="Complete sua rotina capilar" />;
+  if (recs.length === 0) return null;
+
+  const handleAdd = async (rec: typeof recs[0]) => {
+    const variant = rec.product.node.variants.edges[0]?.node;
+    if (!variant) return;
+    setAddingId(rec.product.node.id);
+    await addItem({
+      product: rec.product, variantId: variant.id, variantTitle: variant.title,
+      price: variant.price, quantity: 1, selectedOptions: variant.selectedOptions || [],
+    });
+    toast.success('Adicionado ao carrinho', { position: 'top-center' });
+    setAddingId(null);
+  };
+
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+      {recs.map((rec) => {
+        const img = rec.product.node.images.edges[0]?.node;
+        const price = rec.product.node.priceRange.minVariantPrice;
+        const isAdding = addingId === rec.product.node.id;
+        return (
+          <div key={rec.product.node.id} className="group text-center">
+            <Link to={`/products/${rec.product.node.handle}`} className="block">
+              <div className="aspect-square overflow-hidden bg-white/10 mb-3">
+                {img && <img src={img.url} alt={img.altText || rec.product.node.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />}
+              </div>
+              <h3 className="text-sm font-medium text-amber-50/90 leading-tight">{rec.product.node.title}</h3>
+              <p className="text-sm font-semibold text-amber-50 mt-1">{formatPrice(price.amount, price.currencyCode)}</p>
+            </Link>
+            <button
+              onClick={() => handleAdd(rec)}
+              disabled={isAdding}
+              className="mt-3 inline-flex items-center gap-1.5 h-9 px-5 bg-amber-500 text-[#1a1510] text-xs font-semibold uppercase tracking-wider hover:bg-amber-400 transition-colors disabled:opacity-50"
+            >
+              {isAdding ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <><ShoppingBag className="h-3.5 w-3.5" /> Adicionar</>}
+            </button>
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 export default CrystalOilPage;
