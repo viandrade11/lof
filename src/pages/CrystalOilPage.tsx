@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { useProductByHandle } from '@/hooks/useProducts';
+import { useProductByHandle, useProducts } from '@/hooks/useProducts';
 import { useCartStore } from '@/stores/cartStore';
 import { formatPrice } from '@/lib/shopify';
 import { ShoppingBag, Loader2, Check, Droplets, Sun, Sparkles, Heart, Star, ChevronDown, ArrowRight, Leaf, Shield } from 'lucide-react';
@@ -10,6 +10,8 @@ import { toast } from 'sonner';
 import { useState } from 'react';
 import aliancaGrafismo from '@/assets/alianca-grafismo.png';
 import { useSEO } from '@/hooks/useSEO';
+import { UpsellBlock } from '@/components/UpsellBlock';
+import { getSmartRecommendations } from '@/lib/productRecommendations';
 
 const PRODUCT_HANDLE_60 = 'serum-crystal-oil-laranja-60ml-6903bb190ee85';
 const PRODUCT_HANDLE_15 = 'serum-crystal-oil-laranja-15ml-6903bb1b03e45';
@@ -350,6 +352,13 @@ const CrystalOilPage = () => {
         </div>
       </section>
 
+      {/* Upsell / Cross-sell */}
+      <section className="py-16 md:py-20 bg-secondary/30">
+        <div className="container max-w-2xl">
+          <CrystalOilUpsell product={activeProduct} />
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="py-20 md:py-28">
         <div className="container max-w-3xl">
@@ -415,5 +424,17 @@ const CrystalOilPage = () => {
     </div>
   );
 };
+
+function CrystalOilUpsell({ product }: { product: any }) {
+  const { data: allProducts } = useProducts(50);
+  if (!allProducts || !product) return null;
+  const recs = getSmartRecommendations(
+    { title: product.title, handle: product.handle, productType: product.productType || 'Finalizadores' },
+    allProducts,
+    [],
+    4,
+  );
+  return <UpsellBlock recommendations={recs} title="Complete sua rotina capilar" />;
+}
 
 export default CrystalOilPage;

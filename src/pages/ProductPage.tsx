@@ -1,11 +1,13 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState } from 'react';
-import { useProductByHandle } from '@/hooks/useProducts';
+import { useProductByHandle, useProducts } from '@/hooks/useProducts';
 import { useCartStore } from '@/stores/cartStore';
 import { formatPrice } from '@/lib/shopify';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { ProductDetails } from '@/components/ProductDetails';
+import { UpsellBlock } from '@/components/UpsellBlock';
+import { getSmartRecommendations } from '@/lib/productRecommendations';
 import { Loader2, ChevronLeft, ShoppingBag, Minus, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
@@ -202,6 +204,9 @@ const ProductPage = () => {
               )}
             </Button>
 
+            {/* Upsell Block */}
+            <ProductPageUpsell product={product} />
+
             {/* Description */}
             <div className="mt-10 border-t border-border">
               <details className="group" open>
@@ -225,5 +230,17 @@ const ProductPage = () => {
     </div>
   );
 };
+
+function ProductPageUpsell({ product }: { product: any }) {
+  const { data: allProducts } = useProducts(50);
+  if (!allProducts) return null;
+  const recs = getSmartRecommendations(
+    { title: product.title, handle: product.handle, productType: product.productType },
+    allProducts,
+    [],
+    4,
+  );
+  return <UpsellBlock recommendations={recs} />;
+}
 
 export default ProductPage;

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { useProductByHandle } from '@/hooks/useProducts';
+import { useProductByHandle, useProducts } from '@/hooks/useProducts';
 import { useCartStore } from '@/stores/cartStore';
 import { formatPrice } from '@/lib/shopify';
 import { ShoppingBag, Loader2, Check, Shield, Droplets, Sun, Wind, Sparkles, Zap, Heart, Star, ChevronDown, ArrowRight } from 'lucide-react';
@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import aliancaGrafismo from '@/assets/alianca-grafismo.png';
+import { UpsellBlock } from '@/components/UpsellBlock';
+import { getSmartRecommendations } from '@/lib/productRecommendations';
 
 import { useSEO } from '@/hooks/useSEO';
 
@@ -318,9 +320,14 @@ const Hit10x1Page = () => {
           </div>
         </div>
       </section>
+      {/* Upsell / Cross-sell */}
+      <section className="py-16 md:py-20 bg-secondary/30">
+        <div className="container max-w-2xl">
+          <HitUpsell product={product} />
+        </div>
+      </section>
 
       
-
       {/* FAQ */}
       <section className="py-20 md:py-28">
         <div className="container max-w-3xl">
@@ -386,5 +393,17 @@ const Hit10x1Page = () => {
     </div>
   );
 };
+
+function HitUpsell({ product }: { product: any }) {
+  const { data: allProducts } = useProducts(50);
+  if (!allProducts || !product) return null;
+  const recs = getSmartRecommendations(
+    { title: product.title, handle: product.handle, productType: product.productType || 'Finalizadores' },
+    allProducts,
+    [],
+    4,
+  );
+  return <UpsellBlock recommendations={recs} title="Complete sua rotina capilar" />;
+}
 
 export default Hit10x1Page;

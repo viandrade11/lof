@@ -5,6 +5,9 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 import { ShoppingBag, Minus, Plus, Trash2, ExternalLink, Loader2 } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { formatPrice } from "@/lib/shopify";
+import { useProducts } from "@/hooks/useProducts";
+import { CartUpsellBlock } from "@/components/UpsellBlock";
+import { getCartRecommendations } from "@/lib/productRecommendations";
 
 export const CartDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -81,6 +84,7 @@ export const CartDrawer = () => {
                   ))}
                 </div>
               </div>
+              <CartRecommendations />
               <div className="flex-shrink-0 space-y-4 pt-4 border-t border-border">
                 <div className="flex justify-between items-center">
                   <span className="text-sm uppercase tracking-wider">Total</span>
@@ -97,3 +101,11 @@ export const CartDrawer = () => {
     </Sheet>
   );
 };
+
+function CartRecommendations() {
+  const items = useCartStore(state => state.items);
+  const { data: allProducts } = useProducts(50);
+  if (!allProducts || items.length === 0) return null;
+  const recs = getCartRecommendations(items, allProducts, 3);
+  return <CartUpsellBlock recommendations={recs} />;
+}
