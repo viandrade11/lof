@@ -320,9 +320,14 @@ const Hit10x1Page = () => {
           </div>
         </div>
       </section>
+      {/* Upsell / Cross-sell */}
+      <section className="py-16 md:py-20 bg-secondary/30">
+        <div className="container max-w-2xl">
+          <HitUpsell product={product} />
+        </div>
+      </section>
 
       
-
       {/* FAQ */}
       <section className="py-20 md:py-28">
         <div className="container max-w-3xl">
