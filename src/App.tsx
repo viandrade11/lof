@@ -20,6 +20,7 @@ function AppContent() {
         <Route path="/" element={<Index />} />
         <Route path="/collections/all" element={<CollectionPage />} />
         <Route path="/collections/:collection" element={<CollectionPage />} />
+         <Route path="/products/leave-in-hit-10x1-200ml-6903bafe7954e" element={<Hit10x1Page />} />
          <Route path="/products/:handle" element={<ProductPage />} />
          <Route path="/hit-10x1" element={<Hit10x1Page />} />
          <Route path="/profissional" element={<B2BPage />} />

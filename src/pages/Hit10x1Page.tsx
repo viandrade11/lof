@@ -8,8 +8,6 @@ import { ShoppingBag, Loader2, Check, Shield, Droplets, Sun, Wind, Sparkles, Zap
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useState } from 'react';
-import heroImg from '@/assets/hit10x1-hero.jpg';
-import resultsImg from '@/assets/hit10x1-results.jpg';
 import aliancaGrafismo from '@/assets/alianca-grafismo.png';
 
 const PRODUCT_HANDLE = 'leave-in-hit-10x1-200ml-6903bafe7954e';
@@ -50,6 +48,8 @@ const Hit10x1Page = () => {
 
   const variant = product?.variants?.edges?.[0]?.node;
   const images = product?.images?.edges || [];
+  const heroImage = images[0]?.node?.url;
+  const secondImage = images[1]?.node?.url || images[0]?.node?.url;
 
   const handleAddToCart = async () => {
     if (!variant || !product) return;
@@ -70,21 +70,23 @@ const Hit10x1Page = () => {
 
       {/* Hero — full-width cinematic */}
       <section className="relative pt-16 md:pt-20">
-        <div className="relative h-[90vh] min-h-[600px] max-h-[900px] overflow-hidden">
-          <img src={heroImg} alt="LOF Hit 10x1 Leave-in" className="absolute inset-0 w-full h-full object-cover" width={1920} height={1080} />
-          <div className="absolute inset-0 bg-gradient-to-r from-lof-black/90 via-lof-black/60 to-lof-black/30" />
+        <div className="relative h-[90vh] min-h-[600px] max-h-[900px] overflow-hidden bg-lof-black">
+          {heroImage && (
+            <img src={heroImage} alt="LOF Hit 10x1 Leave-in" className="absolute inset-0 w-full h-full object-contain object-right opacity-40 md:opacity-60" width={1920} height={1080} />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-r from-lof-black via-lof-black/80 to-transparent" />
           <img src={aliancaGrafismo} alt="" className="absolute right-[5%] top-1/2 -translate-y-1/2 w-[40vw] max-w-[500px] opacity-[0.04] invert pointer-events-none select-none" aria-hidden="true" />
           <div className="absolute inset-0 flex items-center">
             <div className="container">
               <div className="max-w-xl">
-                <p className="text-xs uppercase tracking-[0.3em] text-lof-hit font-semibold mb-4">Leave-in Multiuso</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-white/50 font-semibold mb-4">Leave-in Multiuso</p>
                 <h1 className="font-display text-5xl md:text-6xl lg:text-7xl text-white font-bold leading-[1]">
                   Hit 10x1
                 </h1>
-                <p className="font-display text-xl md:text-2xl text-white/60 italic mt-2">
+                <p className="font-display text-xl md:text-2xl text-white/40 italic mt-2">
                   10 benefícios. Um único produto.
                 </p>
-                <p className="mt-6 text-white/70 text-base leading-relaxed max-w-md">
+                <p className="mt-6 text-white/60 text-base leading-relaxed max-w-md">
                   O leave-in que revolucionou a rotina capilar. Proteção térmica, hidratação, brilho, 
                   reconstrução e muito mais — tudo em uma aplicação.
                 </p>
@@ -96,7 +98,7 @@ const Hit10x1Page = () => {
                       <Button
                         onClick={handleAddToCart}
                         disabled={cartLoading || !variant.availableForSale}
-                        className="h-14 px-10 bg-lof-hit hover:bg-lof-hit/90 text-white uppercase tracking-[0.15em] text-sm font-semibold"
+                        className="h-14 px-10 bg-white hover:bg-white/90 text-lof-black uppercase tracking-[0.15em] text-sm font-semibold"
                         size="lg"
                       >
                         {cartLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : (
@@ -111,7 +113,7 @@ const Hit10x1Page = () => {
                       </a>
                     </>
                   ) : (
-                    <a href="#beneficios" className="inline-flex items-center h-14 px-10 bg-lof-hit text-white text-sm uppercase tracking-[0.15em] font-semibold hover:bg-lof-hit/90 transition-colors">
+                    <a href="#beneficios" className="inline-flex items-center h-14 px-10 bg-white text-lof-black text-sm uppercase tracking-[0.15em] font-semibold hover:bg-white/90 transition-colors">
                       Saiba mais <ArrowRight className="h-4 w-4 ml-2" />
                     </a>
                   )}
@@ -127,7 +129,7 @@ const Hit10x1Page = () => {
       </section>
 
       {/* Social proof bar */}
-      <section className="bg-lof-hit text-white py-4">
+      <section className="bg-foreground text-background py-4">
         <div className="container flex flex-wrap items-center justify-center gap-6 md:gap-12 text-center">
           <div className="flex items-center gap-2 text-sm font-medium">
             <Check className="h-4 w-4" /> 10 benefícios em 1
@@ -148,7 +150,7 @@ const Hit10x1Page = () => {
       <section id="beneficios" className="py-20 md:py-28">
         <div className="container">
           <div className="text-center mb-16">
-            <p className="text-xs uppercase tracking-[0.3em] text-lof-hit font-semibold mb-3">Por que Hit 10x1?</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-semibold mb-3">Por que Hit 10x1?</p>
             <h2 className="font-display text-3xl md:text-5xl font-bold leading-tight">
               10 benefícios que transformam<br />
               <span className="italic font-light">seus cabelos</span>
@@ -159,8 +161,8 @@ const Hit10x1Page = () => {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
             {benefits.map((b, i) => (
-              <div key={i} className="group text-center p-6 border border-border hover:border-lof-hit/40 hover:bg-lof-hit/5 transition-all duration-300">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-lof-hit/10 text-lof-hit mb-4 group-hover:bg-lof-hit group-hover:text-white transition-colors">
+              <div key={i} className="group text-center p-6 border border-border hover:border-foreground/30 hover:bg-foreground/5 transition-all duration-300">
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-foreground/5 text-foreground mb-4 group-hover:bg-foreground group-hover:text-background transition-colors">
                   <b.icon className="h-5 w-5" />
                 </div>
                 <h3 className="text-sm font-semibold mb-1">{b.title}</h3>
@@ -188,7 +190,7 @@ const Hit10x1Page = () => {
               <ul className="mt-8 space-y-3">
                 {['Fórmula livre de parabenos e sulfatos', 'Proteção térmica até 230°C', 'Não pesa e não acumula nos fios', 'Fragrância sofisticada e duradoura', 'Embalagem de 200ml com spray prático'].map((item) => (
                   <li key={item} className="flex items-center gap-3 text-sm text-background/70">
-                    <Check className="h-4 w-4 text-lof-hit flex-shrink-0" />
+                    <Check className="h-4 w-4 text-background/50 flex-shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -198,7 +200,7 @@ const Hit10x1Page = () => {
                   <Button
                     onClick={handleAddToCart}
                     disabled={cartLoading}
-                    className="h-14 px-10 bg-lof-hit hover:bg-lof-hit/90 text-white uppercase tracking-[0.15em] text-sm font-semibold"
+                    className="h-14 px-10 bg-white hover:bg-white/90 text-lof-black uppercase tracking-[0.15em] text-sm font-semibold"
                     size="lg"
                   >
                     <ShoppingBag className="h-4 w-4 mr-2" />
@@ -218,11 +220,9 @@ const Hit10x1Page = () => {
                   </div>
                 ))
               ) : (
-                <>
-                  <div className="aspect-square overflow-hidden col-span-2">
-                    <img src={heroImg} alt="Hit 10x1" className="w-full h-full object-cover" loading="lazy" />
-                  </div>
-                </>
+                <div className="aspect-square overflow-hidden col-span-2 bg-background/5 flex items-center justify-center">
+                  <ShoppingBag className="h-16 w-16 text-background/20" />
+                </div>
               )}
             </div>
           </div>
@@ -233,7 +233,7 @@ const Hit10x1Page = () => {
       <section className="py-20 md:py-28">
         <div className="container">
           <div className="text-center mb-16">
-            <p className="text-xs uppercase tracking-[0.3em] text-lof-hit font-semibold mb-3">Modo de Uso</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-semibold mb-3">Modo de Uso</p>
             <h2 className="font-display text-3xl md:text-4xl font-bold">
               Simples como tem que ser
             </h2>
@@ -241,7 +241,7 @@ const Hit10x1Page = () => {
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {howToUse.map((step) => (
               <div key={step.step} className="text-center">
-                <p className="font-display text-6xl font-light text-lof-hit/20 mb-4">{step.step}</p>
+                <p className="font-display text-6xl font-light text-foreground/10 mb-4">{step.step}</p>
                 <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
               </div>
@@ -254,11 +254,15 @@ const Hit10x1Page = () => {
       <section className="py-20 md:py-28 bg-secondary/50">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
-            <div className="overflow-hidden">
-              <img src={resultsImg} alt="Resultados Hit 10x1 — antes e depois" className="w-full object-cover" loading="lazy" />
+            <div className="overflow-hidden bg-muted aspect-[4/3] flex items-center justify-center">
+              {secondImage ? (
+                <img src={secondImage} alt="Resultados Hit 10x1" className="w-full h-full object-cover" loading="lazy" />
+              ) : (
+                <Sparkles className="h-16 w-16 text-muted-foreground/30" />
+              )}
             </div>
             <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-lof-hit font-semibold mb-4">Resultados</p>
+              <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-semibold mb-4">Resultados</p>
               <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight">
                 A diferença que você vê e sente
               </h2>
@@ -269,15 +273,15 @@ const Hit10x1Page = () => {
               </p>
               <div className="mt-8 grid grid-cols-3 gap-6 text-center">
                 <div>
-                  <p className="font-display text-4xl font-bold text-lof-hit">95%</p>
+                  <p className="font-display text-4xl font-bold text-foreground">95%</p>
                   <p className="text-xs text-muted-foreground mt-1">Mais brilho</p>
                 </div>
                 <div>
-                  <p className="font-display text-4xl font-bold text-lof-hit">87%</p>
+                  <p className="font-display text-4xl font-bold text-foreground">87%</p>
                   <p className="text-xs text-muted-foreground mt-1">Menos frizz</p>
                 </div>
                 <div>
-                  <p className="font-display text-4xl font-bold text-lof-hit">92%</p>
+                  <p className="font-display text-4xl font-bold text-foreground">92%</p>
                   <p className="text-xs text-muted-foreground mt-1">Mais maciez</p>
                 </div>
               </div>
@@ -285,7 +289,7 @@ const Hit10x1Page = () => {
                 <Button
                   onClick={handleAddToCart}
                   disabled={cartLoading}
-                  className="mt-8 h-14 px-10 bg-lof-hit hover:bg-lof-hit/90 text-white uppercase tracking-[0.15em] text-sm font-semibold"
+                  className="mt-8 h-14 px-10 bg-foreground hover:bg-foreground/90 text-background uppercase tracking-[0.15em] text-sm font-semibold"
                   size="lg"
                 >
                   <ShoppingBag className="h-4 w-4 mr-2" />
@@ -301,7 +305,7 @@ const Hit10x1Page = () => {
       <section className="py-20 md:py-28">
         <div className="container max-w-3xl">
           <div className="text-center mb-12">
-            <p className="text-xs uppercase tracking-[0.3em] text-lof-hit font-semibold mb-3">Dúvidas</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-semibold mb-3">Dúvidas</p>
             <h2 className="font-display text-3xl md:text-4xl font-bold">Perguntas frequentes</h2>
           </div>
           <div className="space-y-0">
@@ -334,7 +338,7 @@ const Hit10x1Page = () => {
               <Button
                 onClick={handleAddToCart}
                 disabled={cartLoading}
-                className="h-14 px-12 bg-lof-hit hover:bg-lof-hit/90 text-white uppercase tracking-[0.15em] text-sm font-semibold"
+                className="h-14 px-12 bg-white hover:bg-white/90 text-lof-black uppercase tracking-[0.15em] text-sm font-semibold"
                 size="lg"
               >
                 <ShoppingBag className="h-4 w-4 mr-2" />
@@ -350,7 +354,7 @@ const Hit10x1Page = () => {
           ) : (
             <Link
               to="/collections/all"
-              className="inline-flex items-center mt-8 h-14 px-10 bg-lof-hit text-white text-sm uppercase tracking-[0.15em] font-semibold hover:bg-lof-hit/90 transition-colors"
+              className="inline-flex items-center mt-8 h-14 px-10 bg-white text-lof-black text-sm uppercase tracking-[0.15em] font-semibold hover:bg-white/90 transition-colors"
             >
               Ver todos os produtos
             </Link>
