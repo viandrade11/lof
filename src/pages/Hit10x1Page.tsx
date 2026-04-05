@@ -417,12 +417,12 @@ function HitUpsell({ product }: { product: any }) {
   });
   if (boosters.length === 0) return null;
 
-  const handleAdd = async (rec: typeof recs[0]) => {
-    const variant = rec.product.node.variants.edges[0]?.node;
+  const handleAdd = async (p: typeof boosters[0]) => {
+    const variant = p.node.variants.edges[0]?.node;
     if (!variant) return;
-    setAddingId(rec.product.node.id);
+    setAddingId(p.node.id);
     await addItem({
-      product: rec.product, variantId: variant.id, variantTitle: variant.title,
+      product: p, variantId: variant.id, variantTitle: variant.title,
       price: variant.price, quantity: 1, selectedOptions: variant.selectedOptions || [],
     });
     toast.success('Adicionado ao carrinho', { position: 'top-center' });

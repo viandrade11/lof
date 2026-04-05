@@ -440,18 +440,24 @@ function CrystalOilUpsell({ product }: { product: any }) {
   const [addingId, setAddingId] = useState<string | null>(null);
 
   if (!allProducts || !product) return null;
-  const recs = getSmartRecommendations(
-    { title: product.title, handle: product.handle, productType: product.productType || 'Finalizadores' },
-    allProducts, [], 4,
-  );
-  if (recs.length === 0) return null;
 
-  const handleAdd = async (rec: typeof recs[0]) => {
-    const variant = rec.product.node.variants.edges[0]?.node;
+  // Hit 10x1 + all boosters (60ml) for Crystal Oil LP
+  const HIT_HANDLE = 'leave-in-hit-10x1-200ml-6903bafe7954e';
+  const curated = allProducts.filter(p => {
+    if (p.node.handle === HIT_HANDLE) return true;
+    const title = p.node.title.toLowerCase();
+    return /booster/i.test(title) && /60ml/i.test(title);
+  });
+  // Put Hit first
+  curated.sort((a, b) => (a.node.handle === HIT_HANDLE ? -1 : b.node.handle === HIT_HANDLE ? 1 : 0));
+  if (curated.length === 0) return null;
+
+  const handleAdd = async (p: typeof curated[0]) => {
+    const variant = p.node.variants.edges[0]?.node;
     if (!variant) return;
-    setAddingId(rec.product.node.id);
+    setAddingId(p.node.id);
     await addItem({
-      product: rec.product, variantId: variant.id, variantTitle: variant.title,
+      product: p, variantId: variant.id, variantTitle: variant.title,
       price: variant.price, quantity: 1, selectedOptions: variant.selectedOptions || [],
     });
     toast.success('Adicionado ao carrinho', { position: 'top-center' });
@@ -460,21 +466,21 @@ function CrystalOilUpsell({ product }: { product: any }) {
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-      {recs.map((rec) => {
-        const img = rec.product.node.images.edges[0]?.node;
-        const price = rec.product.node.priceRange.minVariantPrice;
-        const isAdding = addingId === rec.product.node.id;
+      {curated.map((p) => {
+        const img = p.node.images.edges[0]?.node;
+        const price = p.node.priceRange.minVariantPrice;
+        const isAdding = addingId === p.node.id;
         return (
-          <div key={rec.product.node.id} className="group text-center">
-            <Link to={`/products/${rec.product.node.handle}`} className="block">
+          <div key={p.node.id} className="group text-center">
+            <Link to={`/products/${p.node.handle}`} className="block">
               <div className="aspect-square overflow-hidden bg-white/10 mb-3">
-                {img && <img src={img.url} alt={img.altText || rec.product.node.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />}
+                {img && <img src={img.url} alt={img.altText || p.node.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />}
               </div>
-              <h3 className="text-sm font-medium text-amber-50/90 leading-tight">{rec.product.node.title}</h3>
+              <h3 className="text-sm font-medium text-amber-50/90 leading-tight">{p.node.title}</h3>
               <p className="text-sm font-semibold text-amber-50 mt-1">{formatPrice(price.amount, price.currencyCode)}</p>
             </Link>
             <button
-              onClick={() => handleAdd(rec)}
+              onClick={() => handleAdd(p)}
               disabled={isAdding}
               className="mt-3 inline-flex items-center gap-1.5 h-9 px-5 bg-amber-500 text-[#1a1510] text-xs font-semibold uppercase tracking-wider hover:bg-amber-400 transition-colors disabled:opacity-50"
             >
