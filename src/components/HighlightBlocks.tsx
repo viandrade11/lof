@@ -6,7 +6,7 @@ export function HighlightBlocks() {
   return (
     <section className="grid md:grid-cols-2">
       {/* Hit 10x1 Block */}
-      <Link to="/products/leave-in-hit-10x1-200ml-6903bafe7954e" className="group relative overflow-hidden aspect-[4/3]">
+      <Link to="/hit-10x1" className="group relative overflow-hidden aspect-[4/3]">
         <img
           src={hitHighlight}
           alt="Hit 10x1 - Leave-in multiuso"
