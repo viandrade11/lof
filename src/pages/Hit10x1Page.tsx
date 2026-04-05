@@ -68,7 +68,6 @@ const Hit10x1Page = () => {
       image: heroImage,
     } : undefined,
   });
-  const secondImage = images[1]?.node?.url || images[0]?.node?.url;
 
   const handleAddToCart = async () => {
     if (!variant || !product) return;
