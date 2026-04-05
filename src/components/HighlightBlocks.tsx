@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
 import { useProductByHandle } from '@/hooks/useProducts';
 import { ArrowRight } from 'lucide-react';
-import boostersHighlight from '@/assets/boosters-highlight.jpg';
 import aliancaGrafismo from '@/assets/alianca-grafismo.png';
 
 export function HighlightBlocks() {
-  const { data: product } = useProductByHandle('leave-in-hit-10x1-200ml-6903bafe7954e');
-  const heroImage = product?.images?.edges?.[0]?.node?.url;
+  const { data: hitProduct } = useProductByHandle('leave-in-hit-10x1-200ml-6903bafe7954e');
+  const hitImage = hitProduct?.images?.edges?.[0]?.node?.url;
+
+  const { data: crystalProduct } = useProductByHandle('serum-crystal-oil-laranja-60ml-6903bb190ee85');
+  const crystalImage = crystalProduct?.images?.edges?.[0]?.node?.url;
 
   return (
     <section className="grid md:grid-cols-2">
