@@ -1,26 +1,82 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, Search } from 'lucide-react';
+import { Menu, X, Search, ChevronDown } from 'lucide-react';
 import logoLof from '@/assets/logo-lof.png';
 import { CartDrawer } from './CartDrawer';
 
-const navLinks = [
-  { label: 'Linhas', href: '/#linhas' },
-  { label: 'Produtos', href: '/collections/all' },
+const linhas = [
+  { label: 'Repair', href: '/collections/all?linha=Repair' },
+  { label: 'Nutritive', href: '/collections/all?linha=Nutritive' },
+  { label: 'Silver', href: '/collections/all?linha=Silver' },
+  { label: 'Purifying', href: '/collections/all?linha=Purifying' },
+  { label: 'Wavy', href: '/collections/all?linha=Wavy' },
+  { label: 'Hydrate', href: '/collections/all?linha=Hydrate' },
+  { label: 'Chroma', href: '/collections/all?linha=Chroma' },
+  { label: 'Crystal Oil', href: '/collections/all?linha=Crystal Oil' },
   { label: 'Hit 10x1', href: '/collections/all?linha=Finalizadores' },
-  { label: 'Atacado', href: '/profissional' },
-  { label: 'Sobre', href: '/#sobre' },
 ];
+
+const produtos = [
+  { label: 'Todos os Produtos', href: '/collections/all' },
+  { label: 'Shampoos', href: '/collections/all?tipo=Shampoo' },
+  { label: 'Condicionadores', href: '/collections/all?tipo=Condicionador' },
+  { label: 'Máscaras', href: '/collections/all?tipo=Máscara' },
+  { label: 'Finalizadores', href: '/collections/all?tipo=Finalizador' },
+  { label: 'Tratamentos', href: '/collections/all?tipo=Tratamento' },
+];
+
+type DropdownItem = { label: string; href: string };
+
+function NavDropdown({ label, items, onNavigate }: { label: string; items: DropdownItem[]; onNavigate?: () => void }) {
+  const [open, setOpen] = useState(false);
+  const timeout = useRef<ReturnType<typeof setTimeout>>();
+  const ref = useRef<HTMLDivElement>(null);
+
+  const enter = () => { clearTimeout(timeout.current); setOpen(true); };
+  const leave = () => { timeout.current = setTimeout(() => setOpen(false), 150); };
+
+  return (
+    <div ref={ref} className="relative" onMouseEnter={enter} onMouseLeave={leave}>
+      <button
+        className="flex items-center gap-1 text-xs font-medium uppercase tracking-[0.2em] text-foreground/70 hover:text-foreground transition-colors"
+        onClick={() => setOpen(!open)}
+      >
+        {label}
+        <ChevronDown className={`h-3 w-3 transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+      {open && (
+        <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-50">
+          <div className="bg-background border border-border shadow-lg min-w-[200px] py-2">
+            {items.map((item) => (
+              <Link
+                key={item.label}
+                to={item.href}
+                className="block px-5 py-2.5 text-xs uppercase tracking-[0.1em] text-foreground/70 hover:text-foreground hover:bg-secondary/50 transition-colors"
+                onClick={() => { setOpen(false); onNavigate?.(); }}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileLinhasOpen, setMobileLinhasOpen] = useState(false);
+  const [mobileProdutosOpen, setMobileProdutosOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const closeMobile = () => setMobileOpen(false);
 
   return (
     <header
@@ -34,15 +90,17 @@ export function Header() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              to={link.href}
-              className="text-xs font-medium uppercase tracking-[0.2em] text-foreground/70 hover:text-foreground transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
+          <NavDropdown label="Linhas" items={linhas} />
+          <NavDropdown label="Produtos" items={produtos} />
+          <Link to="/collections/all?linha=Finalizadores" className="text-xs font-medium uppercase tracking-[0.2em] text-foreground/70 hover:text-foreground transition-colors">
+            Hit 10x1
+          </Link>
+          <Link to="/profissional" className="text-xs font-medium uppercase tracking-[0.2em] text-foreground/70 hover:text-foreground transition-colors">
+            Atacado
+          </Link>
+          <Link to="/#sobre" className="text-xs font-medium uppercase tracking-[0.2em] text-foreground/70 hover:text-foreground transition-colors">
+            Sobre
+          </Link>
         </nav>
 
         <div className="flex items-center gap-2">
@@ -62,17 +120,52 @@ export function Header() {
 
       {mobileOpen && (
         <div className="md:hidden bg-background border-t border-border">
-          <nav className="container py-6 flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                to={link.href}
-                className="text-sm font-medium uppercase tracking-[0.15em] text-foreground/70 hover:text-foreground"
-                onClick={() => setMobileOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
+          <nav className="container py-6 flex flex-col gap-1">
+            {/* Linhas accordion */}
+            <button
+              className="flex items-center justify-between py-3 text-sm font-medium uppercase tracking-[0.15em] text-foreground/70"
+              onClick={() => setMobileLinhasOpen(!mobileLinhasOpen)}
+            >
+              Linhas
+              <ChevronDown className={`h-4 w-4 transition-transform ${mobileLinhasOpen ? 'rotate-180' : ''}`} />
+            </button>
+            {mobileLinhasOpen && (
+              <div className="pl-4 flex flex-col gap-1 mb-2">
+                {linhas.map((item) => (
+                  <Link key={item.label} to={item.href} className="py-2 text-sm text-foreground/60 hover:text-foreground" onClick={closeMobile}>
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            {/* Produtos accordion */}
+            <button
+              className="flex items-center justify-between py-3 text-sm font-medium uppercase tracking-[0.15em] text-foreground/70"
+              onClick={() => setMobileProdutosOpen(!mobileProdutosOpen)}
+            >
+              Produtos
+              <ChevronDown className={`h-4 w-4 transition-transform ${mobileProdutosOpen ? 'rotate-180' : ''}`} />
+            </button>
+            {mobileProdutosOpen && (
+              <div className="pl-4 flex flex-col gap-1 mb-2">
+                {produtos.map((item) => (
+                  <Link key={item.label} to={item.href} className="py-2 text-sm text-foreground/60 hover:text-foreground" onClick={closeMobile}>
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            <Link to="/collections/all?linha=Finalizadores" className="py-3 text-sm font-medium uppercase tracking-[0.15em] text-foreground/70 hover:text-foreground" onClick={closeMobile}>
+              Hit 10x1
+            </Link>
+            <Link to="/profissional" className="py-3 text-sm font-medium uppercase tracking-[0.15em] text-foreground/70 hover:text-foreground" onClick={closeMobile}>
+              Atacado
+            </Link>
+            <Link to="/#sobre" className="py-3 text-sm font-medium uppercase tracking-[0.15em] text-foreground/70 hover:text-foreground" onClick={closeMobile}>
+              Sobre
+            </Link>
           </nav>
         </div>
       )}
