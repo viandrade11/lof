@@ -321,8 +321,17 @@ const Hit10x1Page = () => {
         </div>
       </section>
       {/* Upsell / Cross-sell */}
-      <section className="py-16 md:py-20 bg-secondary/30">
-        <div className="container max-w-2xl">
+      <section className="py-20 md:py-28 bg-foreground text-background">
+        <div className="container">
+          <div className="text-center mb-12">
+            <p className="text-xs uppercase tracking-[0.3em] text-background/50 font-semibold mb-3">Complete sua Rotina</p>
+            <h2 className="font-display text-3xl md:text-4xl font-bold">
+              Potencialize o resultado do Hit 10x1
+            </h2>
+            <p className="mt-3 text-background/50 max-w-lg mx-auto text-sm">
+              Combine com os melhores produtos LOF para uma rotina capilar completa.
+            </p>
+          </div>
           <HitUpsell product={product} />
         </div>
       </section>
