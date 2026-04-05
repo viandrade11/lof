@@ -5,8 +5,8 @@ import logoLof from '@/assets/logo-lof.png';
 import { CartDrawer } from './CartDrawer';
 
 const navLinks = [
-  { label: 'Produtos', href: '/#produtos' },
   { label: 'Linhas', href: '/#linhas' },
+  { label: 'Produtos', href: '/#produtos' },
   { label: 'Sobre', href: '/#sobre' },
 ];
 
@@ -23,12 +23,12 @@ export function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-background/95 backdrop-blur-md shadow-sm' : 'bg-transparent'
+        isScrolled ? 'bg-background/95 backdrop-blur-md shadow-sm' : 'bg-background'
       }`}
     >
       <div className="container flex items-center justify-between h-16 md:h-20">
         <Link to="/" className="flex-shrink-0">
-          <img src={logoLof} alt="LOF Professional" className="h-8 md:h-10 w-auto" />
+          <img src={logoLof} alt="LOF Professional" className="h-7 md:h-9 w-auto" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
@@ -43,7 +43,7 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <button className="p-2 text-foreground/70 hover:text-foreground transition-colors" aria-label="Buscar">
             <Search className="h-5 w-5" />
           </button>
