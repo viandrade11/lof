@@ -157,7 +157,7 @@ export function Header() {
               </div>
             )}
 
-            <Link to="/collections/all?linha=Finalizadores" className="py-3 text-sm font-medium uppercase tracking-[0.15em] text-foreground/70 hover:text-foreground" onClick={closeMobile}>
+            <Link to="/hit-10x1" className="py-3 text-sm font-medium uppercase tracking-[0.15em] text-foreground/70 hover:text-foreground" onClick={closeMobile}>
               Hit 10x1
             </Link>
             <Link to="/profissional" className="py-3 text-sm font-medium uppercase tracking-[0.15em] text-foreground/70 hover:text-foreground" onClick={closeMobile}>
