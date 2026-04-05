@@ -9,6 +9,7 @@ import { ProductDetails } from '@/components/ProductDetails';
 import { Loader2, ChevronLeft, ShoppingBag, Minus, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { useSEO } from '@/hooks/useSEO';
 
 const ProductPage = () => {
   const { handle } = useParams<{ handle: string }>();
