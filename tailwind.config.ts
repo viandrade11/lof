@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Montserrat", "system-ui", "sans-serif"],
-        display: ["Cormorant Garamond", "Georgia", "serif"],
+        sans: ["DM Sans", "system-ui", "sans-serif"],
+        display: ["Space Grotesk", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -67,6 +67,7 @@ export default {
           silver: "hsl(var(--lof-silver))",
           purifying: "hsl(var(--lof-purifying))",
           wavy: "hsl(var(--lof-wavy))",
+          hydrate: "hsl(var(--lof-hydrate))",
           hit: "hsl(var(--lof-hit))",
           crystal: "hsl(var(--lof-crystal))",
           cold: "hsl(var(--lof-cold))",

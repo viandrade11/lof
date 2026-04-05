@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -37,11 +37,12 @@
     --radius: 0.25rem;
 
     /* LOF Product Line Colors */
-    --lof-repair: 269 33% 40%;
-    --lof-nutritive: 148 95% 24%;
-    --lof-silver: 210 2% 58%;
-    --lof-purifying: 148 60% 35%;
-    --lof-wavy: 207 73% 42%;
+    --lof-repair: 269 40% 38%;
+    --lof-nutritive: 148 90% 22%;
+    --lof-silver: 240 10% 50%;
+    --lof-purifying: 155 55% 38%;
+    --lof-wavy: 207 70% 40%;
+    --lof-hydrate: 340 55% 50%;
     --lof-hit: 27 90% 55%;
     --lof-crystal: 35 80% 50%;
     --lof-cold: 207 60% 45%;
