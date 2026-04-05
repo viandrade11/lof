@@ -37,16 +37,16 @@
     --radius: 0.25rem;
 
     /* LOF Product Line Colors */
-    --lof-repair: 269 40% 38%;
-    --lof-nutritive: 148 90% 22%;
-    --lof-silver: 240 10% 50%;
-    --lof-purifying: 155 55% 38%;
-    --lof-wavy: 207 70% 40%;
-    --lof-hydrate: 340 55% 50%;
-    --lof-hit: 27 90% 55%;
+    --lof-repair: 27 91% 54%;
+    --lof-nutritive: 207 73% 42%;
+    --lof-silver: 269 33% 41%;
+    --lof-purifying: 148 95% 25%;
+    --lof-wavy: 358 72% 44%;
+    --lof-hydrate: 225 55% 32%;
+    --lof-hit: 27 91% 54%;
     --lof-crystal: 35 80% 50%;
     --lof-cold: 207 60% 45%;
-    --lof-chroma: 340 70% 50%;
+    --lof-chroma: 358 72% 44%;
 
     /* Brand specific */
     --lof-black: 0 0% 8%;
