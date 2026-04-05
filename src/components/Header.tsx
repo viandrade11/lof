@@ -13,7 +13,7 @@ const linhas = [
   { label: 'Hydrate', href: '/collections/all?linha=Hydrate' },
   { label: 'Chroma', href: '/collections/all?linha=Chroma' },
   { label: 'Crystal Oil', href: '/collections/all?linha=Crystal Oil' },
-  { label: 'Hit 10x1', href: '/collections/all?linha=Finalizadores' },
+  { label: 'Hit 10x1', href: '/hit-10x1' },
 ];
 
 const produtos = [

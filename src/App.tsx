@@ -21,6 +21,7 @@ function AppContent() {
         <Route path="/collections/all" element={<CollectionPage />} />
         <Route path="/collections/:collection" element={<CollectionPage />} />
          <Route path="/products/:handle" element={<ProductPage />} />
+         <Route path="/hit-10x1" element={<Hit10x1Page />} />
          <Route path="/profissional" element={<B2BPage />} />
          <Route path="*" element={<NotFound />} />
       </Routes>
