@@ -7,6 +7,7 @@ import Index from "./pages/Index.tsx";
 import ProductPage from "./pages/ProductPage.tsx";
 import CollectionPage from "./pages/CollectionPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import B2BPage from "./pages/B2BPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -18,8 +19,9 @@ function AppContent() {
         <Route path="/" element={<Index />} />
         <Route path="/collections/all" element={<CollectionPage />} />
         <Route path="/collections/:collection" element={<CollectionPage />} />
-        <Route path="/products/:handle" element={<ProductPage />} />
-        <Route path="*" element={<NotFound />} />
+         <Route path="/products/:handle" element={<ProductPage />} />
+         <Route path="/profissional" element={<B2BPage />} />
+         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

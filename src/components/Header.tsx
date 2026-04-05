@@ -8,6 +8,7 @@ const navLinks = [
   { label: 'Linhas', href: '/#linhas' },
   { label: 'Produtos', href: '/collections/all' },
   { label: 'Hit 10x1', href: '/collections/all?linha=Finalizadores' },
+  { label: 'Profissional', href: '/profissional' },
   { label: 'Sobre', href: '/#sobre' },
 ];
 
