@@ -1,57 +1,80 @@
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { MessageCircle, TrendingUp, Package, Headphones, ShieldCheck, Truck, CreditCard, Star } from 'lucide-react';
+import { MessageCircle, TrendingUp, Package, Headphones, ShieldCheck, CreditCard, Star, Truck, ArrowRight } from 'lucide-react';
 import b2bHero from '@/assets/b2b-hero.jpg';
 
 const WHATSAPP_URL = 'https://wa.me/5511952134275?text=Ol%C3%A1%2C%20Vi%20no%20Site%20e%20quero%20conhecer%20os%20produtos%20LOF';
 
-const diferenciais = [
-  {
-    icon: TrendingUp,
-    title: 'Lucro maior pra você',
-    description: 'Compre direto da fábrica e aumente sua margem — sem revendedor no meio do caminho.',
-  },
-  {
-    icon: Package,
-    title: 'Linha completa',
-    description: 'Coloração, descoloração, tratamento e matização com fórmulas profissionais. Tudo em uma só marca.',
-  },
-  {
-    icon: Headphones,
-    title: 'Atendimento humanizado',
-    description: 'Fale com quem resolve. Rápido, próximo e sem enrolação — direto pelo WhatsApp.',
-  },
-  {
-    icon: CreditCard,
-    title: 'Facilidade de compra',
-    description: 'Parcelamento, Pix com desconto, entrega rápida e produtos prontos para revender ou aplicar.',
-  },
-];
-
 const linhasProfissionais = [
-  {
-    name: 'Cold Light',
-    tagline: 'Clareamento sem danificar',
-    benefits: ['Fórmula avançada para clareamento eficiente', 'Proteção da estrutura capilar', 'Resultados uniformes e brilhantes', 'Minimiza danos e quebras'],
-    image: 'https://lp.lof.com.br/img/cold-light.jpg',
-  },
   {
     name: 'Repair',
     tagline: 'Reparação e reconstrução',
+    color: 'bg-lof-repair',
     benefits: ['Fortalece cutículas sensibilizadas por química', 'Melhora resistência de fios danificados', 'Nutre e repara devolvendo massa capilar', 'Reduz porosidade e devolve elasticidade'],
     image: 'https://lp.lof.com.br/img/repair.jpg',
   },
   {
+    name: 'Nutritive',
+    tagline: 'Nutrição profunda',
+    color: 'bg-lof-nutritive',
+    benefits: ['Reposição lipídica profunda com óleos nobres', 'Combate ao ressecamento crônico', 'Maciez e brilho duradouros', 'Proteção contra agressões externas'],
+    image: null,
+  },
+  {
+    name: 'Silver',
+    tagline: 'Matização profissional',
+    color: 'bg-lof-silver',
+    benefits: ['Neutraliza tons amarelados e alaranjados', 'Pigmentos violeta de alta concentração', 'Hidratação profunda para loiros', 'Brilho prateado intenso e uniforme'],
+    image: null,
+  },
+  {
+    name: 'Purifying',
+    tagline: 'Limpeza vegana',
+    color: 'bg-lof-purifying',
+    benefits: ['Fórmula livre de sulfatos e parabenos', 'Limpeza profunda sem agredir', '100% vegana e sustentável', 'Ideal para uso frequente no salão'],
+    image: null,
+  },
+  {
+    name: 'Wavy',
+    tagline: 'Definição de cachos',
+    color: 'bg-lof-wavy',
+    benefits: ['Definição duradoura sem crocância', 'Controle de frizz e volume', 'Hidratação leve que não pesa', 'Toque suave e natural'],
+    image: null,
+  },
+  {
+    name: 'Hydrate',
+    tagline: 'Hidratação profunda',
+    color: 'bg-lof-hydrate',
+    benefits: ['Hidratação intensa e prolongada', 'Maciez e brilho imediatos', 'Fortalecimento da fibra capilar', 'Ideal para cabelos porosos e ressecados'],
+    image: null,
+  },
+  {
     name: 'Chroma',
-    tagline: 'Intensidade das cores',
+    tagline: 'Coloração profissional',
+    color: 'bg-lof-chroma',
     benefits: ['Variedade de cores: dos naturais aos coloridos', 'Blend de 11 óleos e aminoácidos', 'Fragrância que reduz cheiro de amônia', '100% vegetal nos ativos'],
     image: 'https://lp.lof.com.br/img/chroma.jpg',
   },
   {
+    name: 'Cold Light',
+    tagline: 'Clareamento profissional',
+    color: 'bg-lof-cold',
+    benefits: ['Fórmula avançada para clareamento eficiente', 'Proteção da estrutura capilar', 'Resultados uniformes e brilhantes', 'Minimiza danos e quebras'],
+    image: 'https://lp.lof.com.br/img/cold-light.jpg',
+  },
+  {
     name: 'Hit 10x1',
-    tagline: 'O aliado de todos os dias',
-    benefits: ['Reconstrutor de carga imediata', 'Proteção térmica para todos os cabelos', 'Sela e fortalece pontas ressecadas', 'Hidratação nutritiva e protetora'],
+    tagline: 'Leave-in multiuso',
+    color: 'bg-lof-hit',
+    benefits: ['Reconstrutor de carga imediata', 'Proteção térmica para todos os cabelos', 'Sela e fortalece pontas ressecadas', '10 benefícios em um único produto'],
     image: 'https://lp.lof.com.br/img/lof.jpg',
+  },
+  {
+    name: 'Crystal Oil',
+    tagline: 'Sérum reparador',
+    color: 'bg-lof-crystal',
+    benefits: ['Sérum com óleos nobres concentrados', 'Brilho intenso e imediato', 'Reduz frizz e pontas duplas', 'Proteção térmica e UV'],
+    image: null,
   },
 ];
 
@@ -85,7 +108,7 @@ const B2BPage = () => {
           <div className="absolute inset-0 flex items-center">
             <div className="container">
               <div className="max-w-xl">
-                <p className="text-xs uppercase tracking-[0.3em] text-white/50 mb-4">Para Profissionais</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-white/50 mb-4">Atacado para Profissionais</p>
                 <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-white font-bold leading-[1.05]">
                   Compre direto da fábrica e aumente sua margem
                 </h1>
@@ -107,119 +130,141 @@ const B2BPage = () => {
         </div>
       </section>
 
-      {/* Diferenciais */}
-      <section className="py-20 md:py-28 bg-background">
-        <div className="container">
-          <div className="text-center mb-16">
-            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">Nossos Diferenciais</p>
-            <h2 className="font-display text-3xl md:text-4xl font-bold">
-              Por que os profissionais escolhem a LOF
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {diferenciais.map((d) => (
-              <div key={d.title} className="text-center p-6">
-                <div className="w-14 h-14 mx-auto mb-5 bg-foreground/5 flex items-center justify-center">
-                  <d.icon className="h-6 w-6 text-foreground" />
-                </div>
-                <h3 className="font-display text-lg font-bold mb-2">{d.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{d.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Sobre a LOF B2B */}
+      {/* Diferenciais — redesigned for conversion */}
       <section className="py-20 md:py-28 bg-foreground text-background">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
             <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-background/50 mb-3">A LOF é para você</p>
+              <p className="text-xs uppercase tracking-[0.3em] text-background/40 mb-4">Por que a LOF?</p>
               <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight">
-                Você é cabeleireiro, dono de salão, empreendedor?
+                Tudo que seu salão precisa em uma só marca
               </h2>
-              <p className="mt-6 text-background/70 leading-relaxed">
-                A LOF nasceu da escuta atenta aos cabeleireiros. Profissionais que vivem a beleza na prática, mas muitas vezes têm pouco controle e pouca margem sobre os produtos que usam.
-              </p>
-              <p className="mt-4 text-background/70 leading-relaxed">
-                Com mais de 40 anos de experiência no mercado profissional, criamos uma marca pensada para quem está no salão todos os dias. Produtos de alta performance, vendidos direto para o salão.
-              </p>
-              <p className="mt-4 text-background/50 text-sm italic">
-                Muito prazer, nós somos a LOF. Feita para quem faz — e quer fazer mais.
+              <p className="mt-4 text-background/60 leading-relaxed">
+                Mais de 35 produtos profissionais, atendimento direto e margem que faz diferença no seu caixa.
               </p>
               <a
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 mt-8 h-12 px-8 border border-background text-background text-xs uppercase tracking-[0.2em] font-medium hover:bg-background hover:text-foreground transition-colors"
+                className="inline-flex items-center gap-2 mt-8 h-12 px-8 bg-[#25D366] text-white text-xs uppercase tracking-[0.15em] font-semibold hover:bg-[#20BD5A] transition-colors"
               >
                 <MessageCircle className="h-4 w-4" />
-                Quero testar os produtos
+                Solicitar catálogo
               </a>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { icon: TrendingUp, title: 'Margem até 3x maior', desc: 'Direto da fábrica, sem distribuidores.' },
+                { icon: Package, title: 'Linha completa', desc: '10 linhas, +35 produtos profissionais.' },
+                { icon: Headphones, title: 'WhatsApp direto', desc: 'Atendimento real, rápido e humanizado.' },
+                { icon: CreditCard, title: 'Pix com desconto', desc: 'Parcelamento e condições especiais.' },
+                { icon: Truck, title: 'Entrega rápida', desc: 'Logística otimizada para todo Brasil.' },
+                { icon: Star, title: 'Revenda no salão', desc: 'Nova fonte de faturamento para você.' },
+              ].map((d) => (
+                <div key={d.title} className="border border-background/10 p-5 hover:border-background/30 transition-colors">
+                  <d.icon className="h-5 w-5 text-[#25D366] mb-3" />
+                  <h3 className="text-sm font-semibold mb-1">{d.title}</h3>
+                  <p className="text-xs text-background/50 leading-relaxed">{d.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sobre a LOF B2B */}
+      <section className="py-20 md:py-28">
+        <div className="container">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+            <div>
+              <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">A LOF é para você</p>
+              <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight">
+                Você é cabeleireiro, dono de salão, empreendedor?
+              </h2>
+              <p className="mt-6 text-muted-foreground leading-relaxed">
+                A LOF nasceu da escuta atenta aos cabeleireiros. Profissionais que vivem a beleza na prática, mas muitas vezes têm pouco controle e pouca margem sobre os produtos que usam.
+              </p>
+              <p className="mt-4 text-muted-foreground leading-relaxed">
+                Com mais de 40 anos de experiência no mercado profissional, criamos uma marca pensada para quem está no salão todos os dias. Produtos de alta performance, vendidos direto para o salão.
+              </p>
+              <p className="mt-4 text-muted-foreground/60 text-sm italic">
+                Muito prazer, nós somos a LOF. Feita para quem faz — e quer fazer mais.
+              </p>
             </div>
             <div className="grid grid-cols-3 gap-6 text-center">
               <div>
                 <p className="font-display text-4xl md:text-5xl font-bold">40+</p>
-                <p className="text-xs uppercase tracking-wider text-background/50 mt-2">Anos de experiência</p>
+                <p className="text-xs uppercase tracking-wider text-muted-foreground mt-2">Anos</p>
               </div>
               <div>
-                <p className="font-display text-4xl md:text-5xl font-bold">6</p>
-                <p className="text-xs uppercase tracking-wider text-background/50 mt-2">Linhas completas</p>
+                <p className="font-display text-4xl md:text-5xl font-bold">10</p>
+                <p className="text-xs uppercase tracking-wider text-muted-foreground mt-2">Linhas</p>
               </div>
               <div>
                 <p className="font-display text-4xl md:text-5xl font-bold">35+</p>
-                <p className="text-xs uppercase tracking-wider text-background/50 mt-2">Produtos profissionais</p>
+                <p className="text-xs uppercase tracking-wider text-muted-foreground mt-2">Produtos</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Linhas profissionais */}
-      <section className="py-20 md:py-28">
+      {/* Todas as linhas */}
+      <section className="py-20 md:py-28 bg-secondary/50">
         <div className="container">
           <div className="text-center mb-16">
-            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">Portfólio</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">Portfólio Completo</p>
             <h2 className="font-display text-3xl md:text-4xl font-bold">
-              Produtos preferidos pelos profissionais
+              Nossas linhas profissionais
             </h2>
             <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-              Qualidade profissional, resultados visíveis e liberdade para usar ou revender com confiança.
+              Qualidade profissional, resultados visíveis e liberdade para usar ou revender com confiança. Todas disponíveis nas versões salão e consumo.
             </p>
           </div>
 
-          <div className="space-y-16 md:space-y-20">
-            {linhasProfissionais.map((linha, i) => (
-              <div key={linha.name} className={`grid md:grid-cols-2 gap-8 md:gap-16 items-center ${i % 2 === 1 ? '' : ''}`}>
-                <div className={i % 2 === 1 ? 'md:order-2' : ''}>
-                  <img
-                    src={linha.image}
-                    alt={`Linha ${linha.name}`}
-                    className="w-full aspect-[4/3] object-cover"
-                    loading="lazy"
-                  />
-                </div>
-                <div className={i % 2 === 1 ? 'md:order-1' : ''}>
-                  <h3 className="font-display text-2xl md:text-3xl font-bold uppercase">{linha.name}</h3>
-                  <p className="text-muted-foreground mt-1 text-sm uppercase tracking-wider">{linha.tagline}</p>
-                  <ul className="mt-6 space-y-3">
-                    {linha.benefits.map((b) => (
-                      <li key={b} className="flex items-start gap-3 text-sm text-muted-foreground">
-                        <ShieldCheck className="h-4 w-4 mt-0.5 text-foreground flex-shrink-0" />
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+            {linhasProfissionais.map((linha) => (
+              <div key={linha.name} className="bg-background border border-border overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="flex">
+                  {/* Color bar */}
+                  <div className={`w-2 flex-shrink-0 ${linha.color}`} />
+                  <div className="p-6 md:p-8 flex-1">
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <h3 className="font-display text-xl md:text-2xl font-bold uppercase">{linha.name}</h3>
+                        <p className="text-xs uppercase tracking-wider text-muted-foreground mt-0.5">{linha.tagline}</p>
+                      </div>
+                    </div>
+                    <ul className="mt-4 space-y-2">
+                      {linha.benefits.map((b) => (
+                        <li key={b} className="flex items-start gap-2 text-sm text-muted-foreground">
+                          <ShieldCheck className="h-3.5 w-3.5 mt-0.5 text-foreground/60 flex-shrink-0" />
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 h-14 px-10 bg-[#25D366] text-white text-sm uppercase tracking-[0.15em] font-semibold hover:bg-[#20BD5A] transition-colors"
+            >
+              <MessageCircle className="h-5 w-5" />
+              Solicitar tabela de preços
+            </a>
           </div>
         </div>
       </section>
 
       {/* Benefícios de comprar direto */}
-      <section className="py-16 md:py-20 bg-secondary">
+      <section className="py-16 md:py-20">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-bold">Ao comprar direto da LOF você:</h2>
@@ -241,22 +286,11 @@ const B2BPage = () => {
               <p className="text-sm text-muted-foreground">Revenda para seus clientes com confiança.</p>
             </div>
           </div>
-          <div className="text-center mt-10">
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 h-14 px-10 bg-[#25D366] text-white text-sm uppercase tracking-[0.15em] font-semibold hover:bg-[#20BD5A] transition-colors"
-            >
-              <MessageCircle className="h-5 w-5" />
-              Quero conhecer toda a linha
-            </a>
-          </div>
         </div>
       </section>
 
       {/* Resultados reais */}
-      <section className="py-20 md:py-28">
+      <section className="py-20 md:py-28 bg-secondary/50">
         <div className="container">
           <div className="text-center mb-12">
             <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">Resultados</p>
@@ -274,7 +308,7 @@ const B2BPage = () => {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 md:py-28 bg-secondary">
+      <section className="py-20 md:py-28">
         <div className="container max-w-3xl">
           <div className="text-center mb-12">
             <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">Perguntas Frequentes</p>
