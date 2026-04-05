@@ -43,12 +43,12 @@ export function ProductLinesSection() {
   return (
     <section className="w-full">
       {/* Desktop: horizontal row | Mobile: 2-column grid */}
-      <div className="grid grid-cols-2 md:flex">
+      <div className="grid grid-cols-2 md:grid-cols-6">
         {productLines.map((line) => (
           <Link
             key={line.name}
             to={`/collections/all?linha=${line.query}`}
-            className={`group relative md:flex-1 ${line.colorClass} flex flex-col items-center justify-center py-14 md:py-20 px-4 transition-all duration-300 md:hover:flex-[1.3] min-h-[180px]`}
+            className={`group relative ${line.colorClass} flex flex-col items-center justify-center py-14 md:py-20 px-4 transition-all duration-300 min-h-[180px]`}
           >
             <h3 className="font-display text-xl md:text-2xl lg:text-3xl font-bold uppercase tracking-wider text-white text-center">
               {line.name}
