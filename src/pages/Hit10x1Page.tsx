@@ -302,6 +302,8 @@ const Hit10x1Page = () => {
         </div>
       </section>
 
+      <ReviewsSection productName="Hit 10x1" />
+
       {/* FAQ */}
       <section className="py-20 md:py-28">
         <div className="container max-w-3xl">

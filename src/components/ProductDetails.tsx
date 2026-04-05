@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useProducts } from '@/hooks/useProducts';
 import { ProductCard } from './ProductCard';
+import { ReviewsSection } from './ReviewsSection';
+import { ProductCard } from './ProductCard';
 
 interface ProductDetailsProps {
   product: {
