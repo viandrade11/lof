@@ -5,7 +5,7 @@ import { ProductCard } from '@/components/ProductCard';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Loader2, SlidersHorizontal, X, ChevronDown } from 'lucide-react';
-
+import { useSEO } from '@/hooks/useSEO';
 const LINE_COLORS: Record<string, string> = {
   Repair: 'bg-lof-repair',
   Nutritive: 'bg-lof-nutritive',
