@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { useProductByHandle } from '@/hooks/useProducts';
+import { useProductByHandle, useProducts } from '@/hooks/useProducts';
 import { useCartStore } from '@/stores/cartStore';
 import { formatPrice } from '@/lib/shopify';
 import { ShoppingBag, Loader2, Check, Shield, Droplets, Sun, Wind, Sparkles, Zap, Heart, Star, ChevronDown, ArrowRight } from 'lucide-react';
@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import aliancaGrafismo from '@/assets/alianca-grafismo.png';
+import { UpsellBlock } from '@/components/UpsellBlock';
+import { getSmartRecommendations } from '@/lib/productRecommendations';
 
 import { useSEO } from '@/hooks/useSEO';
 
