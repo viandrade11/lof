@@ -1,9 +1,12 @@
+import { Link } from 'react-router-dom';
+import educationBanner from '@/assets/education-banner.jpg';
 import aboutImg from '@/assets/about-lifestyle.jpg';
 
 export function AboutSection() {
   return (
-    <section id="sobre" className="py-20 md:py-28 bg-secondary/30">
+    <section id="sobre" className="py-20 md:py-28">
       <div className="container">
+        {/* Sobre a LOF */}
         <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
           <div className="relative">
             <img
@@ -11,8 +14,6 @@ export function AboutSection() {
               alt="LOF Professional - Sofisticadamente Simples"
               className="w-full aspect-[3/4] object-cover"
               loading="lazy"
-              width={800}
-              height={1024}
             />
           </div>
           <div>
@@ -37,20 +38,52 @@ export function AboutSection() {
                 em ensinar e desmistificar.
               </p>
             </div>
-            <div className="mt-10 grid grid-cols-3 gap-6">
+          </div>
+        </div>
+
+        {/* Educação & Ciência */}
+        <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center mt-20 md:mt-28">
+          <div className="md:order-2">
+            <img
+              src={educationBanner}
+              alt="Ciência LOF Professional"
+              className="w-full aspect-[3/4] object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div className="md:order-1">
+            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4">Educação & Ciência</p>
+            <h2 className="font-display text-4xl md:text-5xl font-light leading-tight mb-6">
+              Entenda seus <span className="italic">cabelos</span>
+            </h2>
+            <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
+              <p>
+                Na LOF Professional, acreditamos que o conhecimento é a base para cabelos saudáveis. Cada uma das nossas linhas é desenvolvida com ingredientes naturais e tecnologia de ponta, pensados para necessidades capilares específicas.
+              </p>
+              <p>
+                Nossos produtos são formulados sem parabenos, com ativos naturais como óleos essenciais, proteínas vegetais e extratos botânicos que respeitam a fibra capilar enquanto entregam resultados profissionais.
+              </p>
+            </div>
+            <div className="mt-8 grid grid-cols-3 gap-6">
               <div>
-                <p className="font-display text-3xl">100%</p>
-                <p className="text-xs text-muted-foreground mt-1">Livre de parabenos</p>
+                <p className="font-display text-3xl md:text-4xl font-light">0%</p>
+                <p className="text-xs text-muted-foreground mt-1">Parabenos</p>
               </div>
               <div>
-                <p className="font-display text-3xl">40+</p>
+                <p className="font-display text-3xl md:text-4xl font-light">40+</p>
                 <p className="text-xs text-muted-foreground mt-1">Anos de experiência</p>
               </div>
               <div>
-                <p className="font-display text-3xl">9</p>
-                <p className="text-xs text-muted-foreground mt-1">Linhas de produto</p>
+                <p className="font-display text-3xl md:text-4xl font-light">9+</p>
+                <p className="text-xs text-muted-foreground mt-1">Linhas</p>
               </div>
             </div>
+            <Link
+              to="/collections/all"
+              className="inline-flex items-center mt-8 h-11 px-6 border border-foreground text-foreground text-xs uppercase tracking-[0.2em] font-medium hover:bg-foreground hover:text-background transition-colors"
+            >
+              Ver Todos os Produtos
+            </Link>
           </div>
         </div>
       </div>
