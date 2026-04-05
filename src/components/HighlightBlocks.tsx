@@ -14,9 +14,9 @@ export function HighlightBlocks() {
     <section className="grid md:grid-cols-2">
       {/* Hit 10x1 Block — styled like the LP */}
       <Link to="/hit-10x1" className="group relative overflow-hidden aspect-[4/3] bg-[#0a0a0a]">
-        {heroImage && (
+        {hitImage && (
           <img
-            src={heroImage}
+            src={hitImage}
             alt="Hit 10x1 - Leave-in multiuso"
             className="absolute inset-0 w-full h-full object-contain object-right opacity-40 group-hover:opacity-50 transition-opacity duration-700 group-hover:scale-105 transition-transform"
             loading="lazy"
