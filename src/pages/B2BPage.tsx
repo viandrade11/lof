@@ -174,8 +174,9 @@ const B2BPage = () => {
       </section>
 
       {/* Sobre a LOF B2B */}
-      <section className="py-20 md:py-28">
-        <div className="container">
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <img src={aliancaGrafismo} alt="" className="absolute right-[-8%] top-[10%] w-[350px] md:w-[450px] opacity-[0.03] pointer-events-none select-none" aria-hidden="true" />
+        <div className="container relative">
           <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">A LOF é para você</p>
