@@ -1,37 +1,78 @@
+import { Link } from 'react-router-dom';
+
 const productLines = [
-  { name: 'Repair', description: 'Reparação profunda para cabelos danificados', colorVar: 'bg-lof-repair', query: 'title:repair' },
-  { name: 'Nutritive', description: 'Nutrição e saúde para todos os tipos de cabelos', colorVar: 'bg-lof-nutritive', query: 'title:nutritive' },
-  { name: 'Silver', description: 'Matização e hidratação para cabelos loiros', colorVar: 'bg-lof-silver', query: 'title:silver' },
-  { name: 'Purifying', description: 'Limpeza vegana, livre de sulfatos e silicones', colorVar: 'bg-lof-purifying', query: 'title:purifying' },
-  { name: 'Wavy', description: 'Definição e cuidado para cachos e ondulados', colorVar: 'bg-lof-wavy', query: 'title:wavy' },
-  { name: 'Hit 10x1', description: 'Leave-in multiuso com 10 benefícios', colorVar: 'bg-lof-hit', query: 'title:hit' },
-  { name: 'Crystal Oil', description: 'Sérum multi óleos para brilho e nutrição', colorVar: 'bg-lof-crystal', query: 'title:crystal' },
+  {
+    name: 'Repair',
+    description: 'Reparação profunda\n+ Reconstrução capilar',
+    colorClass: 'bg-lof-repair',
+    textColor: 'text-white',
+    query: 'repair',
+  },
+  {
+    name: 'Nutritive',
+    description: 'Nutrição intensa\n+ Saúde capilar',
+    colorClass: 'bg-lof-nutritive',
+    textColor: 'text-white',
+    query: 'nutritive',
+  },
+  {
+    name: 'Silver',
+    description: 'Matização perfeita\n+ Hidratação loiros',
+    colorClass: 'bg-lof-silver',
+    textColor: 'text-white',
+    query: 'silver',
+  },
+  {
+    name: 'Purifying',
+    description: 'Limpeza vegana\n+ Livre de sulfatos',
+    colorClass: 'bg-lof-purifying',
+    textColor: 'text-white',
+    query: 'purifying',
+  },
+  {
+    name: 'Wavy',
+    description: 'Definição de cachos\n+ Controle de frizz',
+    colorClass: 'bg-lof-wavy',
+    textColor: 'text-white',
+    query: 'wavy',
+  },
+  {
+    name: 'Crystal Oil',
+    description: 'Sérum multi óleos\n+ Brilho intenso',
+    colorClass: 'bg-lof-crystal',
+    textColor: 'text-white',
+    query: 'crystal',
+  },
+  {
+    name: 'Cold Plex',
+    description: 'Proteção térmica\n+ Blindagem capilar',
+    colorClass: 'bg-lof-cold',
+    textColor: 'text-white',
+    query: 'cold',
+  },
 ];
 
 export function ProductLinesSection() {
   return (
-    <section id="linhas" className="py-20 md:py-28 bg-secondary/50">
-      <div className="container">
-        <div className="text-center mb-16">
-          <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">Nossas Linhas</p>
-          <h2 className="font-display text-4xl md:text-5xl font-light">
-            Uma linha para cada <span className="italic">necessidade</span>
-          </h2>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-          {productLines.map((line, i) => (
-            <a
-              key={line.name}
-              href={`#produtos`}
-              className="group relative overflow-hidden bg-card p-6 md:p-8 hover:shadow-lg transition-all duration-300"
-              style={{ animationDelay: `${i * 0.1}s` }}
-            >
-              <div className={`w-10 h-1 ${line.colorVar} mb-4 group-hover:w-16 transition-all duration-300`} />
-              <h3 className="font-display text-xl md:text-2xl mb-2">{line.name}</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">{line.description}</p>
-            </a>
-          ))}
-        </div>
+    <section className="w-full">
+      <div className="flex overflow-x-auto scrollbar-hide">
+        {productLines.map((line) => (
+          <Link
+            key={line.name}
+            to={`/#produtos`}
+            className={`group relative flex-1 min-w-[180px] md:min-w-0 ${line.colorClass} flex flex-col items-center justify-center py-12 md:py-20 px-4 transition-all duration-300 hover:flex-[1.3]`}
+          >
+            <h3 className={`font-display text-2xl md:text-3xl lg:text-4xl font-light uppercase tracking-wider ${line.textColor} text-center`}>
+              {line.name}
+            </h3>
+            <p className={`text-xs md:text-sm ${line.textColor}/80 text-center mt-2 whitespace-pre-line leading-relaxed`}>
+              {line.description}
+            </p>
+            <span className={`mt-4 text-xs uppercase tracking-[0.2em] ${line.textColor}/60 group-hover:${line.textColor} underline underline-offset-4 transition-colors`}>
+              Comprar
+            </span>
+          </Link>
+        ))}
       </div>
     </section>
   );

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingBag, Loader2 } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
@@ -12,9 +13,10 @@ export function ProductCard({ product }: ProductCardProps) {
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
   const { node } = product;
-  const image = node.images.edges[0]?.node;
+  const images = node.images.edges;
   const variant = node.variants.edges[0]?.node;
   const price = node.priceRange.minVariantPrice;
+  const [hovered, setHovered] = useState(false);
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -28,21 +30,34 @@ export function ProductCard({ product }: ProductCardProps) {
       quantity: 1,
       selectedOptions: variant.selectedOptions || [],
     });
-    toast.success('Produto adicionado ao carrinho', {
-      position: 'top-center',
-    });
+    toast.success('Produto adicionado ao carrinho', { position: 'top-center' });
   };
 
   return (
-    <Link to={`/produto/${node.handle}`} className="group block">
-      <div className="relative aspect-square overflow-hidden bg-muted mb-4">
-        {image ? (
-          <img
-            src={image.url}
-            alt={image.altText || node.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            loading="lazy"
-          />
+    <Link
+      to={`/produto/${node.handle}`}
+      className="group block"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div className="relative aspect-square overflow-hidden bg-muted mb-3">
+        {images[0] ? (
+          <>
+            <img
+              src={images[0].node.url}
+              alt={images[0].node.altText || node.title}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${hovered && images[1] ? 'opacity-0' : 'opacity-100'}`}
+              loading="lazy"
+            />
+            {images[1] && (
+              <img
+                src={images[1].node.url}
+                alt={images[1].node.altText || node.title}
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${hovered ? 'opacity-100' : 'opacity-0'}`}
+                loading="lazy"
+              />
+            )}
+          </>
         ) : (
           <div className="w-full h-full flex items-center justify-center text-muted-foreground">
             <ShoppingBag className="h-12 w-12" />
