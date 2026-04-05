@@ -430,22 +430,22 @@ function HitUpsell({ product }: { product: any }) {
   };
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-      {recs.map((rec) => {
-        const img = rec.product.node.images.edges[0]?.node;
-        const price = rec.product.node.priceRange.minVariantPrice;
-        const isAdding = addingId === rec.product.node.id;
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+      {boosters.map((p) => {
+        const img = p.node.images.edges[0]?.node;
+        const price = p.node.priceRange.minVariantPrice;
+        const isAdding = addingId === p.node.id;
         return (
-          <div key={rec.product.node.id} className="group text-center">
-            <Link to={`/products/${rec.product.node.handle}`} className="block">
+          <div key={p.node.id} className="group text-center">
+            <Link to={`/products/${p.node.handle}`} className="block">
               <div className="aspect-square overflow-hidden bg-white/10 mb-3">
-                {img && <img src={img.url} alt={img.altText || rec.product.node.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />}
+                {img && <img src={img.url} alt={img.altText || p.node.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />}
               </div>
-              <h3 className="text-sm font-medium text-background/90 leading-tight">{rec.product.node.title}</h3>
+              <h3 className="text-sm font-medium text-background/90 leading-tight">{p.node.title}</h3>
               <p className="text-sm font-semibold text-background mt-1">{formatPrice(price.amount, price.currencyCode)}</p>
             </Link>
             <button
-              onClick={() => handleAdd(rec)}
+              onClick={() => handleAdd(p)}
               disabled={isAdding}
               className="mt-3 inline-flex items-center gap-1.5 h-9 px-5 bg-white text-lof-black text-xs font-semibold uppercase tracking-wider hover:bg-white/90 transition-colors disabled:opacity-50"
             >
