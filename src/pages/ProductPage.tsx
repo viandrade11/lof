@@ -229,4 +229,16 @@ const ProductPage = () => {
   );
 };
 
+function ProductPageUpsell({ product }: { product: any }) {
+  const { data: allProducts } = useProducts(50);
+  if (!allProducts) return null;
+  const recs = getSmartRecommendations(
+    { title: product.title, handle: product.handle, productType: product.productType },
+    allProducts,
+    [],
+    4,
+  );
+  return <UpsellBlock recommendations={recs} />;
+}
+
 export default ProductPage;
