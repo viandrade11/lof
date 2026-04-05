@@ -19,6 +19,27 @@ const ProductPage = () => {
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
+  const images = product?.images?.edges || [];
+  const variants = product?.variants?.edges || [];
+  const selectedVariant = variants[selectedVariantIdx]?.node;
+  const firstImage = images[0]?.node?.url;
+
+  useSEO({
+    title: product?.title || 'Produto | LOF Professional',
+    description: product?.description?.slice(0, 155) || 'Cosméticos capilares profissionais LOF Professional.',
+    type: 'product',
+    image: firstImage,
+    product: selectedVariant ? {
+      name: product!.title,
+      price: selectedVariant.price.amount,
+      currency: selectedVariant.price.currencyCode,
+      availability: selectedVariant.availableForSale ? 'InStock' : 'OutOfStock',
+      brand: 'LOF Professional',
+      description: product!.description || product!.title,
+      image: firstImage,
+    } : undefined,
+  });
+
   if (isLoading) {
     return (
       <div className="min-h-screen">
