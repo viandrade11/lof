@@ -3,6 +3,7 @@ import { Footer } from '@/components/Footer';
 import { MessageCircle, TrendingUp, Package, Headphones, ShieldCheck, CreditCard, Star, Truck, ArrowRight } from 'lucide-react';
 import b2bHero from '@/assets/b2b-hero.jpg';
 import aliancaGrafismo from '@/assets/alianca-grafismo.png';
+import { useSEO } from '@/hooks/useSEO';
 
 const WHATSAPP_URL = 'https://wa.me/5511952134275?text=Ol%C3%A1%2C%20Vi%20no%20Site%20e%20quero%20conhecer%20os%20produtos%20LOF';
 
