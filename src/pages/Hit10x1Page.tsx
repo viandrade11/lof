@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import aliancaGrafismo from '@/assets/alianca-grafismo.png';
+import { ReviewsSection } from '@/components/ReviewsSection';
 
 const PRODUCT_HANDLE = 'leave-in-hit-10x1-200ml-6903bafe7954e';
 
