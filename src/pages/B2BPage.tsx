@@ -98,6 +98,11 @@ const faqs = [
 ];
 
 const B2BPage = () => {
+  useSEO({
+    title: 'LOF Profissional — Revenda e Distribuição B2B',
+    description: 'Seja um revendedor LOF Professional. Margem competitiva, suporte dedicado, produtos profissionais registrados na Anvisa. Fale pelo WhatsApp.',
+  });
+
   return (
     <div className="min-h-screen">
       <Header />
