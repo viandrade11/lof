@@ -15,7 +15,7 @@ export function HeroBanner() {
           height={800}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-lof-black/80 via-lof-black/50 to-transparent" />
-        <img src={aliancaGrafismo} alt="" className="absolute right-[-5%] top-1/2 -translate-y-1/2 w-[45vw] max-w-[600px] opacity-[0.04] pointer-events-none select-none" aria-hidden="true" />
+        <img src={aliancaGrafismo} alt="" className="absolute right-[-5%] top-1/2 -translate-y-1/2 w-[45vw] max-w-[600px] opacity-[0.06] invert pointer-events-none select-none" aria-hidden="true" />
         <div className="absolute inset-0 flex items-center">
           <div className="container">
             <div className="max-w-lg">
