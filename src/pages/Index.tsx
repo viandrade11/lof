@@ -6,8 +6,13 @@ import { LineScienceSection } from '@/components/LineScienceSection';
 import { RoutineSection } from '@/components/RoutineSection';
 import { AboutSection } from '@/components/AboutSection';
 import { Footer } from '@/components/Footer';
+import { useSEO } from '@/hooks/useSEO';
 
 const Index = () => {
+  useSEO({
+    title: 'LOF Professional — Cosméticos Capilares Profissionais',
+    description: 'LOF Professional: cosméticos capilares profissionais com ingredientes naturais. Linhas Repair, Nutritive, Silver, Wavy, Hydrate e o icônico Hit 10x1. Sofisticadamente simples.',
+  });
   return (
     <div className="min-h-screen">
       <Header />
