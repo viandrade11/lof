@@ -84,6 +84,7 @@ export const CartDrawer = () => {
                   ))}
                 </div>
               </div>
+              <CartRecommendations />
               <div className="flex-shrink-0 space-y-4 pt-4 border-t border-border">
                 <div className="flex justify-between items-center">
                   <span className="text-sm uppercase tracking-wider">Total</span>
