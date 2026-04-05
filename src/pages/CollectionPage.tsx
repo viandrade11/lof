@@ -82,6 +82,7 @@ const CollectionPage = () => {
               <div>
                 <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-1">
                   <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
+
                   <span className="mx-2">/</span>
                   Produtos
                 </p>

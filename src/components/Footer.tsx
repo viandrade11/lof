@@ -28,7 +28,7 @@ export function Footer() {
             <h4 className="text-xs uppercase tracking-[0.2em] font-semibold mb-4">Institucional</h4>
             <ul className="space-y-2 text-xs text-background/60">
               <li><Link to="/#sobre" className="hover:text-background transition-colors">Sobre a LOF</Link></li>
-              <li><Link to="/produtos" className="hover:text-background transition-colors">Todos os Produtos</Link></li>
+              <li><Link to="/collections/all" className="hover:text-background transition-colors">Todos os Produtos</Link></li>
               <li><a href="#" className="hover:text-background transition-colors">Contato</a></li>
               <li><a href="#" className="hover:text-background transition-colors">Política de Privacidade</a></li>
             </ul>

@@ -71,7 +71,7 @@ const ProductPage = () => {
             <ChevronLeft className="h-3 w-3 mr-1" /> Home
           </Link>
           <span className="text-xs text-muted-foreground mx-2">/</span>
-          <Link to="/produtos" className="text-xs uppercase tracking-wider text-muted-foreground hover:text-foreground">
+          <Link to="/collections/all" className="text-xs uppercase tracking-wider text-muted-foreground hover:text-foreground">
             Produtos
           </Link>
           <span className="text-xs text-muted-foreground mx-2">/</span>
