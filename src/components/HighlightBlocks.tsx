@@ -64,18 +64,18 @@ export function HighlightBlocks() {
           aria-hidden="true"
         />
         <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 flex flex-col justify-end h-full">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-semibold">Tratamento Intensivo</span>
+          <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-semibold">Finalizador Premium</span>
           <h3 className="font-display text-4xl md:text-5xl text-white font-bold leading-[1] mt-2">
-            Boosters
+            Crystal Oil
           </h3>
           <p className="font-display text-sm md:text-base text-white/30 italic mt-1">
-            Potência concentrada para seus fios.
+            Brilho, maciez e proteção.
           </p>
           <p className="text-xs text-white/50 mt-3 max-w-xs leading-relaxed hidden md:block">
-            Ampolas de tratamento intensivo que potencializam os resultados dos seus cuidados capilares.
+            Sérum multi óleos com Argan, Ojon e Macadâmia. Nutre, sela as pontas e proporciona brilho intenso.
           </p>
           <span className="inline-flex items-center gap-2 mt-5 text-xs uppercase tracking-[0.2em] text-white/70 group-hover:text-white transition-colors">
-            Conhecer Produtos <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+            Conhecer Produto <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
           </span>
         </div>
       </Link>
