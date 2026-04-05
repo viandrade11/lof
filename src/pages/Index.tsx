@@ -4,7 +4,6 @@ import { HighlightBlocks } from '@/components/HighlightBlocks';
 import { HeroBanner } from '@/components/HeroBanner';
 import { LineScienceSection } from '@/components/LineScienceSection';
 import { RoutineSection } from '@/components/RoutineSection';
-import { EducationSection } from '@/components/EducationSection';
 import { AboutSection } from '@/components/AboutSection';
 import { Footer } from '@/components/Footer';
 
@@ -18,7 +17,6 @@ const Index = () => {
         <HeroBanner />
         <LineScienceSection />
         <RoutineSection />
-        <EducationSection />
         <AboutSection />
       </div>
       <Footer />
