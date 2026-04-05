@@ -409,11 +409,13 @@ function HitUpsell({ product }: { product: any }) {
   const [addingId, setAddingId] = useState<string | null>(null);
 
   if (!allProducts || !product) return null;
-  const recs = getSmartRecommendations(
-    { title: product.title, handle: product.handle, productType: product.productType || 'Finalizadores' },
-    allProducts, [], 4,
-  );
-  if (recs.length === 0) return null;
+
+  // Show all boosters (60ml only) for Hit LP
+  const boosters = allProducts.filter(p => {
+    const title = p.node.title.toLowerCase();
+    return /booster/i.test(title) && /60ml/i.test(title);
+  });
+  if (boosters.length === 0) return null;
 
   const handleAdd = async (rec: typeof recs[0]) => {
     const variant = rec.product.node.variants.edges[0]?.node;
