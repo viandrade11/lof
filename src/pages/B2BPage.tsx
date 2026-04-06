@@ -101,6 +101,12 @@ const B2BPage = () => {
   useSEO({
     title: 'LOF Profissional — Revenda e Distribuição B2B',
     description: 'Seja um revendedor LOF Professional. Margem competitiva, suporte dedicado, produtos profissionais registrados na Anvisa. Fale pelo WhatsApp.',
+    keywords: 'revenda cosméticos, distribuição capilar, atacado cosméticos, LOF Professional B2B, revender shampoo profissional',
+    breadcrumbs: [
+      { name: 'LOF Professional', url: '/' },
+      { name: 'Profissional B2B', url: '/profissional' },
+    ],
+    faq: faqs.map(f => ({ question: f.q, answer: f.a })),
   });
 
   return (

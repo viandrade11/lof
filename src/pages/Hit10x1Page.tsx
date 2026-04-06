@@ -59,8 +59,15 @@ const Hit10x1Page = () => {
   useSEO({
     title: 'Hit 10x1 Leave-in — 10 Benefícios em 1 Produto',
     description: 'Leave-in Hit 10x1 LOF Professional: proteção térmica até 230°C, hidratação, anti-frizz, brilho, reconstrução e mais. 10 benefícios em uma aplicação. Para todos os tipos de cabelo.',
+    keywords: 'leave-in profissional, proteção térmica cabelo, anti-frizz, hit 10x1, LOF Professional, leave-in 10 benefícios, reconstrução capilar',
     type: 'product',
     image: heroImage,
+    breadcrumbs: [
+      { name: 'LOF Professional', url: '/' },
+      { name: 'Produtos', url: '/collections/all' },
+      { name: 'Hit 10x1', url: '/hit-10x1' },
+    ],
+    faq: faqs.map(f => ({ question: f.q, answer: f.a })),
     product: variant ? {
       name: 'LOF Hit 10x1 Leave-in 200ml',
       price: variant.price.amount,
@@ -69,6 +76,7 @@ const Hit10x1Page = () => {
       brand: 'LOF Professional',
       description: 'Leave-in multiuso com 10 benefícios: proteção térmica até 230°C, hidratação intensa, anti-frizz, brilho, desembaraço, reconstrução, proteção UV, selante de pontas, nutrição e antioxidante.',
       image: heroImage,
+      category: 'Cosméticos > Cabelo > Leave-in',
     } : undefined,
   });
 
@@ -84,6 +92,7 @@ const Hit10x1Page = () => {
     }
   }, [product?.id]);
 
+  const handleAddToCart = async () => {
     if (!variant || !product) return;
     await addItem({
       product: { node: product },
