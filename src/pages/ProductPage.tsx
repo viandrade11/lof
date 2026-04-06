@@ -115,8 +115,14 @@ const ProductPage = () => {
   useSEO({
     title: product?.title || 'Produto | LOF Professional',
     description: product?.description?.slice(0, 155) || 'Cosméticos capilares profissionais LOF Professional.',
+    keywords: product ? `${product.title}, LOF Professional, cosméticos capilares, ${product.productType || 'tratamento capilar'}` : undefined,
     type: 'product',
     image: firstImage,
+    breadcrumbs: product ? [
+      { name: 'LOF Professional', url: '/' },
+      { name: 'Produtos', url: '/collections/all' },
+      { name: product.title, url: `/products/${handle}` },
+    ] : undefined,
     product: selectedVariant ? {
       name: product!.title,
       price: selectedVariant.price.amount,
@@ -125,6 +131,7 @@ const ProductPage = () => {
       brand: 'LOF Professional',
       description: product!.description || product!.title,
       image: firstImage,
+      category: `Cosméticos > Cabelo > ${product!.productType || 'Tratamento'}`,
     } : undefined,
   });
 
