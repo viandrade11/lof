@@ -23,6 +23,8 @@ const TYPE_MAP: Record<string, string[]> = {
   'Condicionador': ['condicionador'],
   'Máscara': ['máscara', 'mascara'],
   'Leave-in': ['leave-in'],
+  'Finalizador': ['finalizador', 'leave-in', 'sérum', 'serum', 'crystal oil', 'spray'],
+  'Tratamento': ['tratamento', 'booster', 'máscara', 'mascara', 'ampola'],
   'Booster': ['booster'],
   'Sérum': ['sérum', 'serum', 'crystal oil'],
   'Kit': ['kit'],
@@ -49,18 +51,23 @@ function matchesType(title: string, type: string) {
 const CollectionPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeLinhaParam = searchParams.get('linha') || '';
+  const activeTipoParam = searchParams.get('tipo') || '';
 
   const [activeLines, setActiveLines] = useState<string[]>(activeLinhaParam ? [activeLinhaParam] : []);
-  const [activeTypes, setActiveTypes] = useState<string[]>([]);
+  const [activeTypes, setActiveTypes] = useState<string[]>(activeTipoParam ? [activeTipoParam] : []);
   const [sort, setSort] = useState('relevance');
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [expandedSections, setExpandedSections] = useState({ linha: true, tipo: true });
 
-  // Sync URL param
+  // Sync URL params
   useEffect(() => {
-    const param = searchParams.get('linha');
-    if (param && !activeLines.includes(param)) {
-      setActiveLines([param]);
+    const linhaParam = searchParams.get('linha');
+    const tipoParam = searchParams.get('tipo');
+    if (linhaParam && !activeLines.includes(linhaParam)) {
+      setActiveLines([linhaParam]);
+    }
+    if (tipoParam && !activeTypes.includes(tipoParam)) {
+      setActiveTypes([tipoParam]);
     }
   }, [searchParams]);
 
