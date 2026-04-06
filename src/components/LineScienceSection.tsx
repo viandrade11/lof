@@ -132,9 +132,9 @@ export function LineScienceSection() {
                 </Link>
               </div>
 
-              <div className={`${line.colorClass} aspect-[4/3] md:aspect-square flex items-center justify-center ${index % 2 === 1 ? 'md:order-1' : ''}`}>
+              <div className={`${line.colorClass} aspect-[4/3] md:aspect-square flex items-center justify-center overflow-hidden ${index % 2 === 1 ? 'md:order-1' : ''}`}>
                 <div className="text-center text-white p-8">
-                  <p className="font-display text-6xl md:text-8xl font-bold opacity-20 uppercase">{line.name}</p>
+                  <p className="font-display text-5xl md:text-8xl font-bold opacity-20 uppercase break-all">{line.name}</p>
                 </div>
               </div>
             </div>
