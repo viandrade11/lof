@@ -114,20 +114,20 @@ export const CartDrawer = () => {
                   </div>
                 )}
                 {/* Free shipping progress */}
-                {totalPrice < 199 && (
+                {totalPrice < 299 && (
                   <div className="text-center">
                     <p className="text-xs text-muted-foreground">
-                      Faltam <span className="font-semibold text-foreground">{formatPrice((199 - totalPrice).toString(), items[0]?.price.currencyCode || 'BRL')}</span> para <span className="font-semibold text-green-600">frete grátis</span>
+                      Faltam <span className="font-semibold text-foreground">{formatPrice((299 - totalPrice).toString(), items[0]?.price.currencyCode || 'BRL')}</span> para <span className="font-semibold text-green-600">frete grátis</span>
                     </p>
                     <div className="w-full bg-muted rounded-full h-1.5 mt-1.5">
                       <div
                         className="bg-green-500 h-1.5 rounded-full transition-all duration-500"
-                        style={{ width: `${Math.min(100, (totalPrice / 199) * 100)}%` }}
+                        style={{ width: `${Math.min(100, (totalPrice / 299) * 100)}%` }}
                       />
                     </div>
                   </div>
                 )}
-                {totalPrice >= 199 && (
+                {totalPrice >= 299 && (
                   <p className="text-xs text-center font-semibold text-green-600">✓ Você ganhou frete grátis!</p>
                 )}
                 <div className="flex justify-between items-center">

@@ -8,7 +8,7 @@ import { Footer } from '@/components/Footer';
 import { ProductDetails } from '@/components/ProductDetails';
 import { UpsellBlock } from '@/components/UpsellBlock';
 import { getSmartRecommendations } from '@/lib/productRecommendations';
-import { Loader2, ChevronLeft, ShoppingBag, Minus, Plus } from 'lucide-react';
+import { Loader2, ChevronLeft, ShoppingBag, Minus, Plus, Truck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useSEO } from '@/hooks/useSEO';
