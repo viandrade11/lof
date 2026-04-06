@@ -1,5 +1,5 @@
-import { useParams, Link } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useProductByHandle, useProducts } from '@/hooks/useProducts';
 import { useCartStore } from '@/stores/cartStore';
 import { formatPrice } from '@/lib/shopify';
@@ -59,6 +59,46 @@ const ProductPage = () => {
   const variants = product?.variants?.edges || [];
   const selectedVariant = variants[selectedVariantIdx]?.node;
   const firstImage = images[0]?.node?.url;
+  const navigate = useNavigate();
+
+  // Detect size from title (e.g. "300ml", "1L", "60ml", "15ml", "250ml", "1000ml")
+  const sizeRegex = /\b(\d+(?:\.\d+)?\s*(?:ml|l|g|kg))\b/i;
+  const extractSize = (title: string) => {
+    const match = title.match(sizeRegex);
+    return match ? match[1].trim() : null;
+  };
+  const extractBaseName = (title: string) => {
+    return title.replace(sizeRegex, '').replace(/\s+/g, ' ').trim();
+  };
+
+  const currentSize = product ? extractSize(product.title) : null;
+  const baseName = product ? extractBaseName(product.title) : '';
+
+  // Fetch all products to find siblings with different sizes
+  const { data: allProducts } = useProducts(100);
+  const sizeVariants = useMemo(() => {
+    if (!allProducts || !product || !currentSize) return [];
+    return allProducts
+      .filter(p => {
+        const pSize = extractSize(p.node.title);
+        const pBase = extractBaseName(p.node.title);
+        return pSize && pBase.toLowerCase() === baseName.toLowerCase();
+      })
+      .map(p => ({
+        size: extractSize(p.node.title)!,
+        handle: p.node.handle,
+        price: p.node.priceRange.minVariantPrice,
+        isCurrent: p.node.handle === handle,
+      }))
+      .sort((a, b) => {
+        const toMl = (s: string) => {
+          const num = parseFloat(s);
+          if (s.toLowerCase().includes('l') && !s.toLowerCase().includes('ml')) return num * 1000;
+          return num;
+        };
+        return toMl(a.size) - toMl(b.size);
+      });
+  }, [allProducts, product, baseName, currentSize, handle]);
 
   // Track when the main Add to Cart button goes out of view
   useEffect(() => {
@@ -153,6 +193,26 @@ const ProductPage = () => {
           )}
           <h1 className="font-display text-2xl font-bold leading-tight break-words">{product.title}</h1>
           <PriceDisplay variant={selectedVariant} size="lg" />
+          {sizeVariants.length > 1 && (
+            <div className="mt-4">
+              <p className="text-xs uppercase tracking-wider font-medium mb-2">Tamanho</p>
+              <div className="flex flex-wrap gap-2">
+                {sizeVariants.map(sv => (
+                  <button
+                    key={sv.handle}
+                    onClick={() => !sv.isCurrent && navigate(`/products/${sv.handle}`)}
+                    className={`h-9 min-w-[40px] px-3 text-xs border transition-colors ${
+                      sv.isCurrent
+                        ? 'border-foreground bg-foreground text-background'
+                        : 'border-border hover:border-foreground'
+                    }`}
+                  >
+                    {sv.size}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="grid md:grid-cols-[1fr_420px] lg:grid-cols-[1fr_480px]">
@@ -245,7 +305,28 @@ const ProductPage = () => {
               </div>
             )}
 
-            {/* Quantity Selector */}
+            {/* Size Selector (cross-product) */}
+            {sizeVariants.length > 1 && (
+              <div className="mt-6 md:mt-8">
+                <p className="text-xs uppercase tracking-wider font-medium mb-3">Tamanho</p>
+                <div className="flex flex-wrap gap-2">
+                  {sizeVariants.map(sv => (
+                    <button
+                      key={sv.handle}
+                      onClick={() => !sv.isCurrent && navigate(`/products/${sv.handle}`)}
+                      className={`h-10 min-w-[44px] px-4 text-xs border transition-colors ${
+                        sv.isCurrent
+                          ? 'border-foreground bg-foreground text-background'
+                          : 'border-border hover:border-foreground'
+                      }`}
+                    >
+                      {sv.size}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div className="mt-6 flex items-center border border-border w-fit">
               <button
                 onClick={() => setQuantity(q => Math.max(1, q - 1))}
