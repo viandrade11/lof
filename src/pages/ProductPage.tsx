@@ -1,5 +1,5 @@
-import { useParams, Link } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useProductByHandle, useProducts } from '@/hooks/useProducts';
 import { useCartStore } from '@/stores/cartStore';
 import { formatPrice } from '@/lib/shopify';
