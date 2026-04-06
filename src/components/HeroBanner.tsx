@@ -19,8 +19,8 @@ export function HeroBanner() {
         </div>
 
         {/* Subtle warm gradient overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#f5f0eb] via-[#f5f0eb]/60 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#f5f0eb]/80 via-transparent to-[#f5f0eb]/40 md:from-[#f5f0eb]/70 md:to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#f5f0eb] via-[#f5f0eb]/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#f5f0eb]/90 via-[#f5f0eb]/50 to-transparent" />
 
         {/* Decorative grafismo */}
         <img
