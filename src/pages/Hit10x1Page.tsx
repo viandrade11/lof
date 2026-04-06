@@ -319,7 +319,7 @@ const Hit10x1Page = () => {
               </p>
               <div className="mt-8 grid grid-cols-3 gap-3 md:gap-6 text-center">
                 <div>
-                  <p className="font-display text-4xl font-bold text-foreground">95%</p>
+                  <p className="font-display text-2xl md:text-4xl font-bold text-foreground">95%</p>
                   <p className="text-xs text-muted-foreground mt-1">Mais brilho</p>
                 </div>
                 <div>
