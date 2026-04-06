@@ -410,7 +410,7 @@ const CrystalOilPage = () => {
                 size="lg"
               >
                 <ShoppingBag className="h-4 w-4 mr-2" />
-                Comprar Crystal Oil — {formatPrice(variant.price.amount, variant.price.currencyCode)}
+                Comprar Crystal Oil — <PriceInline variant={variant} discountTextClass="text-green-300" />
               </Button>
               <Link
                 to="/collections/all"
