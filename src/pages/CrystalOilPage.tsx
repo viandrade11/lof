@@ -132,7 +132,7 @@ const CrystalOilPage = () => {
                         {cartLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : (
                           <>
                             <ShoppingBag className="h-4 w-4 mr-2" />
-                            Comprar — {formatPrice(variant.price.amount, variant.price.currencyCode)}
+                            Comprar — <PriceInline variant={variant} discountTextClass="text-green-300" />
                           </>
                         )}
                       </Button>
