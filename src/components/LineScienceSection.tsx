@@ -1,5 +1,36 @@
 import { Link } from 'react-router-dom';
 import { lineData } from '@/data/lineData';
+import { useProducts } from '@/hooks/useProducts';
+
+function LineImage({ line }: { line: typeof lineData[number] }) {
+  const { data: products } = useProducts(4, line.query);
+  const image = products?.[0]?.node?.images?.edges?.[0]?.node?.url;
+
+  return (
+    <div
+      className="relative aspect-[4/3] md:aspect-square overflow-hidden"
+      style={{ backgroundColor: `hsl(var(${line.colorVar}))` }}
+    >
+      {image && (
+        <img
+          src={image}
+          alt={`Linha ${line.name}`}
+          className="absolute inset-0 w-full h-full object-contain object-center opacity-40 mix-blend-luminosity"
+          loading="lazy"
+        />
+      )}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `linear-gradient(to top, hsl(var(${line.colorVar}) / 0.9) 0%, hsl(var(${line.colorVar}) / 0.4) 50%, hsl(var(${line.colorVar}) / 0.15) 100%)`,
+        }}
+      />
+      <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-10">
+        <p className="font-display text-4xl md:text-6xl font-bold text-white/20 uppercase">{line.name}</p>
+      </div>
+    </div>
+  );
+}
 
 export function LineScienceSection() {
   return (
@@ -60,10 +91,8 @@ export function LineScienceSection() {
                 </Link>
               </div>
 
-              <div className={`${line.colorClass} aspect-[4/3] md:aspect-square flex items-center justify-center overflow-hidden ${index % 2 === 1 ? 'md:order-1' : ''}`}>
-                <div className="text-center text-white p-8">
-                  <p className="font-display text-5xl md:text-8xl font-bold opacity-20 uppercase break-all">{line.name}</p>
-                </div>
+              <div className={index % 2 === 1 ? 'md:order-1' : ''}>
+                <LineImage line={line} />
               </div>
             </div>
           ))}
