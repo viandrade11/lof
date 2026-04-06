@@ -377,6 +377,9 @@ const Hit10x1Page = () => {
           </p>
           {variant ? (
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+              <div className="text-2xl font-bold text-background mb-4">
+                <PriceInline variant={variant} discountTextClass="text-green-300" />
+              </div>
               <Button
                 onClick={handleAddToCart}
                 disabled={cartLoading}
@@ -384,7 +387,7 @@ const Hit10x1Page = () => {
                 size="lg"
               >
                 <ShoppingBag className="h-4 w-4 mr-2" />
-                Comprar Hit 10x1 — <PriceInline variant={variant} discountTextClass="text-green-300" />
+                Comprar Hit 10x1
               </Button>
               <Link
                 to="/collections/all"
