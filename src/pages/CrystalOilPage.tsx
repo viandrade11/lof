@@ -91,6 +91,7 @@ const CrystalOilPage = () => {
     }
   }, [activeProduct?.id]);
 
+  const handleAddToCart = async () => {
     if (!variant || !activeProduct) return;
     await addItem({
       product: { node: activeProduct },

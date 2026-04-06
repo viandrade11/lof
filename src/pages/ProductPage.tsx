@@ -140,6 +140,7 @@ const ProductPage = () => {
     }
   }, [product?.id]);
 
+  if (isLoading) {
     return (
       <div className="min-h-screen">
         <Header />

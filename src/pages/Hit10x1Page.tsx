@@ -84,6 +84,7 @@ const Hit10x1Page = () => {
     }
   }, [product?.id]);
 
+  const handleAddToCart = async () => {
     if (!variant || !product) return;
     await addItem({
       product: { node: product },
