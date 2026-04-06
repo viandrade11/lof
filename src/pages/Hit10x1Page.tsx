@@ -379,7 +379,7 @@ const Hit10x1Page = () => {
                 size="lg"
               >
                 <ShoppingBag className="h-4 w-4 mr-2" />
-                Comprar Hit 10x1 — {formatPrice(variant.price.amount, variant.price.currencyCode)}
+                Comprar Hit 10x1 — <PriceInline variant={variant} discountTextClass="text-green-300" />
               </Button>
               <Link
                 to="/collections/all"
