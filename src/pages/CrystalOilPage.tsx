@@ -354,7 +354,7 @@ const CrystalOilPage = () => {
                   <p className="text-xs text-muted-foreground mt-1">Mais brilho</p>
                 </div>
                 <div>
-                  <p className="font-display text-4xl font-bold text-foreground">93%</p>
+                  <p className="font-display text-2xl md:text-4xl font-bold text-foreground">93%</p>
                   <p className="text-xs text-muted-foreground mt-1">Pontas seladas</p>
                 </div>
                 <div>
