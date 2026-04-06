@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useProductByHandle, useProducts } from '@/hooks/useProducts';
 import { useCartStore } from '@/stores/cartStore';
 import { formatPrice } from '@/lib/shopify';
@@ -20,11 +20,25 @@ const ProductPage = () => {
   const cartLoading = useCartStore(state => state.isLoading);
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [showStickyBar, setShowStickyBar] = useState(false);
+  const addToCartRef = useRef<HTMLButtonElement>(null);
 
   const images = product?.images?.edges || [];
   const variants = product?.variants?.edges || [];
   const selectedVariant = variants[selectedVariantIdx]?.node;
   const firstImage = images[0]?.node?.url;
+
+  // Track when the main Add to Cart button goes out of view
+  useEffect(() => {
+    const btn = addToCartRef.current;
+    if (!btn) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowStickyBar(!entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(btn);
+    return () => observer.disconnect();
+  }, [product]);
 
   useSEO({
     title: product?.title || 'Produto | LOF Professional',
@@ -98,6 +112,21 @@ const ProductPage = () => {
           <span className="text-xs text-foreground">{product.title}</span>
         </div>
 
+        {/* Mobile: Title above images */}
+        <div className="md:hidden p-6 pb-3">
+          {product.productType && (
+            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">
+              Linha {product.productType}
+            </p>
+          )}
+          <h1 className="font-display text-2xl font-bold leading-tight break-words">{product.title}</h1>
+          <div className="mt-2 flex items-baseline gap-3">
+            <p className="text-xl font-semibold">
+              {selectedVariant && formatPrice(selectedVariant.price.amount, selectedVariant.price.currencyCode)}
+            </p>
+          </div>
+        </div>
+
         <div className="grid md:grid-cols-[1fr_420px] lg:grid-cols-[1fr_480px]">
           {/* Left: Image Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2">
@@ -121,22 +150,24 @@ const ProductPage = () => {
 
           {/* Right: Sticky Product Info */}
           <div className="md:sticky md:top-20 md:h-fit md:self-start p-6 md:p-10 lg:p-12 overflow-hidden">
-            {product.productType && (
-              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">
-                Linha {product.productType}
-              </p>
-            )}
-            <h1 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold leading-tight break-words">{product.title}</h1>
-            
-            <div className="mt-4 flex items-baseline gap-3">
-              <p className="text-xl md:text-2xl font-semibold">
-                {selectedVariant && formatPrice(selectedVariant.price.amount, selectedVariant.price.currencyCode)}
-              </p>
+            {/* Desktop: Title (hidden on mobile since it's shown above) */}
+            <div className="hidden md:block">
+              {product.productType && (
+                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">
+                  Linha {product.productType}
+                </p>
+              )}
+              <h1 className="font-display text-3xl lg:text-4xl font-bold leading-tight break-words">{product.title}</h1>
+              <div className="mt-4 flex items-baseline gap-3">
+                <p className="text-2xl font-semibold">
+                  {selectedVariant && formatPrice(selectedVariant.price.amount, selectedVariant.price.currencyCode)}
+                </p>
+              </div>
             </div>
 
             {/* Variant Selector */}
             {hasMultipleVariants && product.options && (
-              <div className="mt-8">
+              <div className="mt-6 md:mt-8">
                 {product.options.map((option: { name: string; values: string[] }) => (
                   <div key={option.name} className="mb-5">
                     <p className="text-xs uppercase tracking-wider font-medium mb-3">{option.name}</p>
@@ -188,6 +219,7 @@ const ProductPage = () => {
 
             {/* Add to Cart */}
             <Button
+              ref={addToCartRef}
               onClick={handleAddToCart}
               disabled={cartLoading || !selectedVariant?.availableForSale}
               className="w-full h-14 mt-6 uppercase tracking-[0.2em] text-xs font-semibold"
@@ -226,6 +258,55 @@ const ProductPage = () => {
         {/* Rich Content Sections */}
         <ProductDetails product={product} />
       </div>
+
+      {/* Sticky Add to Cart Bar */}
+      {showStickyBar && selectedVariant && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-background border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.08)] animate-in slide-in-from-bottom-4 duration-300">
+          <div className="container flex items-center gap-3 py-3">
+            <div className="flex-1 min-w-0 hidden sm:block">
+              <p className="text-sm font-semibold truncate">{product.title}</p>
+              <p className="text-sm text-muted-foreground">
+                {formatPrice(selectedVariant.price.amount, selectedVariant.price.currencyCode)}
+              </p>
+            </div>
+            <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
+              <div className="flex items-center border border-border">
+                <button
+                  onClick={() => setQuantity(q => Math.max(1, q - 1))}
+                  className="h-10 w-10 flex items-center justify-center hover:bg-muted transition-colors"
+                >
+                  <Minus className="h-3.5 w-3.5" />
+                </button>
+                <span className="h-10 w-8 flex items-center justify-center text-sm font-medium border-x border-border">
+                  {quantity}
+                </span>
+                <button
+                  onClick={() => setQuantity(q => q + 1)}
+                  className="h-10 w-10 flex items-center justify-center hover:bg-muted transition-colors"
+                >
+                  <Plus className="h-3.5 w-3.5" />
+                </button>
+              </div>
+              <Button
+                onClick={handleAddToCart}
+                disabled={cartLoading || !selectedVariant.availableForSale}
+                className="flex-1 sm:flex-none h-10 sm:h-11 sm:px-8 uppercase tracking-[0.15em] text-xs font-semibold"
+              >
+                {cartLoading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <>
+                    <ShoppingBag className="h-4 w-4 mr-2" />
+                    <span className="sm:hidden">{formatPrice(selectedVariant.price.amount, selectedVariant.price.currencyCode)}</span>
+                    <span className="hidden sm:inline">Adicionar ao Carrinho</span>
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <Footer />
     </div>
   );

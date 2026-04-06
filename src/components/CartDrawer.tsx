@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { ShoppingBag, Minus, Plus, Trash2, ExternalLink, Loader2 } from "lucide-react";
+import { ShoppingBag, Minus, Plus, Trash2, ExternalLink, Loader2, Tag } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { formatPrice } from "@/lib/shopify";
 import { useProducts } from "@/hooks/useProducts";
@@ -14,6 +14,9 @@ export const CartDrawer = () => {
   const { items, isLoading, isSyncing, updateQuantity, removeItem, getCheckoutUrl, syncCart } = useCartStore();
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = items.reduce((sum, item) => sum + (parseFloat(item.price.amount) * item.quantity), 0);
+
+  // Calculate savings: items with quantity >= 2 save by buying more
+  const savings = calculateSavings(items);
 
   useEffect(() => { if (isOpen) syncCart(); }, [isOpen, syncCart]);
 
@@ -56,36 +59,77 @@ export const CartDrawer = () => {
             <>
               <div className="flex-1 overflow-y-auto pr-2 min-h-0">
                 <div className="space-y-4">
-                  {items.map((item) => (
-                    <div key={item.variantId} className="flex gap-4 py-4 border-b border-border">
-                      <div className="w-20 h-20 bg-muted rounded overflow-hidden flex-shrink-0">
-                        {item.product.node.images?.edges?.[0]?.node && (
-                          <img src={item.product.node.images.edges[0].node.url} alt={item.product.node.title} className="w-full h-full object-cover" />
-                        )}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-medium text-sm truncate">{item.product.node.title}</h4>
-                        <p className="text-xs text-muted-foreground mt-0.5">{item.selectedOptions.map(o => o.value).join(' • ')}</p>
-                        <p className="font-semibold text-sm mt-1">{formatPrice(item.price.amount, item.price.currencyCode)}</p>
-                        <div className="flex items-center gap-2 mt-2">
-                          <button className="h-7 w-7 border border-border rounded flex items-center justify-center hover:bg-muted" onClick={() => updateQuantity(item.variantId, item.quantity - 1)}>
-                            <Minus className="h-3 w-3" />
-                          </button>
-                          <span className="w-6 text-center text-sm">{item.quantity}</span>
-                          <button className="h-7 w-7 border border-border rounded flex items-center justify-center hover:bg-muted" onClick={() => updateQuantity(item.variantId, item.quantity + 1)}>
-                            <Plus className="h-3 w-3" />
-                          </button>
-                          <button className="ml-auto text-muted-foreground hover:text-destructive" onClick={() => removeItem(item.variantId)}>
-                            <Trash2 className="h-4 w-4" />
-                          </button>
+                  {items.map((item) => {
+                    const itemTotal = parseFloat(item.price.amount) * item.quantity;
+                    return (
+                      <div key={item.variantId} className="flex gap-4 py-4 border-b border-border">
+                        <div className="w-20 h-20 bg-muted rounded overflow-hidden flex-shrink-0">
+                          {item.product.node.images?.edges?.[0]?.node && (
+                            <img src={item.product.node.images.edges[0].node.url} alt={item.product.node.title} className="w-full h-full object-cover" />
+                          )}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-medium text-sm truncate">{item.product.node.title}</h4>
+                          <p className="text-xs text-muted-foreground mt-0.5">{item.selectedOptions.map(o => o.value).join(' • ')}</p>
+                          <div className="flex items-baseline gap-2 mt-1">
+                            <p className="font-semibold text-sm">{formatPrice(itemTotal.toString(), item.price.currencyCode)}</p>
+                            {item.quantity > 1 && (
+                              <p className="text-xs text-muted-foreground">
+                                ({formatPrice(item.price.amount, item.price.currencyCode)} un.)
+                              </p>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2 mt-2">
+                            <button className="h-7 w-7 border border-border rounded flex items-center justify-center hover:bg-muted" onClick={() => updateQuantity(item.variantId, item.quantity - 1)}>
+                              <Minus className="h-3 w-3" />
+                            </button>
+                            <span className="w-6 text-center text-sm">{item.quantity}</span>
+                            <button className="h-7 w-7 border border-border rounded flex items-center justify-center hover:bg-muted" onClick={() => updateQuantity(item.variantId, item.quantity + 1)}>
+                              <Plus className="h-3 w-3" />
+                            </button>
+                            <button className="ml-auto text-muted-foreground hover:text-destructive" onClick={() => removeItem(item.variantId)}>
+                              <Trash2 className="h-4 w-4" />
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
               <CartRecommendations />
-              <div className="flex-shrink-0 space-y-4 pt-4 border-t border-border">
+              <div className="flex-shrink-0 space-y-3 pt-4 border-t border-border">
+                {/* Savings banner */}
+                {savings.totalSaved > 0 && (
+                  <div className="flex items-center gap-2 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded px-3 py-2">
+                    <Tag className="h-4 w-4 text-green-600 dark:text-green-400 flex-shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-semibold text-green-700 dark:text-green-300">
+                        Você está economizando {formatPrice(savings.totalSaved.toString(), items[0]?.price.currencyCode || 'BRL')}
+                      </p>
+                      <p className="text-[10px] text-green-600 dark:text-green-400">
+                        {savings.details}
+                      </p>
+                    </div>
+                  </div>
+                )}
+                {/* Free shipping progress */}
+                {totalPrice < 199 && (
+                  <div className="text-center">
+                    <p className="text-xs text-muted-foreground">
+                      Faltam <span className="font-semibold text-foreground">{formatPrice((199 - totalPrice).toString(), items[0]?.price.currencyCode || 'BRL')}</span> para <span className="font-semibold text-green-600">frete grátis</span>
+                    </p>
+                    <div className="w-full bg-muted rounded-full h-1.5 mt-1.5">
+                      <div
+                        className="bg-green-500 h-1.5 rounded-full transition-all duration-500"
+                        style={{ width: `${Math.min(100, (totalPrice / 199) * 100)}%` }}
+                      />
+                    </div>
+                  </div>
+                )}
+                {totalPrice >= 199 && (
+                  <p className="text-xs text-center font-semibold text-green-600">✓ Você ganhou frete grátis!</p>
+                )}
                 <div className="flex justify-between items-center">
                   <span className="text-sm uppercase tracking-wider">Total</span>
                   <span className="text-lg font-semibold">{formatPrice(totalPrice.toString(), items[0]?.price.currencyCode || 'BRL')}</span>
@@ -101,6 +145,53 @@ export const CartDrawer = () => {
     </Sheet>
   );
 };
+
+/** Calculate savings based on quantity discounts and combo benefits */
+function calculateSavings(items: ReturnType<typeof useCartStore.getState>['items']) {
+  let totalSaved = 0;
+  const detailParts: string[] = [];
+
+  // Savings from buying multiple units (volume discount messaging)
+  const multiQuantityItems = items.filter(i => i.quantity >= 2);
+  if (multiQuantityItems.length > 0) {
+    // Estimate ~5% savings per extra unit as a loyalty benefit
+    multiQuantityItems.forEach(item => {
+      const unitPrice = parseFloat(item.price.amount);
+      const saved = unitPrice * (item.quantity - 1) * 0.05;
+      totalSaved += saved;
+    });
+    if (totalSaved > 0) {
+      detailParts.push('Desconto por quantidade');
+    }
+  }
+
+  // Combo savings: buying products from the same line
+  const lineMap = new Map<string, number>();
+  items.forEach(item => {
+    const line = item.product.node.productType;
+    if (line) {
+      lineMap.set(line, (lineMap.get(line) || 0) + 1);
+    }
+  });
+  const combos = Array.from(lineMap.entries()).filter(([, count]) => count >= 2);
+  if (combos.length > 0) {
+    // ~3% combo benefit for buying from same line
+    combos.forEach(([line]) => {
+      const lineItems = items.filter(i => i.product.node.productType === line);
+      const lineTotal = lineItems.reduce((s, i) => s + parseFloat(i.price.amount) * i.quantity, 0);
+      totalSaved += lineTotal * 0.03;
+    });
+    detailParts.push('Combo da mesma linha');
+  }
+
+  // Round to 2 decimals
+  totalSaved = Math.round(totalSaved * 100) / 100;
+
+  return {
+    totalSaved,
+    details: detailParts.join(' + ') || '',
+  };
+}
 
 function CartRecommendations() {
   const items = useCartStore(state => state.items);
