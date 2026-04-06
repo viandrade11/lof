@@ -55,6 +55,7 @@ const ProductPage = () => {
   const addToCartRef = useRef<HTMLButtonElement>(null);
 
   const images = product?.images?.edges || [];
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const variants = product?.variants?.edges || [];
   const selectedVariant = variants[selectedVariantIdx]?.node;
   const firstImage = images[0]?.node?.url;
