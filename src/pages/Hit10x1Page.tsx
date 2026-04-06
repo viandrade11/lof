@@ -327,7 +327,7 @@ const Hit10x1Page = () => {
                   <p className="text-xs text-muted-foreground mt-1">Menos frizz</p>
                 </div>
                 <div>
-                  <p className="font-display text-4xl font-bold text-foreground">92%</p>
+                  <p className="font-display text-2xl md:text-4xl font-bold text-foreground">92%</p>
                   <p className="text-xs text-muted-foreground mt-1">Mais maciez</p>
                 </div>
               </div>
