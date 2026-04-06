@@ -408,6 +408,9 @@ const CrystalOilPage = () => {
           </p>
           {variant ? (
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+              <div className="text-2xl font-bold text-amber-100 mb-4">
+                <PriceInline variant={variant} discountTextClass="text-green-300" />
+              </div>
               <Button
                 onClick={handleAddToCart}
                 disabled={cartLoading}
@@ -415,7 +418,7 @@ const CrystalOilPage = () => {
                 size="lg"
               >
                 <ShoppingBag className="h-4 w-4 mr-2" />
-                Comprar Crystal Oil — <PriceInline variant={variant} discountTextClass="text-green-300" />
+                Comprar Crystal Oil
               </Button>
               <Link
                 to="/collections/all"
