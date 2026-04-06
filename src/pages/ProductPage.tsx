@@ -259,6 +259,14 @@ const ProductPage = () => {
               )}
             </Button>
 
+            {/* Free shipping sticker */}
+            <div className="flex items-center gap-2 mt-3 px-3 py-2.5 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-900 rounded-md">
+              <Truck className="h-4 w-4 text-green-600 flex-shrink-0" />
+              <p className="text-xs text-green-700 dark:text-green-400">
+                <span className="font-semibold">Frete grátis</span> para compras acima de R$ 299
+              </p>
+            </div>
+
             {/* Upsell Block */}
             <ProductPageUpsell product={product} />
 
