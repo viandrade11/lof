@@ -228,7 +228,7 @@ const Hit10x1Page = () => {
                     Comprar agora
                   </Button>
                   <span className="text-2xl font-bold text-background">
-                    {formatPrice(variant.price.amount, variant.price.currencyCode)}
+                    <PriceInline variant={variant} discountTextClass="text-green-300" />
                   </span>
                 </div>
               )}
