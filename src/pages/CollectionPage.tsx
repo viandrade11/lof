@@ -4,8 +4,9 @@ import { useProducts } from '@/hooks/useProducts';
 import { ProductCard } from '@/components/ProductCard';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { Loader2, SlidersHorizontal, X, ChevronDown } from 'lucide-react';
+import { Loader2, SlidersHorizontal, X, ChevronDown, Sparkles, Droplets, Shield } from 'lucide-react';
 import { useSEO } from '@/hooks/useSEO';
+import { lineData } from '@/data/lineData';
 const LINE_COLORS: Record<string, string> = {
   Repair: 'bg-lof-repair',
   Nutritive: 'bg-lof-nutritive',
@@ -244,6 +245,10 @@ const CollectionPage = () => {
     </div>
   );
 
+  const activeLineInfo = activeLines.length === 1
+    ? lineData.find(l => l.query.toLowerCase() === activeLines[0].toLowerCase() || l.name.toLowerCase() === activeLines[0].toLowerCase())
+    : null;
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -261,6 +266,55 @@ const CollectionPage = () => {
             </h1>
           </div>
         </div>
+
+        {/* Line Info Banner */}
+        {activeLineInfo && (
+          <div className="border-b border-border" style={{ background: `linear-gradient(135deg, hsl(var(${activeLineInfo.colorVar}) / 0.08) 0%, hsl(var(${activeLineInfo.colorVar}) / 0.03) 100%)` }}>
+            <div className="container py-8 md:py-10">
+              <div className="grid md:grid-cols-[1fr_auto] gap-6 md:gap-12 items-start">
+                <div>
+                  <div className={`inline-block px-3 py-1 text-[10px] uppercase tracking-[0.2em] font-semibold text-white ${activeLineInfo.colorClass} mb-3`}>
+                    {activeLineInfo.headline}
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl">
+                    {activeLineInfo.description}
+                  </p>
+
+                  <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                      <div className="flex items-center gap-1.5 mb-1.5">
+                        <Sparkles className="h-3.5 w-3.5 text-foreground/70" />
+                        <p className="text-[10px] uppercase tracking-[0.15em] font-semibold">Benefícios</p>
+                      </div>
+                      <ul className="space-y-1">
+                        {activeLineInfo.benefits.map(b => (
+                          <li key={b} className="flex items-start gap-1.5 text-xs text-muted-foreground">
+                            <span className={`mt-1 w-1 h-1 rounded-full flex-shrink-0 ${activeLineInfo.colorClass}`} />
+                            {b}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5 mb-1.5">
+                        <Droplets className="h-3.5 w-3.5 text-foreground/70" />
+                        <p className="text-[10px] uppercase tracking-[0.15em] font-semibold">Principais Ativos</p>
+                      </div>
+                      <p className="text-xs text-muted-foreground">{activeLineInfo.ingredients}</p>
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5 mb-1.5">
+                        <Shield className="h-3.5 w-3.5 text-foreground/70" />
+                        <p className="text-[10px] uppercase tracking-[0.15em] font-semibold">Ideal Para</p>
+                      </div>
+                      <p className="text-xs text-muted-foreground">{activeLineInfo.idealFor}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Toolbar (mobile filter toggle + sort + count) */}
         <div className="border-b border-border">
