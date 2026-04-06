@@ -7,7 +7,7 @@ import { formatPrice } from '@/lib/shopify';
 import { ShoppingBag, Loader2, Check, Droplets, Sun, Sparkles, Heart, Star, ChevronDown, ArrowRight, Leaf, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import aliancaGrafismo from '@/assets/alianca-grafismo.png';
 import { useSEO } from '@/hooks/useSEO';
 import { UpsellBlock } from '@/components/UpsellBlock';
