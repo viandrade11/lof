@@ -4,8 +4,9 @@ import { useProducts } from '@/hooks/useProducts';
 import { ProductCard } from '@/components/ProductCard';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { Loader2, SlidersHorizontal, X, ChevronDown } from 'lucide-react';
+import { Loader2, SlidersHorizontal, X, ChevronDown, Sparkles, Droplets, Shield } from 'lucide-react';
 import { useSEO } from '@/hooks/useSEO';
+import { lineData } from '@/data/lineData';
 const LINE_COLORS: Record<string, string> = {
   Repair: 'bg-lof-repair',
   Nutritive: 'bg-lof-nutritive',
