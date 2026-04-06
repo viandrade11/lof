@@ -86,7 +86,6 @@ export const useCartStore = create<CartStore>()(
               value: parseFloat(item.price.amount) * item.quantity,
               currency: item.price.currencyCode || 'BRL',
             });
-          }
         }
         }
       },
