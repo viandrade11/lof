@@ -1,65 +1,123 @@
 import { Link } from 'react-router-dom';
+import { useProducts } from '@/hooks/useProducts';
+import { ArrowRight } from 'lucide-react';
+import aliancaGrafismo from '@/assets/alianca-grafismo.png';
 
 const productLines = [
   {
     name: 'Repair',
-    description: 'Reparação profunda\n+ Reconstrução capilar',
-    colorClass: 'bg-lof-repair',
+    subtitle: 'Reparação profunda',
+    description: 'Reconstrução capilar com aminoácidos e queratina vegetal.',
+    colorVar: '--lof-repair',
     query: 'Repair',
   },
   {
     name: 'Nutritive',
-    description: 'Nutrição intensa\n+ Saúde capilar',
-    colorClass: 'bg-lof-nutritive',
+    subtitle: 'Nutrição intensa',
+    description: 'Saúde capilar com óleos nobres e vitaminas.',
+    colorVar: '--lof-nutritive',
     query: 'Nutritive',
   },
   {
     name: 'Silver',
-    description: 'Matização perfeita\n+ Hidratação loiros',
-    colorClass: 'bg-lof-silver',
+    subtitle: 'Matização perfeita',
+    description: 'Hidratação e neutralização para loiros impecáveis.',
+    colorVar: '--lof-silver',
     query: 'Silver',
   },
   {
     name: 'Purifying',
-    description: 'Limpeza vegana\n+ Livre de sulfatos',
-    colorClass: 'bg-lof-purifying',
+    subtitle: 'Limpeza vegana',
+    description: 'Livre de sulfatos e parabenos. Pureza absoluta.',
+    colorVar: '--lof-purifying',
     query: 'Purifying',
   },
   {
     name: 'Wavy',
-    description: 'Definição de cachos\n+ Controle de frizz',
-    colorClass: 'bg-lof-wavy',
+    subtitle: 'Definição de cachos',
+    description: 'Controle de frizz e definição natural.',
+    colorVar: '--lof-wavy',
     query: 'Wavy',
   },
   {
     name: 'Hydrate',
-    description: 'Hidratação profunda\n+ Maciez e brilho',
-    colorClass: 'bg-lof-hydrate',
+    subtitle: 'Hidratação profunda',
+    description: 'Maciez, brilho e proteção com ativos botânicos.',
+    colorVar: '--lof-hydrate',
     query: 'Hydrate',
   },
 ];
 
+function LineCard({ line }: { line: typeof productLines[number] }) {
+  const { data: products } = useProducts(4, line.query);
+  const image = products?.[0]?.node?.images?.edges?.[0]?.node?.url;
+
+  return (
+    <Link
+      to={`/collections/all?linha=${line.query}`}
+      className="group relative overflow-hidden bg-[#0a0a0a] flex flex-col justify-end min-h-[260px] md:min-h-[380px]"
+    >
+      {/* Product image */}
+      {image && (
+        <img
+          src={image}
+          alt={`Linha ${line.name}`}
+          className="absolute inset-0 w-full h-full object-contain object-center opacity-20 group-hover:opacity-30 group-hover:scale-105 transition-all duration-700"
+          loading="lazy"
+        />
+      )}
+
+      {/* Gradient overlay with line color accent */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent" />
+
+      {/* Color accent bar at top */}
+      <div
+        className="absolute top-0 left-0 right-0 h-1 opacity-80 group-hover:opacity-100 transition-opacity"
+        style={{ backgroundColor: `hsl(var(${line.colorVar}))` }}
+      />
+
+      {/* Grafismo */}
+      <img
+        src={aliancaGrafismo}
+        alt=""
+        className="absolute right-[5%] top-1/2 -translate-y-1/2 w-[50%] opacity-[0.03] invert pointer-events-none select-none"
+        aria-hidden="true"
+      />
+
+      {/* Content */}
+      <div className="relative z-10 p-6 md:p-8">
+        <span
+          className="text-[9px] uppercase tracking-[0.3em] font-semibold"
+          style={{ color: `hsl(var(${line.colorVar}) / 0.7)` }}
+        >
+          {line.subtitle}
+        </span>
+        <h3 className="font-display text-2xl md:text-3xl lg:text-4xl text-white font-bold leading-[1] mt-1">
+          {line.name}
+        </h3>
+        <p className="text-[11px] text-white/40 mt-2 leading-relaxed max-w-[200px] hidden md:block">
+          {line.description}
+        </p>
+        <span className="inline-flex items-center gap-1.5 mt-4 text-[10px] uppercase tracking-[0.2em] text-white/50 group-hover:text-white transition-colors">
+          Explorar <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+        </span>
+      </div>
+
+      {/* Color glow on hover */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-32 opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none"
+        style={{ background: `radial-gradient(ellipse at bottom, hsl(var(${line.colorVar})), transparent 70%)` }}
+      />
+    </Link>
+  );
+}
+
 export function ProductLinesSection() {
   return (
     <section className="w-full">
-      {/* Desktop: horizontal row | Mobile: 2-column grid */}
-      <div className="grid grid-cols-2 md:grid-cols-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         {productLines.map((line) => (
-          <Link
-            key={line.name}
-            to={`/collections/all?linha=${line.query}`}
-            className={`group relative ${line.colorClass} flex flex-col items-center justify-center py-14 md:py-20 px-4 transition-all duration-300 min-h-[180px]`}
-          >
-            <h3 className="font-display text-xl md:text-2xl lg:text-3xl font-bold uppercase tracking-wider text-white text-center">
-              {line.name}
-            </h3>
-            <p className="text-[10px] md:text-xs text-white/80 text-center mt-2 whitespace-pre-line leading-relaxed">
-              {line.description}
-            </p>
-            <span className="mt-3 text-[10px] md:text-xs uppercase tracking-[0.2em] text-white/60 group-hover:text-white underline underline-offset-4 transition-colors">
-              Comprar
-            </span>
-          </Link>
+          <LineCard key={line.name} line={line} />
         ))}
       </div>
     </section>
