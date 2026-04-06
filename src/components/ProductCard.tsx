@@ -74,7 +74,21 @@ export function ProductCard({ product }: ProductCardProps) {
       </div>
       <div>
         <h3 className="text-sm font-medium leading-tight group-hover:text-foreground/70 transition-colors">{node.title}</h3>
-        <p className="text-sm font-semibold mt-1">{formatPrice(price.amount, price.currencyCode)}</p>
+        {(() => {
+          const compareAt = node.compareAtPriceRange?.minVariantPrice;
+          const hasDiscount = compareAt && parseFloat(compareAt.amount) > parseFloat(price.amount);
+          if (hasDiscount) {
+            const pct = Math.round((1 - parseFloat(price.amount) / parseFloat(compareAt.amount)) * 100);
+            return (
+              <div className="mt-1 flex items-baseline gap-2">
+                <p className="text-xs text-muted-foreground line-through">{formatPrice(compareAt.amount, compareAt.currencyCode)}</p>
+                <p className="text-sm font-semibold text-green-600">{formatPrice(price.amount, price.currencyCode)}</p>
+                <span className="text-[10px] font-bold uppercase bg-green-100 text-green-700 px-1.5 py-0.5 rounded">-{pct}%</span>
+              </div>
+            );
+          }
+          return <p className="text-sm font-semibold mt-1">{formatPrice(price.amount, price.currencyCode)}</p>;
+        })()}
       </div>
     </Link>
   );
