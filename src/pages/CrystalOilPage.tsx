@@ -79,7 +79,18 @@ const CrystalOilPage = () => {
     } : undefined,
   });
 
-  const handleAddToCart = async () => {
+  useEffect(() => {
+    if (activeProduct && variant && typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'ViewContent', {
+        content_name: activeProduct.title,
+        content_ids: [variant.id],
+        content_type: 'product',
+        value: parseFloat(variant.price.amount),
+        currency: variant.price.currencyCode || 'BRL',
+      });
+    }
+  }, [activeProduct?.id]);
+
     if (!variant || !activeProduct) return;
     await addItem({
       product: { node: activeProduct },
