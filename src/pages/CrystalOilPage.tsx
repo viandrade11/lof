@@ -7,7 +7,7 @@ import { formatPrice } from '@/lib/shopify';
 import { ShoppingBag, Loader2, Check, Droplets, Sun, Sparkles, Heart, Star, ChevronDown, ArrowRight, Leaf, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import aliancaGrafismo from '@/assets/alianca-grafismo.png';
 import { useSEO } from '@/hooks/useSEO';
 import { UpsellBlock } from '@/components/UpsellBlock';
@@ -79,7 +79,18 @@ const CrystalOilPage = () => {
     } : undefined,
   });
 
-  const handleAddToCart = async () => {
+  useEffect(() => {
+    if (activeProduct && variant && typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'ViewContent', {
+        content_name: activeProduct.title,
+        content_ids: [variant.id],
+        content_type: 'product',
+        value: parseFloat(variant.price.amount),
+        currency: variant.price.currencyCode || 'BRL',
+      });
+    }
+  }, [activeProduct?.id]);
+
     if (!variant || !activeProduct) return;
     await addItem({
       product: { node: activeProduct },

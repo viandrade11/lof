@@ -7,7 +7,7 @@ import { formatPrice } from '@/lib/shopify';
 import { ShoppingBag, Loader2, Check, Shield, Droplets, Sun, Wind, Sparkles, Zap, Heart, Star, ChevronDown, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import aliancaGrafismo from '@/assets/alianca-grafismo.png';
 import { UpsellBlock } from '@/components/UpsellBlock';
 import { getSmartRecommendations } from '@/lib/productRecommendations';
@@ -72,7 +72,18 @@ const Hit10x1Page = () => {
     } : undefined,
   });
 
-  const handleAddToCart = async () => {
+  useEffect(() => {
+    if (product && variant && typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'ViewContent', {
+        content_name: product.title,
+        content_ids: [variant.id],
+        content_type: 'product',
+        value: parseFloat(variant.price.amount),
+        currency: variant.price.currencyCode || 'BRL',
+      });
+    }
+  }, [product?.id]);
+
     if (!variant || !product) return;
     await addItem({
       product: { node: product },
