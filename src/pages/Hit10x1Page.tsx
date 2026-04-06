@@ -106,7 +106,7 @@ const Hit10x1Page = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       <Header />
 
       {/* Hero — full-width cinematic */}
@@ -121,7 +121,7 @@ const Hit10x1Page = () => {
             <div className="container">
               <div className="max-w-xl">
                 <p className="text-xs uppercase tracking-[0.3em] text-white/50 font-semibold mb-4">Leave-in Multiuso</p>
-                <h1 className="font-display text-5xl md:text-6xl lg:text-7xl text-white font-bold leading-[1]">
+                <h1 className="font-display text-4xl md:text-6xl lg:text-7xl text-white font-bold leading-[1]">
                   Hit 10x1
                 </h1>
                 <p className="font-display text-xl md:text-2xl text-white/40 italic mt-2">
@@ -317,17 +317,17 @@ const Hit10x1Page = () => {
                 e muito mais fáceis de pentear. Com o uso contínuo, o Hit 10x1 fortalece e reconstrói 
                 a fibra capilar, reduzindo a quebra e as pontas duplas.
               </p>
-              <div className="mt-8 grid grid-cols-3 gap-6 text-center">
+              <div className="mt-8 grid grid-cols-3 gap-3 md:gap-6 text-center">
                 <div>
-                  <p className="font-display text-4xl font-bold text-foreground">95%</p>
+                  <p className="font-display text-2xl md:text-4xl font-bold text-foreground">95%</p>
                   <p className="text-xs text-muted-foreground mt-1">Mais brilho</p>
                 </div>
                 <div>
-                  <p className="font-display text-4xl font-bold text-foreground">87%</p>
+                  <p className="font-display text-2xl md:text-4xl font-bold text-foreground">87%</p>
                   <p className="text-xs text-muted-foreground mt-1">Menos frizz</p>
                 </div>
                 <div>
-                  <p className="font-display text-4xl font-bold text-foreground">92%</p>
+                  <p className="font-display text-2xl md:text-4xl font-bold text-foreground">92%</p>
                   <p className="text-xs text-muted-foreground mt-1">Mais maciez</p>
                 </div>
               </div>

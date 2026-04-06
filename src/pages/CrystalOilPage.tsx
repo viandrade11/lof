@@ -113,7 +113,7 @@ const CrystalOilPage = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       <Header />
 
       {/* Hero — warm golden tones */}
@@ -128,7 +128,7 @@ const CrystalOilPage = () => {
             <div className="container">
               <div className="max-w-xl">
                 <p className="text-xs uppercase tracking-[0.3em] text-amber-400/60 font-semibold mb-4">Sérum Multi Óleos</p>
-                <h1 className="font-display text-5xl md:text-6xl lg:text-7xl text-white font-bold leading-[1]">
+                <h1 className="font-display text-4xl md:text-6xl lg:text-7xl text-white font-bold leading-[1]">
                   Crystal Oil
                 </h1>
                 <p className="font-display text-xl md:text-2xl text-white/40 italic mt-2">
@@ -348,17 +348,17 @@ const CrystalOilPage = () => {
                 brilho intenso e maciez duradoura. Com o uso contínuo, os fios ficam mais fortes,
                 nutridos e protegidos contra agressões externas.
               </p>
-              <div className="mt-8 grid grid-cols-3 gap-6 text-center">
+              <div className="mt-8 grid grid-cols-3 gap-3 md:gap-6 text-center">
                 <div>
-                  <p className="font-display text-4xl font-bold text-foreground">98%</p>
+                  <p className="font-display text-2xl md:text-4xl font-bold text-foreground">98%</p>
                   <p className="text-xs text-muted-foreground mt-1">Mais brilho</p>
                 </div>
                 <div>
-                  <p className="font-display text-4xl font-bold text-foreground">93%</p>
+                  <p className="font-display text-2xl md:text-4xl font-bold text-foreground">93%</p>
                   <p className="text-xs text-muted-foreground mt-1">Pontas seladas</p>
                 </div>
                 <div>
-                  <p className="font-display text-4xl font-bold text-foreground">96%</p>
+                  <p className="font-display text-2xl md:text-4xl font-bold text-foreground">96%</p>
                   <p className="text-xs text-muted-foreground mt-1">Mais maciez</p>
                 </div>
               </div>
