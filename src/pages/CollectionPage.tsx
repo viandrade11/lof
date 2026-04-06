@@ -23,6 +23,8 @@ const TYPE_MAP: Record<string, string[]> = {
   'Condicionador': ['condicionador'],
   'Máscara': ['máscara', 'mascara'],
   'Leave-in': ['leave-in'],
+  'Finalizador': ['finalizador', 'leave-in', 'sérum', 'serum', 'crystal oil', 'spray'],
+  'Tratamento': ['tratamento', 'booster', 'máscara', 'mascara', 'ampola'],
   'Booster': ['booster'],
   'Sérum': ['sérum', 'serum', 'crystal oil'],
   'Kit': ['kit'],
