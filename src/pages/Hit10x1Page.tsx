@@ -121,7 +121,7 @@ const Hit10x1Page = () => {
             <div className="container">
               <div className="max-w-xl">
                 <p className="text-xs uppercase tracking-[0.3em] text-white/50 font-semibold mb-4">Leave-in Multiuso</p>
-                <h1 className="font-display text-5xl md:text-6xl lg:text-7xl text-white font-bold leading-[1]">
+                <h1 className="font-display text-4xl md:text-6xl lg:text-7xl text-white font-bold leading-[1]">
                   Hit 10x1
                 </h1>
                 <p className="font-display text-xl md:text-2xl text-white/40 italic mt-2">
