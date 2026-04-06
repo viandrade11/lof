@@ -111,27 +111,32 @@ const Hit10x1Page = () => {
                   O leave-in que revolucionou a rotina capilar. Proteção térmica, hidratação, brilho, 
                   reconstrução e muito mais — tudo em uma aplicação.
                 </p>
-                <div className="flex flex-col sm:flex-row items-start gap-4 mt-8">
+                <div className="mt-8">
                   {isLoading ? (
                     <div className="h-14 flex items-center"><Loader2 className="h-5 w-5 animate-spin text-white" /></div>
                   ) : variant ? (
                     <>
-                      <Button
-                        onClick={handleAddToCart}
-                        disabled={cartLoading || !variant.availableForSale}
-                        className="h-14 px-10 bg-white hover:bg-white/90 text-lof-black uppercase tracking-[0.15em] text-sm font-semibold"
-                        size="lg"
-                      >
-                        {cartLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : (
-                          <>
-                            <ShoppingBag className="h-4 w-4 mr-2" />
-                            Comprar — <PriceInline variant={variant} discountTextClass="text-green-300" />
-                          </>
-                        )}
-                      </Button>
-                      <a href="#beneficios" className="inline-flex items-center h-14 px-8 border border-white/30 text-white/80 text-xs uppercase tracking-[0.2em] font-medium hover:border-white hover:text-white transition-colors">
-                        Saiba mais <ArrowRight className="h-4 w-4 ml-2" />
-                      </a>
+                      <div className="mb-4 text-2xl font-bold text-white">
+                        <PriceInline variant={variant} discountTextClass="text-green-300" />
+                      </div>
+                      <div className="flex flex-col sm:flex-row items-start gap-4">
+                        <Button
+                          onClick={handleAddToCart}
+                          disabled={cartLoading || !variant.availableForSale}
+                          className="h-14 px-10 bg-white hover:bg-white/90 text-lof-black uppercase tracking-[0.15em] text-sm font-semibold"
+                          size="lg"
+                        >
+                          {cartLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : (
+                            <>
+                              <ShoppingBag className="h-4 w-4 mr-2" />
+                              Comprar agora
+                            </>
+                          )}
+                        </Button>
+                        <a href="#beneficios" className="inline-flex items-center h-14 px-8 border border-white/30 text-white/80 text-xs uppercase tracking-[0.2em] font-medium hover:border-white hover:text-white transition-colors">
+                          Saiba mais <ArrowRight className="h-4 w-4 ml-2" />
+                        </a>
+                      </div>
                     </>
                   ) : (
                     <a href="#beneficios" className="inline-flex items-center h-14 px-10 bg-white text-lof-black text-sm uppercase tracking-[0.15em] font-semibold hover:bg-white/90 transition-colors">
@@ -372,6 +377,9 @@ const Hit10x1Page = () => {
           </p>
           {variant ? (
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+              <div className="text-2xl font-bold text-background mb-4">
+                <PriceInline variant={variant} discountTextClass="text-green-300" />
+              </div>
               <Button
                 onClick={handleAddToCart}
                 disabled={cartLoading}
@@ -379,7 +387,7 @@ const Hit10x1Page = () => {
                 size="lg"
               >
                 <ShoppingBag className="h-4 w-4 mr-2" />
-                Comprar Hit 10x1 — <PriceInline variant={variant} discountTextClass="text-green-300" />
+                Comprar Hit 10x1
               </Button>
               <Link
                 to="/collections/all"

@@ -118,27 +118,32 @@ const CrystalOilPage = () => {
                   O sérum que reúne o poder do Argan, Ojon, Macadâmia, Semente de Linho e Monoi 
                   para nutrir, proteger e dar brilho intenso aos seus fios.
                 </p>
-                <div className="flex flex-col sm:flex-row items-start gap-4 mt-8">
+                <div className="mt-8">
                   {isLoading ? (
                     <div className="h-14 flex items-center"><Loader2 className="h-5 w-5 animate-spin text-white" /></div>
                   ) : variant ? (
                     <>
-                      <Button
-                        onClick={handleAddToCart}
-                        disabled={cartLoading || !variant.availableForSale}
-                        className="h-14 px-10 bg-amber-500 hover:bg-amber-400 text-[#1a1510] uppercase tracking-[0.15em] text-sm font-semibold"
-                        size="lg"
-                      >
-                        {cartLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : (
-                          <>
-                            <ShoppingBag className="h-4 w-4 mr-2" />
-                            Comprar — <PriceInline variant={variant} discountTextClass="text-green-300" />
-                          </>
-                        )}
-                      </Button>
-                      <a href="#oleos" className="inline-flex items-center h-14 px-8 border border-amber-500/30 text-amber-200/80 text-xs uppercase tracking-[0.2em] font-medium hover:border-amber-400 hover:text-amber-100 transition-colors">
-                        Saiba mais <ArrowRight className="h-4 w-4 ml-2" />
-                      </a>
+                      <div className="mb-4 text-2xl font-bold text-amber-100">
+                        <PriceInline variant={variant} discountTextClass="text-green-300" />
+                      </div>
+                      <div className="flex flex-col sm:flex-row items-start gap-4">
+                        <Button
+                          onClick={handleAddToCart}
+                          disabled={cartLoading || !variant.availableForSale}
+                          className="h-14 px-10 bg-amber-500 hover:bg-amber-400 text-[#1a1510] uppercase tracking-[0.15em] text-sm font-semibold"
+                          size="lg"
+                        >
+                          {cartLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : (
+                            <>
+                              <ShoppingBag className="h-4 w-4 mr-2" />
+                              Comprar agora
+                            </>
+                          )}
+                        </Button>
+                        <a href="#oleos" className="inline-flex items-center h-14 px-8 border border-amber-500/30 text-amber-200/80 text-xs uppercase tracking-[0.2em] font-medium hover:border-amber-400 hover:text-amber-100 transition-colors">
+                          Saiba mais <ArrowRight className="h-4 w-4 ml-2" />
+                        </a>
+                      </div>
                     </>
                   ) : (
                     <a href="#oleos" className="inline-flex items-center h-14 px-10 bg-amber-500 text-[#1a1510] text-sm uppercase tracking-[0.15em] font-semibold hover:bg-amber-400 transition-colors">
@@ -403,6 +408,9 @@ const CrystalOilPage = () => {
           </p>
           {variant ? (
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+              <div className="text-2xl font-bold text-amber-100 mb-4">
+                <PriceInline variant={variant} discountTextClass="text-green-300" />
+              </div>
               <Button
                 onClick={handleAddToCart}
                 disabled={cartLoading}
@@ -410,7 +418,7 @@ const CrystalOilPage = () => {
                 size="lg"
               >
                 <ShoppingBag className="h-4 w-4 mr-2" />
-                Comprar Crystal Oil — <PriceInline variant={variant} discountTextClass="text-green-300" />
+                Comprar Crystal Oil
               </Button>
               <Link
                 to="/collections/all"
