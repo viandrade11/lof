@@ -128,7 +128,7 @@ const CrystalOilPage = () => {
             <div className="container">
               <div className="max-w-xl">
                 <p className="text-xs uppercase tracking-[0.3em] text-amber-400/60 font-semibold mb-4">Sérum Multi Óleos</p>
-                <h1 className="font-display text-5xl md:text-6xl lg:text-7xl text-white font-bold leading-[1]">
+                <h1 className="font-display text-4xl md:text-6xl lg:text-7xl text-white font-bold leading-[1]">
                   Crystal Oil
                 </h1>
                 <p className="font-display text-xl md:text-2xl text-white/40 italic mt-2">
