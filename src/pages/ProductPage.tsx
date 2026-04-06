@@ -100,7 +100,7 @@ const ProductPage = () => {
 
         <div className="grid md:grid-cols-[1fr_420px] lg:grid-cols-[1fr_480px]">
           {/* Left: Image Grid */}
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2">
             {images.length > 0 ? (
               images.map((img: { node: { url: string; altText: string | null } }, i: number) => (
                 <div key={i} className="aspect-square overflow-hidden bg-muted">
@@ -113,7 +113,7 @@ const ProductPage = () => {
                 </div>
               ))
             ) : (
-              <div className="col-span-2 aspect-square flex items-center justify-center bg-muted text-muted-foreground">
+              <div className="col-span-1 sm:col-span-2 aspect-square flex items-center justify-center bg-muted text-muted-foreground">
                 <ShoppingBag className="h-20 w-20" />
               </div>
             )}
