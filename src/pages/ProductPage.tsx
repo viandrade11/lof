@@ -59,6 +59,46 @@ const ProductPage = () => {
   const variants = product?.variants?.edges || [];
   const selectedVariant = variants[selectedVariantIdx]?.node;
   const firstImage = images[0]?.node?.url;
+  const navigate = useNavigate();
+
+  // Detect size from title (e.g. "300ml", "1L", "60ml", "15ml", "250ml", "1000ml")
+  const sizeRegex = /\b(\d+(?:\.\d+)?\s*(?:ml|l|g|kg))\b/i;
+  const extractSize = (title: string) => {
+    const match = title.match(sizeRegex);
+    return match ? match[1].trim() : null;
+  };
+  const extractBaseName = (title: string) => {
+    return title.replace(sizeRegex, '').replace(/\s+/g, ' ').trim();
+  };
+
+  const currentSize = product ? extractSize(product.title) : null;
+  const baseName = product ? extractBaseName(product.title) : '';
+
+  // Fetch all products to find siblings with different sizes
+  const { data: allProducts } = useProducts(100);
+  const sizeVariants = useMemo(() => {
+    if (!allProducts || !product || !currentSize) return [];
+    return allProducts
+      .filter(p => {
+        const pSize = extractSize(p.node.title);
+        const pBase = extractBaseName(p.node.title);
+        return pSize && pBase.toLowerCase() === baseName.toLowerCase();
+      })
+      .map(p => ({
+        size: extractSize(p.node.title)!,
+        handle: p.node.handle,
+        price: p.node.priceRange.minVariantPrice,
+        isCurrent: p.node.handle === handle,
+      }))
+      .sort((a, b) => {
+        const toMl = (s: string) => {
+          const num = parseFloat(s);
+          if (s.toLowerCase().includes('l') && !s.toLowerCase().includes('ml')) return num * 1000;
+          return num;
+        };
+        return toMl(a.size) - toMl(b.size);
+      });
+  }, [allProducts, product, baseName, currentSize, handle]);
 
   // Track when the main Add to Cart button goes out of view
   useEffect(() => {
