@@ -100,7 +100,7 @@ const ProductPage = () => {
 
         <div className="grid md:grid-cols-[1fr_420px] lg:grid-cols-[1fr_480px]">
           {/* Left: Image Grid */}
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2">
             {images.length > 0 ? (
               images.map((img: { node: { url: string; altText: string | null } }, i: number) => (
                 <div key={i} className="aspect-square overflow-hidden bg-muted">
@@ -113,20 +113,20 @@ const ProductPage = () => {
                 </div>
               ))
             ) : (
-              <div className="col-span-2 aspect-square flex items-center justify-center bg-muted text-muted-foreground">
+              <div className="col-span-1 sm:col-span-2 aspect-square flex items-center justify-center bg-muted text-muted-foreground">
                 <ShoppingBag className="h-20 w-20" />
               </div>
             )}
           </div>
 
           {/* Right: Sticky Product Info */}
-          <div className="md:sticky md:top-20 md:h-fit md:self-start p-6 md:p-10 lg:p-12">
+          <div className="md:sticky md:top-20 md:h-fit md:self-start p-6 md:p-10 lg:p-12 overflow-hidden">
             {product.productType && (
               <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">
                 Linha {product.productType}
               </p>
             )}
-            <h1 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">{product.title}</h1>
+            <h1 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold leading-tight break-words">{product.title}</h1>
             
             <div className="mt-4 flex items-baseline gap-3">
               <p className="text-xl md:text-2xl font-semibold">
