@@ -259,7 +259,7 @@ const CrystalOilPage = () => {
                     Comprar {selectedSize}
                   </Button>
                   <span className="text-2xl font-bold text-white">
-                    {formatPrice(variant.price.amount, variant.price.currencyCode)}
+                    <PriceInline variant={variant} discountTextClass="text-green-300" />
                   </span>
                 </div>
               )}
