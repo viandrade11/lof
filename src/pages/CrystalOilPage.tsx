@@ -12,6 +12,7 @@ import aliancaGrafismo from '@/assets/alianca-grafismo.png';
 import { useSEO } from '@/hooks/useSEO';
 import { UpsellBlock } from '@/components/UpsellBlock';
 import { getSmartRecommendations } from '@/lib/productRecommendations';
+import { PriceInline } from '@/components/PriceInline';
 
 const PRODUCT_HANDLE_60 = 'serum-crystal-oil-laranja-60ml-6903bb190ee85';
 const PRODUCT_HANDLE_15 = 'serum-crystal-oil-laranja-15ml-6903bb1b03e45';
@@ -131,7 +132,7 @@ const CrystalOilPage = () => {
                         {cartLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : (
                           <>
                             <ShoppingBag className="h-4 w-4 mr-2" />
-                            Comprar — {formatPrice(variant.price.amount, variant.price.currencyCode)}
+                            Comprar — <PriceInline variant={variant} discountTextClass="text-green-300" />
                           </>
                         )}
                       </Button>
@@ -258,7 +259,7 @@ const CrystalOilPage = () => {
                     Comprar {selectedSize}
                   </Button>
                   <span className="text-2xl font-bold text-white">
-                    {formatPrice(variant.price.amount, variant.price.currencyCode)}
+                    <PriceInline variant={variant} discountTextClass="text-green-300" />
                   </span>
                 </div>
               )}
@@ -409,7 +410,7 @@ const CrystalOilPage = () => {
                 size="lg"
               >
                 <ShoppingBag className="h-4 w-4 mr-2" />
-                Comprar Crystal Oil — {formatPrice(variant.price.amount, variant.price.currencyCode)}
+                Comprar Crystal Oil — <PriceInline variant={variant} discountTextClass="text-green-300" />
               </Button>
               <Link
                 to="/collections/all"

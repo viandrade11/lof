@@ -11,6 +11,7 @@ import { useState } from 'react';
 import aliancaGrafismo from '@/assets/alianca-grafismo.png';
 import { UpsellBlock } from '@/components/UpsellBlock';
 import { getSmartRecommendations } from '@/lib/productRecommendations';
+import { PriceInline } from '@/components/PriceInline';
 
 import { useSEO } from '@/hooks/useSEO';
 
@@ -124,7 +125,7 @@ const Hit10x1Page = () => {
                         {cartLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : (
                           <>
                             <ShoppingBag className="h-4 w-4 mr-2" />
-                            Comprar — {formatPrice(variant.price.amount, variant.price.currencyCode)}
+                            Comprar — <PriceInline variant={variant} discountTextClass="text-green-300" />
                           </>
                         )}
                       </Button>
@@ -227,7 +228,7 @@ const Hit10x1Page = () => {
                     Comprar agora
                   </Button>
                   <span className="text-2xl font-bold text-background">
-                    {formatPrice(variant.price.amount, variant.price.currencyCode)}
+                    <PriceInline variant={variant} discountTextClass="text-green-300" />
                   </span>
                 </div>
               )}
@@ -378,7 +379,7 @@ const Hit10x1Page = () => {
                 size="lg"
               >
                 <ShoppingBag className="h-4 w-4 mr-2" />
-                Comprar Hit 10x1 — {formatPrice(variant.price.amount, variant.price.currencyCode)}
+                Comprar Hit 10x1 — <PriceInline variant={variant} discountTextClass="text-green-300" />
               </Button>
               <Link
                 to="/collections/all"
