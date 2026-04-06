@@ -285,7 +285,28 @@ const ProductPage = () => {
               </div>
             )}
 
-            {/* Quantity Selector */}
+            {/* Size Selector (cross-product) */}
+            {sizeVariants.length > 1 && (
+              <div className="mt-6 md:mt-8">
+                <p className="text-xs uppercase tracking-wider font-medium mb-3">Tamanho</p>
+                <div className="flex flex-wrap gap-2">
+                  {sizeVariants.map(sv => (
+                    <button
+                      key={sv.handle}
+                      onClick={() => !sv.isCurrent && navigate(`/products/${sv.handle}`)}
+                      className={`h-10 min-w-[44px] px-4 text-xs border transition-colors ${
+                        sv.isCurrent
+                          ? 'border-foreground bg-foreground text-background'
+                          : 'border-border hover:border-foreground'
+                      }`}
+                    >
+                      {sv.size}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div className="mt-6 flex items-center border border-border w-fit">
               <button
                 onClick={() => setQuantity(q => Math.max(1, q - 1))}
