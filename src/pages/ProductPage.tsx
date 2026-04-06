@@ -154,11 +154,7 @@ const ProductPage = () => {
                 </p>
               )}
               <h1 className="font-display text-3xl lg:text-4xl font-bold leading-tight break-words">{product.title}</h1>
-              <div className="mt-4 flex items-baseline gap-3">
-                <p className="text-2xl font-semibold">
-                  {selectedVariant && formatPrice(selectedVariant.price.amount, selectedVariant.price.currencyCode)}
-                </p>
-              </div>
+              <PriceDisplay variant={selectedVariant} size="xl" />
             </div>
 
             {/* Variant Selector */}
