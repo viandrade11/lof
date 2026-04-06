@@ -120,11 +120,7 @@ const ProductPage = () => {
             </p>
           )}
           <h1 className="font-display text-2xl font-bold leading-tight break-words">{product.title}</h1>
-          <div className="mt-2 flex items-baseline gap-3">
-            <p className="text-xl font-semibold">
-              {selectedVariant && formatPrice(selectedVariant.price.amount, selectedVariant.price.currencyCode)}
-            </p>
-          </div>
+          <PriceDisplay variant={selectedVariant} size="lg" />
         </div>
 
         <div className="grid md:grid-cols-[1fr_420px] lg:grid-cols-[1fr_480px]">
