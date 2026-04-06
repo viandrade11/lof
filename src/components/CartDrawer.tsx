@@ -23,6 +23,16 @@ export const CartDrawer = () => {
   const handleCheckout = () => {
     const checkoutUrl = getCheckoutUrl();
     if (checkoutUrl) {
+      // Fire Meta Pixel InitiateCheckout event
+      if (typeof window !== 'undefined' && (window as any).fbq) {
+        (window as any).fbq('track', 'InitiateCheckout', {
+          content_ids: items.map(i => i.variantId),
+          contents: items.map(i => ({ id: i.variantId, quantity: i.quantity })),
+          num_items: totalItems,
+          value: totalPrice,
+          currency: items[0]?.price.currencyCode || 'BRL',
+        });
+      }
       window.open(checkoutUrl, '_blank');
       setIsOpen(false);
     }

@@ -1,3 +1,4 @@
+declare global { interface Window { fbq?: (...args: unknown[]) => void } }
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import {
@@ -76,6 +77,16 @@ export const useCartStore = create<CartStore>()(
           console.error('Failed to add item:', error);
         } finally {
           set({ isLoading: false });
+          // Fire Meta Pixel AddToCart event
+          if (typeof window !== 'undefined' && window.fbq) {
+            window.fbq('track', 'AddToCart', {
+              content_name: item.product.node?.title ?? '',
+              content_ids: [item.variantId],
+              content_type: 'product',
+              value: parseFloat(item.price.amount) * item.quantity,
+              currency: item.price.currencyCode || 'BRL',
+            });
+        }
         }
       },
 
