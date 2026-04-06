@@ -59,26 +59,26 @@ function UpsellItem({ rec }: { rec: RecommendedProduct }) {
       to={`/products/${product.node.handle}`}
       className="flex items-center gap-3 p-3 border border-border rounded hover:bg-muted/50 transition-colors group"
     >
-      <div className="w-14 h-14 bg-muted rounded overflow-hidden flex-shrink-0">
+      <div className="w-12 h-12 sm:w-14 sm:h-14 bg-muted rounded overflow-hidden flex-shrink-0">
         {image && (
           <img src={image.url} alt={image.altText || product.node.title} className="w-full h-full object-cover" />
         )}
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium truncate">{product.node.title}</p>
-        <p className="text-sm font-semibold text-foreground">{formatPrice(price.amount, price.currencyCode)}</p>
+        <p className="text-xs sm:text-sm font-medium line-clamp-2">{product.node.title}</p>
+        <p className="text-xs sm:text-sm font-semibold text-foreground">{formatPrice(price.amount, price.currencyCode)}</p>
       </div>
       <button
         onClick={handleAdd}
         disabled={adding || !variant?.availableForSale}
-        className="flex-shrink-0 flex items-center gap-1.5 h-9 px-4 bg-foreground text-background text-xs font-medium rounded hover:bg-foreground/90 transition-colors disabled:opacity-50"
+        className="flex-shrink-0 flex items-center justify-center h-8 w-8 sm:h-9 sm:w-auto sm:px-4 sm:gap-1.5 bg-foreground text-background text-xs font-medium rounded hover:bg-foreground/90 transition-colors disabled:opacity-50"
       >
         {adding ? (
           <Loader2 className="h-3.5 w-3.5 animate-spin" />
         ) : (
           <>
             <Plus className="h-3.5 w-3.5" />
-            Adicionar
+            <span className="hidden sm:inline">Adicionar</span>
           </>
         )}
       </button>

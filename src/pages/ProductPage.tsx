@@ -120,13 +120,13 @@ const ProductPage = () => {
           </div>
 
           {/* Right: Sticky Product Info */}
-          <div className="md:sticky md:top-20 md:h-fit md:self-start p-6 md:p-10 lg:p-12">
+          <div className="md:sticky md:top-20 md:h-fit md:self-start p-6 md:p-10 lg:p-12 overflow-hidden">
             {product.productType && (
               <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">
                 Linha {product.productType}
               </p>
             )}
-            <h1 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">{product.title}</h1>
+            <h1 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold leading-tight break-words">{product.title}</h1>
             
             <div className="mt-4 flex items-baseline gap-3">
               <p className="text-xl md:text-2xl font-semibold">
