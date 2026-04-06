@@ -348,7 +348,7 @@ const CrystalOilPage = () => {
                 brilho intenso e maciez duradoura. Com o uso contínuo, os fios ficam mais fortes,
                 nutridos e protegidos contra agressões externas.
               </p>
-              <div className="mt-8 grid grid-cols-3 gap-6 text-center">
+              <div className="mt-8 grid grid-cols-3 gap-3 md:gap-6 text-center">
                 <div>
                   <p className="font-display text-4xl font-bold text-foreground">98%</p>
                   <p className="text-xs text-muted-foreground mt-1">Mais brilho</p>
