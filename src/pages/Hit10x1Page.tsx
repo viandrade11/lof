@@ -11,6 +11,7 @@ import { useState } from 'react';
 import aliancaGrafismo from '@/assets/alianca-grafismo.png';
 import { UpsellBlock } from '@/components/UpsellBlock';
 import { getSmartRecommendations } from '@/lib/productRecommendations';
+import { PriceInline } from '@/components/PriceInline';
 
 import { useSEO } from '@/hooks/useSEO';
 
