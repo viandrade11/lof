@@ -317,7 +317,7 @@ const Hit10x1Page = () => {
                 e muito mais fáceis de pentear. Com o uso contínuo, o Hit 10x1 fortalece e reconstrói 
                 a fibra capilar, reduzindo a quebra e as pontas duplas.
               </p>
-              <div className="mt-8 grid grid-cols-3 gap-6 text-center">
+              <div className="mt-8 grid grid-cols-3 gap-3 md:gap-6 text-center">
                 <div>
                   <p className="font-display text-4xl font-bold text-foreground">95%</p>
                   <p className="text-xs text-muted-foreground mt-1">Mais brilho</p>
