@@ -55,6 +55,7 @@ const ProductPage = () => {
   const addToCartRef = useRef<HTMLButtonElement>(null);
 
   const images = product?.images?.edges || [];
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const variants = product?.variants?.edges || [];
   const selectedVariant = variants[selectedVariantIdx]?.node;
   const firstImage = images[0]?.node?.url;
@@ -155,21 +156,44 @@ const ProductPage = () => {
         </div>
 
         <div className="grid md:grid-cols-[1fr_420px] lg:grid-cols-[1fr_480px]">
-          {/* Left: Image Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2">
+          {/* Left: Image Gallery */}
+          <div className="flex flex-col">
             {images.length > 0 ? (
-              images.map((img: { node: { url: string; altText: string | null } }, i: number) => (
-                <div key={i} className="aspect-square overflow-hidden bg-muted">
+              <>
+                {/* Main Image */}
+                <div className="aspect-square overflow-hidden bg-muted cursor-zoom-in">
                   <img
-                    src={img.node.url}
-                    alt={img.node.altText || `${product.title} - Imagem ${i + 1}`}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                    loading={i < 2 ? undefined : "lazy"}
+                    src={images[selectedImageIndex]?.node.url}
+                    alt={images[selectedImageIndex]?.node.altText || `${product.title} - Imagem ${selectedImageIndex + 1}`}
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                   />
                 </div>
-              ))
+                {/* Thumbnails */}
+                {images.length > 1 && (
+                  <div className="flex gap-2 p-3 md:p-4 overflow-x-auto">
+                    {images.map((img: { node: { url: string; altText: string | null } }, i: number) => (
+                      <button
+                        key={i}
+                        onClick={() => setSelectedImageIndex(i)}
+                        className={`flex-shrink-0 w-16 h-16 md:w-20 md:h-20 overflow-hidden border-2 transition-all ${
+                          i === selectedImageIndex
+                            ? 'border-foreground opacity-100'
+                            : 'border-transparent opacity-60 hover:opacity-100'
+                        }`}
+                      >
+                        <img
+                          src={img.node.url}
+                          alt={img.node.altText || `Miniatura ${i + 1}`}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </>
             ) : (
-              <div className="col-span-1 sm:col-span-2 aspect-square flex items-center justify-center bg-muted text-muted-foreground">
+              <div className="aspect-square flex items-center justify-center bg-muted text-muted-foreground">
                 <ShoppingBag className="h-20 w-20" />
               </div>
             )}
