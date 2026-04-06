@@ -12,6 +12,7 @@ import aliancaGrafismo from '@/assets/alianca-grafismo.png';
 import { useSEO } from '@/hooks/useSEO';
 import { UpsellBlock } from '@/components/UpsellBlock';
 import { getSmartRecommendations } from '@/lib/productRecommendations';
+import { PriceInline } from '@/components/PriceInline';
 
 const PRODUCT_HANDLE_60 = 'serum-crystal-oil-laranja-60ml-6903bb190ee85';
 const PRODUCT_HANDLE_15 = 'serum-crystal-oil-laranja-15ml-6903bb1b03e45';
