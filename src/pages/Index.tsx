@@ -14,7 +14,7 @@ const Index = () => {
     description: 'LOF Professional: cosméticos capilares profissionais com ingredientes naturais. Linhas Repair, Nutritive, Silver, Wavy, Hydrate e o icônico Hit 10x1. Sofisticadamente simples.',
   });
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       <Header />
       <div className="pt-16 md:pt-20">
         <ProductLinesSection />
