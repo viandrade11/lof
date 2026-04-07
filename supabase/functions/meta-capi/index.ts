@@ -1,5 +1,7 @@
-import { corsHeaders } from "@supabase/supabase-js/cors";
-import { createHash } from "https://deno.land/std@0.224.0/crypto/mod.ts";
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+};
 
 const PIXEL_ID = "1482726736448904";
 const API_VERSION = "v21.0";
