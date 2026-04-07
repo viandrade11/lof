@@ -14,6 +14,7 @@ import { getSmartRecommendations } from '@/lib/productRecommendations';
 import { PriceInline } from '@/components/PriceInline';
 
 import { useSEO } from '@/hooks/useSEO';
+import { capiViewContent } from '@/lib/metaCapi';
 
 const PRODUCT_HANDLE = 'leave-in-hit-10x1-200ml-6903bafe7954e';
 

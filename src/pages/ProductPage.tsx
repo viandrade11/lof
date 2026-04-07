@@ -12,6 +12,7 @@ import { Loader2, ChevronLeft, ShoppingBag, Minus, Plus, Truck } from 'lucide-re
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useSEO } from '@/hooks/useSEO';
+import { capiViewContent } from '@/lib/metaCapi';
 
 function PriceDisplay({ variant, size = 'lg' }: { variant: any; size?: 'lg' | 'xl' }) {
   if (!variant) return null;
