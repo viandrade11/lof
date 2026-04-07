@@ -23,24 +23,6 @@ interface EventData {
   num_items?: number;
 }
 
-function hashSHA256(value: string): string {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(value.trim().toLowerCase());
-  const hashBuffer = new Uint8Array(
-    // deno-lint-ignore no-explicit-any
-    (crypto as any).subtle ? [] : []
-  );
-  // Use Web Crypto API
-  return "";
-}
-
-async function sha256(value: string): Promise<string> {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(value.trim().toLowerCase());
-  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
-}
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
