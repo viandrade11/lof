@@ -8,6 +8,7 @@ import { formatPrice } from "@/lib/shopify";
 import { useProducts } from "@/hooks/useProducts";
 import { CartUpsellBlock } from "@/components/UpsellBlock";
 import { getCartRecommendations } from "@/lib/productRecommendations";
+import { capiInitiateCheckout } from "@/lib/metaCapi";
 
 export const CartDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,6 +34,14 @@ export const CartDrawer = () => {
           currency: items[0]?.price.currencyCode || 'BRL',
         });
       }
+      // Server-side CAPI
+      capiInitiateCheckout({
+        contentIds: items.map(i => i.variantId),
+        contents: items.map(i => ({ id: i.variantId, quantity: i.quantity })),
+        value: totalPrice,
+        numItems: totalItems,
+        currency: items[0]?.price.currencyCode || 'BRL',
+      });
       window.open(checkoutUrl, '_blank');
       setIsOpen(false);
     }

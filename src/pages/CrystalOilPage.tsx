@@ -13,6 +13,7 @@ import { useSEO } from '@/hooks/useSEO';
 import { UpsellBlock } from '@/components/UpsellBlock';
 import { getSmartRecommendations } from '@/lib/productRecommendations';
 import { PriceInline } from '@/components/PriceInline';
+import { capiViewContent } from '@/lib/metaCapi';
 
 const PRODUCT_HANDLE_60 = 'serum-crystal-oil-laranja-60ml-6903bb190ee85';
 const PRODUCT_HANDLE_15 = 'serum-crystal-oil-laranja-15ml-6903bb1b03e45';
@@ -88,11 +89,19 @@ const CrystalOilPage = () => {
   });
 
   useEffect(() => {
-    if (activeProduct && variant && typeof window !== 'undefined' && (window as any).fbq) {
-      (window as any).fbq('track', 'ViewContent', {
-        content_name: activeProduct.title,
-        content_ids: [variant.id],
-        content_type: 'product',
+    if (activeProduct && variant) {
+      if (typeof window !== 'undefined' && (window as any).fbq) {
+        (window as any).fbq('track', 'ViewContent', {
+          content_name: activeProduct.title,
+          content_ids: [variant.id],
+          content_type: 'product',
+          value: parseFloat(variant.price.amount),
+          currency: variant.price.currencyCode || 'BRL',
+        });
+      }
+      capiViewContent({
+        contentIds: [variant.id],
+        contentName: activeProduct.title,
         value: parseFloat(variant.price.amount),
         currency: variant.price.currencyCode || 'BRL',
       });
