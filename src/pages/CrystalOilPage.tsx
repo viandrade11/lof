@@ -88,11 +88,19 @@ const CrystalOilPage = () => {
   });
 
   useEffect(() => {
-    if (activeProduct && variant && typeof window !== 'undefined' && (window as any).fbq) {
-      (window as any).fbq('track', 'ViewContent', {
-        content_name: activeProduct.title,
-        content_ids: [variant.id],
-        content_type: 'product',
+    if (activeProduct && variant) {
+      if (typeof window !== 'undefined' && (window as any).fbq) {
+        (window as any).fbq('track', 'ViewContent', {
+          content_name: activeProduct.title,
+          content_ids: [variant.id],
+          content_type: 'product',
+          value: parseFloat(variant.price.amount),
+          currency: variant.price.currencyCode || 'BRL',
+        });
+      }
+      capiViewContent({
+        contentIds: [variant.id],
+        contentName: activeProduct.title,
         value: parseFloat(variant.price.amount),
         currency: variant.price.currencyCode || 'BRL',
       });

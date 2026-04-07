@@ -1,5 +1,6 @@
 declare global { interface Window { fbq?: (...args: unknown[]) => void } }
 import { create } from 'zustand';
+import { capiAddToCart } from '@/lib/metaCapi';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import {
   type ShopifyProduct,
@@ -86,7 +87,14 @@ export const useCartStore = create<CartStore>()(
               value: parseFloat(item.price.amount) * item.quantity,
               currency: item.price.currencyCode || 'BRL',
             });
-        }
+          }
+          // Server-side CAPI
+          capiAddToCart({
+            contentIds: [item.variantId],
+            contentName: item.product.node?.title ?? '',
+            value: parseFloat(item.price.amount) * item.quantity,
+            currency: item.price.currencyCode || 'BRL',
+          });
         }
       },
 

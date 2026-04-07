@@ -136,11 +136,19 @@ const ProductPage = () => {
   });
 
   useEffect(() => {
-    if (product && selectedVariant && typeof window !== 'undefined' && (window as any).fbq) {
-      (window as any).fbq('track', 'ViewContent', {
-        content_name: product.title,
-        content_ids: [selectedVariant.id],
-        content_type: 'product',
+    if (product && selectedVariant) {
+      if (typeof window !== 'undefined' && (window as any).fbq) {
+        (window as any).fbq('track', 'ViewContent', {
+          content_name: product.title,
+          content_ids: [selectedVariant.id],
+          content_type: 'product',
+          value: parseFloat(selectedVariant.price.amount),
+          currency: selectedVariant.price.currencyCode || 'BRL',
+        });
+      }
+      capiViewContent({
+        contentIds: [selectedVariant.id],
+        contentName: product.title,
         value: parseFloat(selectedVariant.price.amount),
         currency: selectedVariant.price.currencyCode || 'BRL',
       });
