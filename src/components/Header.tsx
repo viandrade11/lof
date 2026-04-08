@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { Menu, X, Search, ChevronDown, User } from 'lucide-react';
 import { Menu, X, Search, ChevronDown } from 'lucide-react';
 import logoLof from '@/assets/logo-lof.png';
 import { CartDrawer } from './CartDrawer';
