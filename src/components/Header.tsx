@@ -107,6 +107,9 @@ export function Header() {
           <button className="p-2 text-foreground/70 hover:text-foreground transition-colors" aria-label="Buscar">
             <Search className="h-5 w-5" />
           </button>
+          <a href="https://loja-lof.myshopify.com/account" target="_blank" rel="noopener noreferrer" className="p-2 text-foreground/70 hover:text-foreground transition-colors" aria-label="Minha Conta">
+            <User className="h-5 w-5" />
+          </a>
           <CartDrawer />
           <button
             className="md:hidden p-2 text-foreground/70"

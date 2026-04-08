@@ -47,6 +47,9 @@ export function Footer() {
               <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-background/60 hover:text-background transition-colors" aria-label="YouTube">
                 <Youtube className="h-5 w-5" />
               </a>
+              <a href="https://wa.me/5511952133024" target="_blank" rel="noopener noreferrer" className="text-background/60 hover:text-background transition-colors" aria-label="WhatsApp">
+                <MessageCircle className="h-5 w-5" />
+              </a>
             </div>
             <div className="mt-6">
               <p className="text-xs text-background/40">contato@lof.com.br</p>
