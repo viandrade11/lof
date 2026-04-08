@@ -1,4 +1,4 @@
-import { Instagram, Facebook, Youtube } from 'lucide-react';
+import { Instagram, Facebook, Youtube, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import logoLof from '@/assets/logo-lof.png';
 import aliancaGrafismo from '@/assets/alianca-grafismo.png';
