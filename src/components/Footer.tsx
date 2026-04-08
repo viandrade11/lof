@@ -51,10 +51,6 @@ export function Footer() {
                 <MessageCircle className="h-5 w-5" />
               </a>
             </div>
-            <div className="mt-6">
-              <p className="text-xs text-background/40">contato@lof.com.br</p>
-              <p className="text-xs text-background/40 mt-1">www.lof.com.br</p>
-            </div>
           </div>
         </div>
         <div className="border-t border-background/10 mt-12 pt-8 text-center">
