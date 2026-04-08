@@ -1,4 +1,4 @@
-import { Instagram, Facebook, Youtube } from 'lucide-react';
+import { Instagram, Facebook, Youtube, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import logoLof from '@/assets/logo-lof.png';
 import aliancaGrafismo from '@/assets/alianca-grafismo.png';
@@ -46,6 +46,9 @@ export function Footer() {
               </a>
               <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-background/60 hover:text-background transition-colors" aria-label="YouTube">
                 <Youtube className="h-5 w-5" />
+              </a>
+              <a href="https://wa.me/5511952133024" target="_blank" rel="noopener noreferrer" className="text-background/60 hover:text-background transition-colors" aria-label="WhatsApp">
+                <MessageCircle className="h-5 w-5" />
               </a>
             </div>
             <div className="mt-6">
