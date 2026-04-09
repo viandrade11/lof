@@ -23,6 +23,7 @@ const produtos = [
   { label: 'Máscaras', href: '/collections/all?tipo=Máscara' },
   { label: 'Finalizadores', href: '/collections/all?tipo=Finalizador' },
   { label: 'Tratamentos', href: '/collections/all?tipo=Tratamento' },
+  { label: 'Kits', href: '/collections/all?tipo=Kit' },
 ];
 
 type DropdownItem = { label: string; href: string };
