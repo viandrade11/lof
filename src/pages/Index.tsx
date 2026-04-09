@@ -18,7 +18,7 @@ const Index = () => {
   return (
     <div className="min-h-screen overflow-x-hidden">
       <Header />
-      <div className="pt-16 md:pt-20">
+      <div className="pt-[88px] md:pt-[108px]">
         <PromoBanner />
         <ProductLinesSection />
         <HighlightBlocks />
