@@ -84,6 +84,12 @@ export function Header() {
         isScrolled ? 'bg-background/95 backdrop-blur-md shadow-sm' : 'bg-background'
       }`}
     >
+      <Link
+        to="/collections/all"
+        className="block bg-foreground text-background text-center py-1.5 text-[10px] md:text-xs uppercase tracking-[0.2em] font-medium hover:bg-foreground/90 transition-colors"
+      >
+        🔥 20% OFF em todo o site — Aproveite agora
+      </Link>
       <div className="container flex items-center justify-between h-16 md:h-20">
         <Link to="/" className="flex-shrink-0">
           <img src={logoLof} alt="LOF Professional" className="h-7 md:h-9 w-auto" />
