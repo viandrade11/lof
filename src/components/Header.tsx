@@ -88,7 +88,7 @@ export function Header() {
         to="/collections/all"
         className="block bg-foreground text-background text-center py-1.5 text-[10px] md:text-xs uppercase tracking-[0.2em] font-medium hover:bg-foreground/90 transition-colors"
       >
-        🔥 20% OFF EM TODO O SITE — DESCONTO APLICADO NO CARRINHO
+        🔥 20% OFF EM TODO O SITE — DESCONTO APLICADO NO CHECKOUT
       </Link>
       <div className="container flex items-center justify-between h-16 md:h-20">
         <Link to="/" className="flex-shrink-0">
