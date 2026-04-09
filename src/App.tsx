@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useCartSync } from "@/hooks/useCartSync";
+import { PromoSticker } from "@/components/PromoSticker";
 import Index from "./pages/Index.tsx";
 import ProductPage from "./pages/ProductPage.tsx";
 import CollectionPage from "./pages/CollectionPage.tsx";
@@ -17,6 +18,7 @@ function AppContent() {
   useCartSync();
   return (
     <BrowserRouter>
+      <PromoSticker />
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/collections/all" element={<CollectionPage />} />

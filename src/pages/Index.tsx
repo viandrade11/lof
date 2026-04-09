@@ -6,6 +6,7 @@ import { LineScienceSection } from '@/components/LineScienceSection';
 import { RoutineSection } from '@/components/RoutineSection';
 import { AboutSection } from '@/components/AboutSection';
 import { Footer } from '@/components/Footer';
+import { PromoBanner } from '@/components/PromoBanner';
 import { useSEO } from '@/hooks/useSEO';
 
 const Index = () => {
@@ -20,6 +21,7 @@ const Index = () => {
       <div className="pt-16 md:pt-20">
         <ProductLinesSection />
         <HighlightBlocks />
+        <PromoBanner />
         <HeroBanner />
         <LineScienceSection />
         <RoutineSection />
