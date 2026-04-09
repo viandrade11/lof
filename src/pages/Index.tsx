@@ -19,9 +19,9 @@ const Index = () => {
     <div className="min-h-screen overflow-x-hidden">
       <Header />
       <div className="pt-16 md:pt-20">
+        <PromoBanner />
         <ProductLinesSection />
         <HighlightBlocks />
-        <PromoBanner />
         <HeroBanner />
         <LineScienceSection />
         <RoutineSection />
