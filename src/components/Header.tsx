@@ -103,6 +103,9 @@ export function Header() {
           <Link to="/hit-10x1" className="text-xs font-medium uppercase tracking-[0.2em] text-foreground/70 hover:text-foreground transition-colors">
             Hit 10x1
           </Link>
+          <Link to="/kits" className="text-xs font-medium uppercase tracking-[0.2em] text-foreground/70 hover:text-foreground transition-colors">
+            Kits
+          </Link>
           <Link to="/profissional" className="text-xs font-medium uppercase tracking-[0.2em] text-foreground/70 hover:text-foreground transition-colors">
             Atacado
           </Link>
