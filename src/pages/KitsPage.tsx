@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useProducts } from '@/hooks/useProducts';
 import { ProductCard } from '@/components/ProductCard';
 import { useSEO } from '@/hooks/useSEO';
@@ -51,6 +52,42 @@ const hitCombos = [
     title: 'Hit + Wavy',
     desc: 'A definição e controle de frizz da Wavy ganham mais duração com a proteção e o desembaraço do Hit 10x1. Cachos definidos com toque natural, sem crocância.',
     result: 'Cachos definidos, soltos e protegidos o dia inteiro.',
+  },
+];
+
+/* ── FAQ items (SEO + GEO) ── */
+const faqItems = [
+  {
+    q: 'O que vem nos kits LOF Professional?',
+    a: 'Cada kit LOF reúne produtos que funcionam em sinergia — shampoo, condicionador, máscara de tratamento e, em alguns casos, finalizadores como o Hit 10x1 e boosters. A composição varia de acordo com a necessidade capilar: reconstrução, nutrição, matização ou definição de cachos.',
+  },
+  {
+    q: 'Qual a vantagem de comprar um kit ao invés de produtos avulsos?',
+    a: 'Além do preço especial, os kits garantem que você use produtos formulados para trabalhar juntos. A sinergia entre shampoo, tratamento e finalização potencializa os resultados — algo que não se consegue misturando marcas ou linhas diferentes.',
+  },
+  {
+    q: 'Como escolher o kit ideal para o meu tipo de cabelo?',
+    a: 'Cabelos danificados por química ou calor se beneficiam do kit Repair. Fios ressecados e sem brilho precisam do Nutritive. Para loiros e descoloridos, o Silver é ideal. Já cabelos cacheados e ondulados encontram no kit Wavy a definição e o controle de frizz que precisam.',
+  },
+  {
+    q: 'Posso usar o Hit 10x1 com qualquer linha LOF?',
+    a: 'Sim! O leave-in Hit 10x1 foi desenvolvido para complementar todas as linhas LOF. Ele oferece 10 benefícios em um só produto — proteção térmica até 230 °C, redução de frizz, brilho, desembaraço e muito mais — independentemente da linha de tratamento escolhida.',
+  },
+  {
+    q: 'O que são os boosters e como usar?',
+    a: 'Os boosters LOF são concentrados de alta performance em formato de ampola. Basta misturar à máscara ou ao condicionador durante o banho para turbinar o tratamento. Eles entregam reconstrução, nutrição ou hidratação intensificada em poucos minutos, com resultados visíveis desde a primeira aplicação.',
+  },
+  {
+    q: 'Os kits LOF são indicados para uso profissional em salão?',
+    a: 'Sim. Todos os produtos LOF Professional são desenvolvidos com tecnologia e concentração de ativos de nível profissional, sendo amplamente utilizados em salões de beleza. Os kits facilitam a montagem de protocolos de tratamento completos no salão.',
+  },
+  {
+    q: 'Com que frequência devo usar os produtos do kit?',
+    a: 'O shampoo e o condicionador podem ser usados em todas as lavagens. A máscara de tratamento é recomendada de 1 a 2 vezes por semana. O Hit 10x1 deve ser aplicado em cada lavagem como leave-in, e os boosters podem ser usados semanalmente ou quando os fios precisarem de tratamento extra.',
+  },
+  {
+    q: 'Os produtos LOF Professional são veganos e cruelty-free?',
+    a: 'Sim. Todos os produtos LOF Professional são veganos, cruelty-free e livres de parabenos e sulfatos agressivos. As fórmulas são desenvolvidas com ativos de alta performance respeitando os fios e o meio ambiente.',
   },
 ];
 
