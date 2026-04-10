@@ -220,27 +220,6 @@ const ProductPage = () => {
             </p>
           )}
           <h1 className="font-display text-2xl font-bold leading-tight break-words">{product.title}</h1>
-          <PriceDisplay variant={selectedVariant} size="lg" />
-          {sizeVariants.length > 1 && (
-            <div className="mt-4">
-              <p className="text-xs uppercase tracking-wider font-medium mb-2">Tamanho</p>
-              <div className="flex flex-wrap gap-2">
-                {sizeVariants.map(sv => (
-                  <button
-                    key={sv.handle}
-                    onClick={() => !sv.isCurrent && navigate(`/products/${sv.handle}`)}
-                    className={`h-9 min-w-[40px] px-3 text-xs border transition-colors ${
-                      sv.isCurrent
-                        ? 'border-foreground bg-foreground text-background'
-                        : 'border-border hover:border-foreground'
-                    }`}
-                  >
-                    {sv.size}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
 
         <div className="grid md:grid-cols-[1fr_420px] lg:grid-cols-[1fr_480px]">
@@ -297,8 +276,9 @@ const ProductPage = () => {
                 </p>
               )}
               <h1 className="font-display text-3xl lg:text-4xl font-bold leading-tight break-words">{product.title}</h1>
-              <PriceDisplay variant={selectedVariant} size="xl" />
             </div>
+
+            <PriceDisplay variant={selectedVariant} size="xl" />
 
             {/* Variant Selector */}
             {hasMultipleVariants && product.options && (
