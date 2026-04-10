@@ -1,7 +1,7 @@
 import { Instagram, Facebook, Youtube, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import logoLof from '@/assets/logo-lof.png';
-import aliancaGrafismo from '@/assets/alianca-grafismo.png';
+import aliancaGrafismo from '@/assets/alianca-grafismo.webp';
 
 export function Footer() {
   return (

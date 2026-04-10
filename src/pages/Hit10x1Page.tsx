@@ -8,7 +8,7 @@ import { ShoppingBag, Loader2, Check, Shield, Droplets, Sun, Wind, Sparkles, Zap
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useState, useEffect } from 'react';
-import aliancaGrafismo from '@/assets/alianca-grafismo.png';
+import aliancaGrafismo from '@/assets/alianca-grafismo.webp';
 import { UpsellBlock } from '@/components/UpsellBlock';
 import { getSmartRecommendations } from '@/lib/productRecommendations';
 import { PriceInline } from '@/components/PriceInline';

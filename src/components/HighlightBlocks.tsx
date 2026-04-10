@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useProductByHandle } from '@/hooks/useProducts';
 import { ArrowRight } from 'lucide-react';
-import aliancaGrafismo from '@/assets/alianca-grafismo.png';
+import aliancaGrafismo from '@/assets/alianca-grafismo.webp';
 
 export function HighlightBlocks() {
   const { data: hitProduct } = useProductByHandle('leave-in-hit-10x1-200ml-6903bafe7954e');
