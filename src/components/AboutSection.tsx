@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import educationBanner from '@/assets/education-banner.jpg';
-import aboutImg from '@/assets/about-lifestyle.jpg';
-import aliancaGrafismo from '@/assets/alianca-grafismo.png';
+import educationBanner from '@/assets/education-banner.webp';
+import aboutImg from '@/assets/about-lifestyle.webp';
+import aliancaGrafismo from '@/assets/alianca-grafismo.webp';
 
 export function AboutSection() {
   return (
