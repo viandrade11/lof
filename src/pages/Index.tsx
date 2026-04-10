@@ -7,6 +7,8 @@ import { RoutineSection } from '@/components/RoutineSection';
 import { AboutSection } from '@/components/AboutSection';
 import { Footer } from '@/components/Footer';
 import { PromoBanner } from '@/components/PromoBanner';
+import { FloatingCTA } from '@/components/FloatingCTA';
+import { LazySection } from '@/components/LazySection';
 import { useSEO } from '@/hooks/useSEO';
 
 const Index = () => {
@@ -22,12 +24,21 @@ const Index = () => {
         <PromoBanner />
         <ProductLinesSection />
         <HighlightBlocks />
-        <HeroBanner />
-        <LineScienceSection />
-        <RoutineSection />
-        <AboutSection />
+        <LazySection>
+          <HeroBanner />
+        </LazySection>
+        <LazySection>
+          <LineScienceSection />
+        </LazySection>
+        <LazySection>
+          <RoutineSection />
+        </LazySection>
+        <LazySection>
+          <AboutSection />
+        </LazySection>
       </div>
       <Footer />
+      <FloatingCTA />
     </div>
   );
 };
