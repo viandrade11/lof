@@ -306,6 +306,52 @@ const KitsPage = () => {
           )}
         </section>
 
+        {/* ═══════ FAQ ═══════ */}
+        <section className="border-t border-border py-16 md:py-24">
+          <div className="container max-w-3xl">
+            <div className="text-center mb-10 md:mb-14">
+              <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">
+                Tire suas dúvidas
+              </p>
+              <h2 className="font-display text-3xl md:text-4xl font-light">
+                Perguntas <span className="italic">Frequentes</span>
+              </h2>
+            </div>
+
+            <Accordion type="single" collapsible className="w-full">
+              {faqItems.map((faq, i) => (
+                <AccordionItem key={i} value={`faq-${i}`} className="border-b border-border">
+                  <AccordionTrigger className="text-sm md:text-base text-left font-medium py-5 hover:no-underline">
+                    {faq.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-sm text-muted-foreground leading-relaxed pb-5">
+                    {faq.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+
+            {/* JSON-LD FAQPage schema */}
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  '@context': 'https://schema.org',
+                  '@type': 'FAQPage',
+                  mainEntity: faqItems.map((faq) => ({
+                    '@type': 'Question',
+                    name: faq.q,
+                    acceptedAnswer: {
+                      '@type': 'Answer',
+                      text: faq.a,
+                    },
+                  })),
+                }),
+              }}
+            />
+          </div>
+        </section>
+
         {/* ═══════ CTA ═══════ */}
         <section className="border-t border-border bg-muted/30">
           <div className="container py-12 md:py-16 text-center">
