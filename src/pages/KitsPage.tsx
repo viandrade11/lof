@@ -33,7 +33,7 @@ const hitCombos = [
     color: 'bg-lof-nutritive',
     colorLight: 'bg-lof-nutritive/10',
     title: 'Hit + Nutritive',
-    desc: 'A nutrição profunda de óleos nobres da linha Nutritive complementa os 10 benefícios do Hit, criando uma barreira lipídica que combate o ressecamento e devolve a maciez.',
+    desc: 'A nutrição profunda de óleos nobres da linha Nutritive complementa os 10 benefícios do Hit 10x1, criando uma barreira lipídica que combate o ressecamento e devolve a maciez.',
     result: 'Fios nutridos, macios e com brilho duradouro sem pesar.',
   },
   {
