@@ -14,6 +14,7 @@ const linhas = [
   
   { label: 'Crystal Oil', href: '/crystal-oil' },
   { label: 'Hit 10x1', href: '/hit-10x1' },
+  { label: 'Kits', href: '/kits' },
 ];
 
 const produtos = [
