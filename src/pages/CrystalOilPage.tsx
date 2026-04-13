@@ -129,7 +129,7 @@ const CrystalOilPage = () => {
       <section className="relative pt-16 md:pt-20">
         <div className="relative h-[90vh] min-h-[600px] max-h-[900px] overflow-hidden bg-[#1a1510]">
           {heroImage && (
-            <img src={heroImage} alt="LOF Crystal Oil Sérum" className="absolute inset-0 w-full h-full object-contain object-right opacity-40 md:opacity-60" width={1920} height={1080} />
+            <img src={heroImage} alt="Sérum Crystal Oil LOF Professional — óleo capilar multifuncional com Argan, Ojon e Macadâmia para brilho e proteção" className="absolute inset-0 w-full h-full object-contain object-right opacity-40 md:opacity-60" width={1920} height={1080} />
           )}
           <div className="absolute inset-0 bg-gradient-to-r from-[#1a1510] via-[#1a1510]/80 to-transparent" />
           <img src={aliancaGrafismo} alt="" className="absolute right-[5%] top-1/2 -translate-y-1/2 w-[40vw] max-w-[500px] opacity-[0.04] invert pointer-events-none select-none" aria-hidden="true" />
@@ -342,7 +342,7 @@ const CrystalOilPage = () => {
           <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
             <div className="overflow-hidden bg-muted aspect-[4/3] flex items-center justify-center">
               {secondImage ? (
-                <img src={secondImage} alt="Resultados Crystal Oil" className="w-full h-full object-cover" loading="lazy" />
+                <img src={secondImage} alt="Cabelos com brilho intenso e pontas seladas após uso do sérum Crystal Oil LOF Professional" className="w-full h-full object-cover" loading="lazy" />
               ) : (
                 <Sparkles className="h-16 w-16 text-muted-foreground/30" />
               )}

@@ -10,7 +10,7 @@ export function Footer() {
       <div className="container relative py-16 md:py-20">
         <div className="grid md:grid-cols-4 gap-10 md:gap-12">
           <div className="md:col-span-1">
-            <img src={logoLof} alt="LOF Professional" className="h-8 invert mb-4" />
+            <img src={logoLof} alt="Logo LOF Professional — cosméticos capilares de alta performance" className="h-8 invert mb-4" />
             <p className="text-xs text-background/60 leading-relaxed">
               Sofisticadamente simples. Produtos profissionais de altíssima performance para seus cabelos.
             </p>

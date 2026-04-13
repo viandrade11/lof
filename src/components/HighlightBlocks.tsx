@@ -17,7 +17,7 @@ export function HighlightBlocks() {
         {hitImage && (
           <img
             src={hitImage}
-            alt="Hit 10x1 - Leave-in multiuso"
+            alt="Frasco do leave-in Hit 10x1 LOF Professional com 10 benefícios em um único produto para todos os tipos de cabelo"
             className="absolute inset-0 w-full h-full object-contain object-right opacity-40 group-hover:opacity-50 transition-opacity duration-700 group-hover:scale-105 transition-transform"
             loading="lazy"
           />
@@ -51,7 +51,7 @@ export function HighlightBlocks() {
         {crystalImage && (
           <img
             src={crystalImage}
-            alt="Crystal Oil - Sérum Multi Óleos"
+            alt="Sérum capilar Crystal Oil LOF Professional com óleos de Argan, Ojon e Macadâmia para brilho e nutrição intensa"
             className="absolute inset-0 w-full h-full object-contain object-center opacity-40 group-hover:opacity-50 transition-opacity duration-700 group-hover:scale-105 transition-transform"
             loading="lazy"
           />

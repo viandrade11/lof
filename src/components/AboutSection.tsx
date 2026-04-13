@@ -13,7 +13,7 @@ export function AboutSection() {
           <div className="relative">
             <img
               src={aboutImg}
-              alt="LOF Professional - Sofisticadamente Simples"
+              alt="Mulher com cabelos longos e saudáveis representando o conceito sofisticadamente simples da LOF Professional"
               className="w-full aspect-[3/4] object-cover"
               loading="lazy"
             />
@@ -48,7 +48,7 @@ export function AboutSection() {
           <div className="md:order-2">
             <img
               src={educationBanner}
-              alt="Ciência LOF Professional"
+              alt="Laboratório de pesquisa e desenvolvimento de fórmulas capilares LOF Professional com ingredientes naturais"
               className="w-full aspect-[3/4] object-cover"
               loading="lazy"
             />

@@ -10,7 +10,7 @@ export function HeroBanner() {
         <div className="absolute inset-0 flex items-end justify-center">
           <img
             src={heroBannerProdutos}
-            alt="LOF Professional - Linha completa de produtos capilares"
+            alt="Linha completa de shampoos, condicionadores e tratamentos capilares LOF Professional dispostos sobre fundo neutro"
             className="w-full max-w-[1400px] object-contain object-bottom"
             loading="lazy"
             width={1200}
