@@ -116,7 +116,7 @@ const B2BPage = () => {
       {/* Hero */}
       <section className="relative pt-16 md:pt-20">
         <div className="relative h-[85vh] min-h-[600px]">
-          <img src={b2bHero} alt="Profissional em salão" className="absolute inset-0 w-full h-full object-cover" />
+          <img src={b2bHero} alt="Cabeleireiro profissional aplicando tratamento capilar LOF em cliente no salão de beleza" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-lof-black/85 via-lof-black/60 to-transparent" />
           <div className="absolute inset-0 flex items-center">
             <div className="container">
@@ -314,7 +314,7 @@ const B2BPage = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
             {resultados.map((img, i) => (
               <div key={i} className="aspect-square overflow-hidden">
-                <img src={img} alt={`Resultado LOF ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
+                <img src={img} alt={`Antes e depois de tratamento capilar profissional com produtos LOF — resultado ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
               </div>
             ))}
           </div>

@@ -6,7 +6,7 @@ export function HeroSection() {
       <div className="absolute inset-0">
         <img
           src={heroBg}
-          alt="LOF Professional - Haircare de alta performance"
+          alt="Cabelos brilhantes e saudáveis após tratamento com produtos LOF Professional de alta performance"
           className="w-full h-full object-cover"
           width={1920}
           height={1080}
