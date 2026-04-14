@@ -19,7 +19,7 @@ function AppContent() {
   useCartSync();
   return (
     <BrowserRouter>
-      
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/collections/all" element={<CollectionPage />} />
