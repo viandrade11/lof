@@ -409,18 +409,26 @@ const ProductPage = () => {
         <ProductDetails product={product} />
       </div>
 
-      {/* Sticky Add to Cart Bar */}
+      {/* Sticky Add to Cart Bar — enhanced with thumbnail */}
       {showStickyBar && selectedVariant && (
         <div className="fixed bottom-0 left-0 right-0 z-50 bg-background border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.08)] animate-in slide-in-from-bottom-4 duration-300">
           <div className="container flex items-center gap-3 py-3">
-            <div className="flex-1 min-w-0 hidden sm:block">
-              <p className="text-sm font-semibold truncate">{product.title}</p>
-              <p className="text-sm text-muted-foreground">
-                {formatPrice(selectedVariant.price.amount, selectedVariant.price.currencyCode)}
-              </p>
+            {/* Thumbnail + info */}
+            <div className="flex items-center gap-3 flex-1 min-w-0">
+              {firstImage && (
+                <div className="hidden sm:block w-10 h-10 bg-muted overflow-hidden flex-shrink-0">
+                  <img src={firstImage} alt={product.title} className="w-full h-full object-cover" />
+                </div>
+              )}
+              <div className="min-w-0">
+                <p className="text-sm font-semibold truncate">{product.title}</p>
+                <p className="text-sm font-bold text-green-600 sm:text-foreground">
+                  {formatPrice(selectedVariant.price.amount, selectedVariant.price.currencyCode)}
+                </p>
+              </div>
             </div>
-            <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
-              <div className="flex items-center border border-border">
+            <div className="flex items-center gap-3 sm:gap-4 flex-shrink-0">
+              <div className="hidden sm:flex items-center border border-border">
                 <button
                   onClick={() => setQuantity(q => Math.max(1, q - 1))}
                   className="h-10 w-10 flex items-center justify-center hover:bg-muted transition-colors"
@@ -440,7 +448,7 @@ const ProductPage = () => {
               <Button
                 onClick={handleAddToCart}
                 disabled={cartLoading || !selectedVariant.availableForSale}
-                className="flex-1 sm:flex-none h-10 sm:h-11 sm:px-8 uppercase tracking-[0.15em] text-xs font-semibold"
+                className="h-10 sm:h-11 px-6 sm:px-8 uppercase tracking-[0.15em] text-xs font-semibold"
               >
                 {cartLoading ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -448,7 +456,7 @@ const ProductPage = () => {
                   <>
                     <ShoppingBag className="h-4 w-4 mr-2" />
                     <span className="sm:hidden">{formatPrice(selectedVariant.price.amount, selectedVariant.price.currencyCode)}</span>
-                    <span className="hidden sm:inline">Adicionar ao Carrinho</span>
+                    <span className="hidden sm:inline">Comprar</span>
                   </>
                 )}
               </Button>
@@ -461,6 +469,21 @@ const ProductPage = () => {
     </div>
   );
 };
+
+function NotFoundRecommendations() {
+  const { data: products } = useProducts(8);
+  if (!products || products.length === 0) return null;
+  return (
+    <div className="text-left">
+      <h2 className="font-display text-xl font-semibold mb-6 text-center">Produtos em Destaque</h2>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {products.slice(0, 4).map(p => (
+          <ProductCard key={p.node.id} product={p} />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function ProductPageUpsell({ product }: { product: any }) {
   const { data: allProducts } = useProducts(50);
