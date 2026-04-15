@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, Search, ChevronDown, User } from 'lucide-react';
 import logoLof from '@/assets/logo-lof.png';
 import { CartDrawer } from './CartDrawer';
+import { SearchModal } from './SearchModal';
 
 const linhas = [
   { label: 'Repair', href: '/collections/all?linha=Repair' },
@@ -71,6 +72,7 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileLinhasOpen, setMobileLinhasOpen] = useState(false);
   const [mobileProdutosOpen, setMobileProdutosOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 20);
@@ -115,7 +117,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <button className="p-2 text-foreground/70 hover:text-foreground transition-colors" aria-label="Buscar">
+          <button onClick={() => setSearchOpen(true)} className="p-2 text-foreground/70 hover:text-foreground transition-colors" aria-label="Buscar">
             <Search className="h-5 w-5" />
           </button>
           <a href="https://loja-lof.myshopify.com/account" target="_blank" rel="noopener noreferrer" className="p-2 text-foreground/70 hover:text-foreground transition-colors" aria-label="Minha Conta">
@@ -186,6 +188,7 @@ export function Header() {
           </nav>
         </div>
       )}
+      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   );
 }

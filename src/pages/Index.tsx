@@ -8,6 +8,7 @@ import { AboutSection } from '@/components/AboutSection';
 import { Footer } from '@/components/Footer';
 import { PromoBanner } from '@/components/PromoBanner';
 import { FloatingCTA } from '@/components/FloatingCTA';
+import { SocialProofBar } from '@/components/SocialProofBar';
 import { LazySection } from '@/components/LazySection';
 import { useSEO } from '@/hooks/useSEO';
 
@@ -22,6 +23,7 @@ const Index = () => {
       <Header />
       <div className="pt-[88px] md:pt-[108px]">
         <PromoBanner />
+        <SocialProofBar />
         <ProductLinesSection />
         <HighlightBlocks />
         <LazySection>
