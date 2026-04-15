@@ -174,7 +174,13 @@ const ProductPage = () => {
         <Header />
         <div className="container pt-32 pb-20 text-center">
           <h1 className="font-display text-3xl mb-4">Produto não encontrado</h1>
-          <Link to="/" className="text-sm underline text-muted-foreground">Voltar para a loja</Link>
+          <p className="text-sm text-muted-foreground mb-8">
+            O produto que você buscou não está disponível. Confira algumas sugestões:
+          </p>
+          <Link to="/collections/all" className="inline-flex items-center h-11 px-8 bg-foreground text-background text-xs uppercase tracking-[0.2em] font-medium hover:bg-foreground/90 transition-colors mb-12">
+            Ver Todos os Produtos
+          </Link>
+          <NotFoundRecommendations />
         </div>
         <Footer />
       </div>
