@@ -28,6 +28,7 @@ const Index = () => {
         <LazySection>
           <HeroBanner />
         </LazySection>
+        <SocialProofBar />
         <LazySection>
           <LineScienceSection />
         </LazySection>
