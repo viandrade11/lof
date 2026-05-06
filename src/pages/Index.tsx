@@ -7,6 +7,7 @@ import { RoutineSection } from '@/components/RoutineSection';
 import { AboutSection } from '@/components/AboutSection';
 import { Footer } from '@/components/Footer';
 import { PromoBanner } from '@/components/PromoBanner';
+import { MainPromoBanner } from '@/components/MainPromoBanner';
 import { FloatingCTA } from '@/components/FloatingCTA';
 import { SocialProofBar } from '@/components/SocialProofBar';
 import { LazySection } from '@/components/LazySection';
@@ -22,6 +23,7 @@ const Index = () => {
     <div className="min-h-screen overflow-x-hidden">
       <Header />
       <div className="pt-[88px] md:pt-[108px]">
+        <MainPromoBanner />
         <PromoBanner />
         <ProductLinesSection />
         <HighlightBlocks />
