@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import heroDiasMaes from '@/assets/hero-dia-das-maes.webp';
+import heroDiasMaes from '@/assets/hero-dia-das-maes-v2.png';
 
 export function MainPromoBanner() {
   return (
