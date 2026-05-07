@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ShoppingBag, Loader2, Eye } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
 import { formatPrice, type ShopifyProduct } from '@/lib/shopify';
+import { applyCheckoutDiscount, CHECKOUT_DISCOUNT_PCT } from '@/lib/checkoutDiscount';
 import { toast } from 'sonner';
 import { QuickViewModal } from './QuickViewModal';
 
@@ -98,17 +99,19 @@ export function ProductCard({ product }: ProductCardProps) {
           {(() => {
             const compareAt = node.compareAtPriceRange?.minVariantPrice;
             const hasDiscount = compareAt && parseFloat(compareAt.amount) > parseFloat(price.amount);
-            if (hasDiscount) {
-              const pct = Math.round((1 - parseFloat(price.amount) / parseFloat(compareAt.amount)) * 100);
-              return (
-                <div className="mt-1 flex items-baseline gap-2">
-                  <p className="text-xs text-muted-foreground line-through">{formatPrice(compareAt.amount, compareAt.currencyCode)}</p>
-                  <p className="text-sm font-semibold text-green-600">{formatPrice(price.amount, price.currencyCode)}</p>
-                  <span className="text-[10px] font-bold uppercase bg-green-100 text-green-700 px-1.5 py-0.5 rounded">-{pct}%</span>
+            const finalPrice = applyCheckoutDiscount(price.amount);
+            const reference = hasDiscount ? compareAt!.amount : price.amount;
+            return (
+              <div className="mt-1 space-y-0.5">
+                <div className="flex items-baseline gap-2 flex-wrap">
+                  <p className="text-xs text-muted-foreground line-through">{formatPrice(reference, price.currencyCode)}</p>
+                  <p className="text-sm font-semibold text-green-600">{formatPrice(finalPrice.toFixed(2), price.currencyCode)}</p>
                 </div>
-              );
-            }
-            return <p className="text-sm font-semibold mt-1">{formatPrice(price.amount, price.currencyCode)}</p>;
+                <p className="text-[10px] uppercase tracking-wider text-green-700 font-semibold">
+                  com {Math.round(CHECKOUT_DISCOUNT_PCT * 100)}% off no checkout
+                </p>
+              </div>
+            );
           })()}
         </div>
 
