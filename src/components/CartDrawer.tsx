@@ -5,6 +5,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 import { ShoppingBag, Minus, Plus, Trash2, ExternalLink, Loader2, Tag } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { formatPrice } from "@/lib/shopify";
+import { applyCheckoutDiscount, CHECKOUT_DISCOUNT_PCT } from "@/lib/checkoutDiscount";
 import { useProducts } from "@/hooks/useProducts";
 import { CartUpsellBlock } from "@/components/UpsellBlock";
 import { getCartRecommendations } from "@/lib/productRecommendations";
@@ -15,9 +16,8 @@ export const CartDrawer = () => {
   const { items, isLoading, isSyncing, updateQuantity, removeItem, getCheckoutUrl, syncCart } = useCartStore();
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = items.reduce((sum, item) => sum + (parseFloat(item.price.amount) * item.quantity), 0);
-
-  // Calculate savings: items with quantity >= 2 save by buying more
-  const savings = calculateSavings(items);
+  const discountedTotal = applyCheckoutDiscount(totalPrice);
+  const checkoutSavings = totalPrice - discountedTotal;
 
   useEffect(() => { if (isOpen) syncCart(); }, [isOpen, syncCart]);
 
@@ -118,40 +118,46 @@ export const CartDrawer = () => {
               </div>
               <CartRecommendations />
               <div className="flex-shrink-0 space-y-3 pt-4 border-t border-border">
-                {/* Savings banner */}
-                {savings.totalSaved > 0 && (
+                {/* Checkout discount banner */}
+                {checkoutSavings > 0 && (
                   <div className="flex items-center gap-2 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded px-3 py-2">
                     <Tag className="h-4 w-4 text-green-600 dark:text-green-400 flex-shrink-0" />
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-semibold text-green-700 dark:text-green-300">
-                        Você está economizando {formatPrice(savings.totalSaved.toString(), items[0]?.price.currencyCode || 'BRL')}
+                        {Math.round(CHECKOUT_DISCOUNT_PCT * 100)}% OFF aplicado no checkout
                       </p>
                       <p className="text-[10px] text-green-600 dark:text-green-400">
-                        {savings.details}
+                        Você economiza {formatPrice(checkoutSavings.toFixed(2), items[0]?.price.currencyCode || 'BRL')}
                       </p>
                     </div>
                   </div>
                 )}
                 {/* Free shipping progress */}
-                {totalPrice < 299 && (
+                {discountedTotal < 299 && (
                   <div className="text-center">
                     <p className="text-xs text-muted-foreground">
-                      Faltam <span className="font-semibold text-foreground">{formatPrice((299 - totalPrice).toString(), items[0]?.price.currencyCode || 'BRL')}</span> para <span className="font-semibold text-green-600">frete grátis</span>
+                      Faltam <span className="font-semibold text-foreground">{formatPrice((299 - discountedTotal).toString(), items[0]?.price.currencyCode || 'BRL')}</span> para <span className="font-semibold text-green-600">frete grátis</span>
                     </p>
                     <div className="w-full bg-muted rounded-full h-1.5 mt-1.5">
                       <div
                         className="bg-green-500 h-1.5 rounded-full transition-all duration-500"
-                        style={{ width: `${Math.min(100, (totalPrice / 299) * 100)}%` }}
+                        style={{ width: `${Math.min(100, (discountedTotal / 299) * 100)}%` }}
                       />
                     </div>
                   </div>
                 )}
-                {totalPrice >= 299 && (
+                {discountedTotal >= 299 && (
                   <p className="text-xs text-center font-semibold text-green-600">✓ Você ganhou frete grátis!</p>
                 )}
-                <div className="flex justify-between items-center">
-                  <span className="text-sm uppercase tracking-wider">Total</span>
-                  <span className="text-lg font-semibold">{formatPrice(totalPrice.toString(), items[0]?.price.currencyCode || 'BRL')}</span>
+                <div className="space-y-1">
+                  <div className="flex justify-between items-center text-xs text-muted-foreground">
+                    <span>Subtotal</span>
+                    <span className="line-through">{formatPrice(totalPrice.toString(), items[0]?.price.currencyCode || 'BRL')}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm uppercase tracking-wider">Total no checkout</span>
+                    <span className="text-lg font-semibold text-green-600">{formatPrice(discountedTotal.toFixed(2), items[0]?.price.currencyCode || 'BRL')}</span>
+                  </div>
                 </div>
                 <Button onClick={handleCheckout} className="w-full h-12 uppercase tracking-wider text-xs font-semibold" disabled={items.length === 0 || isLoading || isSyncing}>
                   {isLoading || isSyncing ? <Loader2 className="w-4 h-4 animate-spin" /> : <><ExternalLink className="w-4 h-4 mr-2" />Finalizar Compra</>}
