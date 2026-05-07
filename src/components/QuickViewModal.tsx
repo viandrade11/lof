@@ -3,6 +3,7 @@ import { X, ShoppingBag, Loader2, Minus, Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCartStore } from '@/stores/cartStore';
 import { formatPrice, type ShopifyProduct } from '@/lib/shopify';
+import { applyCheckoutDiscount, CHECKOUT_DISCOUNT_PCT } from '@/lib/checkoutDiscount';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
@@ -83,22 +84,25 @@ export function QuickViewModal({ product, open, onClose }: QuickViewModalProps) 
               <h2 className="font-display text-xl md:text-2xl font-bold leading-tight">{node.title}</h2>
 
               {/* Price */}
-              <div className="mt-3 flex items-baseline gap-2">
-                {hasDiscount ? (
-                  <>
-                    <span className="text-sm text-muted-foreground line-through">
-                      {formatPrice(compareAt.amount, compareAt.currencyCode)}
-                    </span>
-                    <span className="text-xl font-semibold text-green-600">
-                      {formatPrice(selectedVariant.price.amount, selectedVariant.price.currencyCode)}
-                    </span>
-                  </>
-                ) : selectedVariant ? (
-                  <span className="text-xl font-semibold">
-                    {formatPrice(selectedVariant.price.amount, selectedVariant.price.currencyCode)}
-                  </span>
-                ) : null}
-              </div>
+              {selectedVariant && (() => {
+                const reference = hasDiscount ? compareAt!.amount : selectedVariant.price.amount;
+                const finalPrice = applyCheckoutDiscount(selectedVariant.price.amount);
+                return (
+                  <div className="mt-3 space-y-1">
+                    <div className="flex items-baseline gap-2 flex-wrap">
+                      <span className="text-sm text-muted-foreground line-through">
+                        {formatPrice(reference, selectedVariant.price.currencyCode)}
+                      </span>
+                      <span className="text-xl font-semibold text-green-600">
+                        {formatPrice(finalPrice.toFixed(2), selectedVariant.price.currencyCode)}
+                      </span>
+                    </div>
+                    <p className="text-[10px] font-semibold uppercase tracking-wider text-green-700">
+                      com {Math.round(CHECKOUT_DISCOUNT_PCT * 100)}% OFF aplicado no checkout
+                    </p>
+                  </div>
+                );
+              })()}
 
               {/* Variants */}
               {hasMultipleVariants && node.options && (
