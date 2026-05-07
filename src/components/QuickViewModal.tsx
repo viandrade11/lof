@@ -3,6 +3,7 @@ import { X, ShoppingBag, Loader2, Minus, Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCartStore } from '@/stores/cartStore';
 import { formatPrice, type ShopifyProduct } from '@/lib/shopify';
+import { getDiscountInfo } from '@/lib/discount';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
@@ -41,8 +42,7 @@ export function QuickViewModal({ product, open, onClose }: QuickViewModalProps) 
 
   if (!open) return null;
 
-  const compareAt = selectedVariant?.compareAtPrice;
-  const hasDiscount = compareAt && parseFloat(compareAt.amount) > parseFloat(selectedVariant.price.amount);
+  const info = selectedVariant ? getDiscountInfo(selectedVariant.price, selectedVariant.compareAtPrice) : null;
 
   return (
     <div className="fixed inset-0 z-[60]">
@@ -84,13 +84,13 @@ export function QuickViewModal({ product, open, onClose }: QuickViewModalProps) 
 
               {/* Price */}
               <div className="mt-3 flex items-baseline gap-2">
-                {hasDiscount ? (
+                {info?.hasDiscount ? (
                   <>
                     <span className="text-sm text-muted-foreground line-through">
-                      {formatPrice(compareAt.amount, compareAt.currencyCode)}
+                      De {formatPrice(info.compareAt.amount, info.compareAt.currencyCode)}
                     </span>
                     <span className="text-xl font-semibold text-green-600">
-                      {formatPrice(selectedVariant.price.amount, selectedVariant.price.currencyCode)}
+                      Por {formatPrice(selectedVariant.price.amount, selectedVariant.price.currencyCode)}
                     </span>
                   </>
                 ) : selectedVariant ? (
