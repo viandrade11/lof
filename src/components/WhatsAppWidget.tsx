@@ -4,7 +4,7 @@ const WHATSAPP_URL = 'https://api.whatsapp.com/send/?phone=5511952132380&text=Oi
 
 export function WhatsAppWidget() {
   return (
-    <TooltipProvider delayDuration=\{200\}>
+    <TooltipProvider delayDuration={200}>
       <Tooltip>
         <TooltipTrigger asChild>
           <a
@@ -24,7 +24,7 @@ export function WhatsAppWidget() {
       </span>
           </a>
         </TooltipTrigger>
-        <TooltipContent side="left" sideOffset=\{8\}>
+        <TooltipContent side="left" sideOffset={8}>
           Falar com consultoria
         </TooltipContent>
       </Tooltip>
