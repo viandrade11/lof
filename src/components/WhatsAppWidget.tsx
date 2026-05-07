@@ -1,8 +1,13 @@
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+
 const WHATSAPP_URL = 'https://api.whatsapp.com/send/?phone=5511952132380&text=Oi%21+Quero+consultoria+especializada+para+comprar+LOF.+&type=phone_number&app_absent=0';
 
 export function WhatsAppWidget() {
   return (
-    <a
+    <TooltipProvider delayDuration={200}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <a
       href={WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
@@ -17,6 +22,12 @@ export function WhatsAppWidget() {
       <span className="text-[11px] uppercase tracking-[0.15em] font-medium whitespace-nowrap">
         Atendimento
       </span>
-    </a>
+          </a>
+        </TooltipTrigger>
+        <TooltipContent side="left" sideOffset={8}>
+          Falar com consultoria
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 }
