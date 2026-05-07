@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useCartSync } from "@/hooks/useCartSync";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { WhatsAppWidget } from "@/components/WhatsAppWidget";
 
 import Index from "./pages/Index.tsx";
 import ProductPage from "./pages/ProductPage.tsx";
@@ -35,6 +36,7 @@ function AppContent() {
          <Route path="/profissional" element={<B2BPage />} />
          <Route path="*" element={<NotFound />} />
       </Routes>
+      <WhatsAppWidget />
     </BrowserRouter>
   );
 }
