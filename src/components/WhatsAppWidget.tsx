@@ -7,7 +7,7 @@ export function WhatsAppWidget() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar com consultora especializada no WhatsApp"
-      className="fixed z-40 right-4 bottom-20 md:bottom-6 inline-flex items-center gap-2 h-11 pl-3 pr-4 bg-foreground text-background rounded-full shadow-lg hover:shadow-xl hover:bg-foreground/90 transition-all"
+      className="fixed z-40 right-4 md:right-6 bottom-20 md:bottom-24 inline-flex items-center gap-2 h-11 pl-3 pr-4 bg-foreground text-background rounded-full shadow-lg hover:shadow-xl hover:bg-foreground/90 transition-all"
     >
       <span className="flex items-center justify-center h-7 w-7 rounded-full bg-background text-foreground">
         <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
