@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ShoppingBag, Loader2, Eye } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
 import { formatPrice, type ShopifyProduct } from '@/lib/shopify';
+import { getDiscountInfo } from '@/lib/discount';
 import { toast } from 'sonner';
 import { QuickViewModal } from './QuickViewModal';
 
@@ -96,15 +97,13 @@ export function ProductCard({ product }: ProductCardProps) {
         <div>
           <h3 className="text-sm font-medium leading-tight group-hover:text-foreground/70 transition-colors">{node.title}</h3>
           {(() => {
-            const compareAt = node.compareAtPriceRange?.minVariantPrice;
-            const hasDiscount = compareAt && parseFloat(compareAt.amount) > parseFloat(price.amount);
-            if (hasDiscount) {
-              const pct = Math.round((1 - parseFloat(price.amount) / parseFloat(compareAt.amount)) * 100);
+            const info = getDiscountInfo(price, node.compareAtPriceRange?.minVariantPrice);
+            if (info.hasDiscount) {
               return (
-                <div className="mt-1 flex items-baseline gap-2">
-                  <p className="text-xs text-muted-foreground line-through">{formatPrice(compareAt.amount, compareAt.currencyCode)}</p>
-                  <p className="text-sm font-semibold text-green-600">{formatPrice(price.amount, price.currencyCode)}</p>
-                  <span className="text-[10px] font-bold uppercase bg-green-100 text-green-700 px-1.5 py-0.5 rounded">-{pct}%</span>
+                <div className="mt-1 flex items-baseline gap-2 flex-wrap">
+                  <p className="text-xs text-muted-foreground line-through">De {formatPrice(info.compareAt.amount, info.compareAt.currencyCode)}</p>
+                  <p className="text-sm font-semibold text-green-600">Por {formatPrice(price.amount, price.currencyCode)}</p>
+                  <span className="text-[10px] font-bold uppercase bg-green-100 text-green-700 px-1.5 py-0.5 rounded">-{info.pct}%</span>
                 </div>
               );
             }
