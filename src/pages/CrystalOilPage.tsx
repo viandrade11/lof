@@ -4,7 +4,6 @@ import { Footer } from '@/components/Footer';
 import { useProductByHandle, useProducts } from '@/hooks/useProducts';
 import { useCartStore } from '@/stores/cartStore';
 import { formatPrice } from '@/lib/shopify';
-import { getDiscountInfo } from '@/lib/discount';
 import { ShoppingBag, Loader2, Check, Droplets, Sun, Sparkles, Heart, Star, ChevronDown, ArrowRight, Leaf, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
@@ -508,7 +507,6 @@ function CrystalOilUpsell({ product }: { product: any }) {
       {curated.map((p) => {
         const img = p.node.images.edges[0]?.node;
         const price = p.node.priceRange.minVariantPrice;
-        const info = getDiscountInfo(price, p.node.compareAtPriceRange?.minVariantPrice);
         const isAdding = addingId === p.node.id;
         return (
           <div key={p.node.id} className="group text-center">
@@ -517,14 +515,7 @@ function CrystalOilUpsell({ product }: { product: any }) {
                 {img && <img src={img.url} alt={img.altText || p.node.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />}
               </div>
               <h3 className="text-sm font-medium text-amber-50/90 leading-tight">{p.node.title}</h3>
-              {info.hasDiscount ? (
-                <div className="mt-1 flex items-baseline justify-center gap-1.5 flex-wrap">
-                  <span className="text-xs text-amber-50/60 line-through">De {formatPrice(info.compareAt.amount, info.compareAt.currencyCode)}</span>
-                  <span className="text-sm font-semibold text-amber-50">Por {formatPrice(price.amount, price.currencyCode)}</span>
-                </div>
-              ) : (
-                <p className="text-sm font-semibold text-amber-50 mt-1">{formatPrice(price.amount, price.currencyCode)}</p>
-              )}
+              <p className="text-sm font-semibold text-amber-50 mt-1">{formatPrice(price.amount, price.currencyCode)}</p>
             </Link>
             <button
               onClick={() => handleAdd(p)}

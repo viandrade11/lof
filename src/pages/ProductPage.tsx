@@ -3,7 +3,6 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import { useProductByHandle, useProducts } from '@/hooks/useProducts';
 import { useCartStore } from '@/stores/cartStore';
 import { formatPrice } from '@/lib/shopify';
-import { getDiscountInfo } from '@/lib/discount';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { ProductDetails } from '@/components/ProductDetails';
@@ -18,20 +17,22 @@ import { capiViewContent } from '@/lib/metaCapi';
 
 function PriceDisplay({ variant, size = 'lg' }: { variant: any; size?: 'lg' | 'xl' }) {
   if (!variant) return null;
-  const info = getDiscountInfo(variant.price, variant.compareAtPrice);
+  const compareAt = variant.compareAtPrice;
+  const hasDiscount = compareAt && parseFloat(compareAt.amount) > parseFloat(variant.price.amount);
   const priceSizeClass = size === 'xl' ? 'text-2xl' : 'text-xl';
   const compareSizeClass = size === 'xl' ? 'text-base' : 'text-sm';
 
-  if (info.hasDiscount) {
+  if (hasDiscount) {
+    const pct = Math.round((1 - parseFloat(variant.price.amount) / parseFloat(compareAt.amount)) * 100);
     return (
       <div className={`${size === 'xl' ? 'mt-4' : 'mt-2'} flex items-baseline gap-2 flex-wrap`}>
         <span className={`${compareSizeClass} text-muted-foreground line-through`}>
-          De {formatPrice(info.compareAt.amount, info.compareAt.currencyCode)}
+          De {formatPrice(compareAt.amount, compareAt.currencyCode)}
         </span>
         <span className={`${priceSizeClass} font-semibold text-green-600`}>
           Por {formatPrice(variant.price.amount, variant.price.currencyCode)}
         </span>
-        <span className="text-xs font-bold uppercase bg-green-100 text-green-700 px-1.5 py-0.5 rounded">-{info.pct}%</span>
+        <span className="text-xs font-bold uppercase bg-green-100 text-green-700 px-1.5 py-0.5 rounded">-{pct}%</span>
       </div>
     );
   }
