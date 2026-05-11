@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import heroRepairHitDesktop from '@/assets/hero-repair-hit-desktop.png';
-import heroDiasMaesMobile from '@/assets/hero-dia-das-maes-mobile.png';
+import heroRepairHitMobile from '@/assets/hero-repair-hit-mobile.png';
 
 export function MainPromoBanner() {
   return (
@@ -9,7 +9,7 @@ export function MainPromoBanner() {
         <picture>
           <source media="(min-width: 768px)" srcSet={heroRepairHitDesktop} />
           <img
-            src={heroDiasMaesMobile}
+            src={heroRepairHitMobile}
             alt="Seu cabelo com reparação de salão — Kit Repair + Hit 10x1 com 5% OFF, cupom MAIS5."
             className="w-full h-auto block"
             fetchPriority="high"
