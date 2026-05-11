@@ -87,19 +87,24 @@ export function QuickViewModal({ product, open, onClose }: QuickViewModalProps) 
               {selectedVariant && (() => {
                 const reference = hasDiscount ? compareAt!.amount : selectedVariant.price.amount;
                 const finalPrice = applyCheckoutDiscount(selectedVariant.price.amount);
+                const showCheckoutDiscount = CHECKOUT_DISCOUNT_PCT > 0;
                 return (
                   <div className="mt-3 space-y-1">
                     <div className="flex items-baseline gap-2 flex-wrap">
-                      <span className="text-sm text-muted-foreground line-through">
-                        {formatPrice(reference, selectedVariant.price.currencyCode)}
-                      </span>
-                      <span className="text-xl font-semibold text-green-600">
+                      {(showCheckoutDiscount || hasDiscount) && (
+                        <span className="text-sm text-muted-foreground line-through">
+                          {formatPrice(reference, selectedVariant.price.currencyCode)}
+                        </span>
+                      )}
+                      <span className={`text-xl font-semibold ${showCheckoutDiscount || hasDiscount ? 'text-green-600' : 'text-foreground'}`}>
                         {formatPrice(finalPrice.toFixed(2), selectedVariant.price.currencyCode)}
                       </span>
                     </div>
-                    <p className="text-[10px] font-semibold uppercase tracking-wider text-green-700">
-                      com {Math.round(CHECKOUT_DISCOUNT_PCT * 100)}% OFF aplicado no checkout
-                    </p>
+                    {showCheckoutDiscount && (
+                      <p className="text-[10px] font-semibold uppercase tracking-wider text-green-700">
+                        com {Math.round(CHECKOUT_DISCOUNT_PCT * 100)}% OFF aplicado no checkout
+                      </p>
+                    )}
                   </div>
                 );
               })()}

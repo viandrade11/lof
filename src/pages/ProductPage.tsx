@@ -25,19 +25,24 @@ function PriceDisplay({ variant, size = 'lg' }: { variant: any; size?: 'lg' | 'x
   const reference = hasDiscount ? compareAt.amount : variant.price.amount;
   const finalPrice = applyCheckoutDiscount(variant.price.amount);
   const savings = parseFloat(reference) - finalPrice;
+  const showCheckoutDiscount = CHECKOUT_DISCOUNT_PCT > 0;
   return (
     <div className={`${size === 'xl' ? 'mt-4' : 'mt-2'} space-y-1`}>
       <div className="flex items-baseline gap-2 flex-wrap">
-        <span className={`${compareSizeClass} text-muted-foreground line-through`}>
-          {formatPrice(reference, variant.price.currencyCode)}
-        </span>
-        <span className={`${priceSizeClass} font-semibold text-green-600`}>
+        {(showCheckoutDiscount || hasDiscount) && (
+          <span className={`${compareSizeClass} text-muted-foreground line-through`}>
+            {formatPrice(reference, variant.price.currencyCode)}
+          </span>
+        )}
+        <span className={`${priceSizeClass} font-semibold ${showCheckoutDiscount || hasDiscount ? 'text-green-600' : 'text-foreground'}`}>
           {formatPrice(finalPrice.toFixed(2), variant.price.currencyCode)}
         </span>
       </div>
-      <p className="text-xs font-semibold text-green-700 uppercase tracking-wider">
-        {Math.round(CHECKOUT_DISCOUNT_PCT * 100)}% OFF aplicado no checkout · você economiza {formatPrice(savings.toFixed(2), variant.price.currencyCode)}
-      </p>
+      {showCheckoutDiscount && (
+        <p className="text-xs font-semibold text-green-700 uppercase tracking-wider">
+          {Math.round(CHECKOUT_DISCOUNT_PCT * 100)}% OFF aplicado no checkout · você economiza {formatPrice(savings.toFixed(2), variant.price.currencyCode)}
+        </p>
+      )}
     </div>
   );
 }

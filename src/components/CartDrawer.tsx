@@ -119,7 +119,7 @@ export const CartDrawer = () => {
               <CartRecommendations />
               <div className="flex-shrink-0 space-y-3 pt-4 border-t border-border">
                 {/* Checkout discount banner */}
-                {checkoutSavings > 0 && (
+                {CHECKOUT_DISCOUNT_PCT > 0 && checkoutSavings > 0 && (
                   <div className="flex items-center gap-2 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded px-3 py-2">
                     <Tag className="h-4 w-4 text-green-600 dark:text-green-400 flex-shrink-0" />
                     <div className="flex-1 min-w-0">
