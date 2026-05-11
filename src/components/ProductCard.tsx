@@ -101,15 +101,22 @@ export function ProductCard({ product }: ProductCardProps) {
             const hasDiscount = compareAt && parseFloat(compareAt.amount) > parseFloat(price.amount);
             const finalPrice = applyCheckoutDiscount(price.amount);
             const reference = hasDiscount ? compareAt!.amount : price.amount;
+            const showCheckoutDiscount = CHECKOUT_DISCOUNT_PCT > 0;
             return (
               <div className="mt-1 space-y-0.5">
                 <div className="flex items-baseline gap-2 flex-wrap">
-                  <p className="text-xs text-muted-foreground line-through">{formatPrice(reference, price.currencyCode)}</p>
-                  <p className="text-sm font-semibold text-green-600">{formatPrice(finalPrice.toFixed(2), price.currencyCode)}</p>
+                  {(showCheckoutDiscount || hasDiscount) && (
+                    <p className="text-xs text-muted-foreground line-through">{formatPrice(reference, price.currencyCode)}</p>
+                  )}
+                  <p className={`text-sm font-semibold ${showCheckoutDiscount || hasDiscount ? 'text-green-600' : 'text-foreground'}`}>
+                    {formatPrice(finalPrice.toFixed(2), price.currencyCode)}
+                  </p>
                 </div>
-                <p className="text-[10px] uppercase tracking-wider text-green-700 font-semibold">
-                  com {Math.round(CHECKOUT_DISCOUNT_PCT * 100)}% off no checkout
-                </p>
+                {showCheckoutDiscount && (
+                  <p className="text-[10px] uppercase tracking-wider text-green-700 font-semibold">
+                    com {Math.round(CHECKOUT_DISCOUNT_PCT * 100)}% off no checkout
+                  </p>
+                )}
               </div>
             );
           })()}

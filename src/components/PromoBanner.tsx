@@ -8,8 +8,8 @@ export function PromoBanner() {
         <div className="flex items-center justify-center gap-2 md:gap-3 text-center">
           <Sparkles className="h-2.5 w-2.5 md:h-3 md:w-3 shrink-0" />
           <p className="text-[9px] md:text-xs uppercase tracking-[0.18em] md:tracking-[0.25em] font-medium leading-none">
-            <span className="font-semibold">20% OFF</span>
-            <span className="text-background/60"> · todos os produtos</span>
+            <span className="font-semibold">CUPOM MAIS5</span>
+            <span className="text-background/60"> · 5% OFF no checkout</span>
           </p>
           <Link
             to="/collections/all"
