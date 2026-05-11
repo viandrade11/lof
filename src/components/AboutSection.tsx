@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import educationBanner from '@/assets/education-banner.webp';
+ import educationBanner from '@/assets/education-banner.png';
 import aboutImg from '@/assets/about-lifestyle.webp';
 import aliancaGrafismo from '@/assets/alianca-grafismo.webp';
 
