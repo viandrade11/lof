@@ -1,7 +1,7 @@
 import { formatPrice } from './shopify';
 
-/** Global automatic discount applied at Shopify checkout. */
-export const CHECKOUT_DISCOUNT_PCT = 0.20;
+/** Global automatic discount applied at Shopify checkout. Set to 0 when no automatic discount is active. */
+export const CHECKOUT_DISCOUNT_PCT = 0;
 
 export function applyCheckoutDiscount(amount: number | string): number {
   const n = typeof amount === 'string' ? parseFloat(amount) : amount;
