@@ -128,7 +128,7 @@ const KitsPage = () => {
   useSEO({
     title: 'Kits LOF Professional — Rotina Capilar Completa com Desconto',
     description:
-      'Monte sua rotina capilar com os Kits LOF Professional. Combinações de shampoo, condicionador, máscara, Hit 10x1 e boosters com preço especial. Economia e resultados profissionais.',
+      'Kits LOF Professional: shampoo, condicionador, máscara, Hit 10x1 e boosters com preço especial. Rotina capilar completa e profissional.',
     keywords:
       'kit capilar, kit shampoo condicionador, kit tratamento capilar, LOF Professional kit, booster capilar, hit 10x1 kit, rotina capilar completa',
     breadcrumbs: [

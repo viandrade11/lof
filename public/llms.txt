@@ -1,0 +1,23 @@
+# LOF Professional
+
+> Cosméticos capilares profissionais com ingredientes naturais e tecnologia de ponta. Marca brasileira com a mantra "Sofisticadamente simples".
+
+LOF Professional desenvolve produtos capilares de alta performance livres de parabenos, organizados em linhas específicas para cada necessidade: Repair (reconstrução), Nutritive (nutrição), Silver (matização), Wavy (cachos e ondas), Purifying (limpeza profunda) e Hydrate (hidratação). O ícone da marca é o leave-in multifuncional Hit 10x1 e o sérum Crystal Oil.
+
+## Pages
+
+- [Home](/): Apresentação da marca e linhas de produtos.
+- [Todos os Produtos](/collections/all): Catálogo completo com filtros por linha e tipo.
+- [Kits](/kits): Combos de rotina capilar com preço especial.
+- [Hit 10x1](/hit-10x1): Página dedicada ao leave-in multifuncional com 10 benefícios.
+- [Crystal Oil](/crystal-oil): Sérum de óleos nobres para brilho e proteção.
+- [Profissional (B2B)](/profissional): Área para cabeleireiros e salões.
+
+## Optional
+
+- [Linha Repair](/collections/all?linha=Repair): Reconstrução para cabelos danificados.
+- [Linha Nutritive](/collections/all?linha=Nutritive): Nutrição profunda com óleos nobres.
+- [Linha Silver](/collections/all?linha=Silver): Matização para loiros e grisalhos.
+- [Linha Wavy](/collections/all?linha=Wavy): Definição de cachos e ondas.
+- [Linha Hydrate](/collections/all?linha=Hydrate): Hidratação intensa.
+- [Linha Purifying](/collections/all?linha=Purifying): Limpeza profunda antirresíduos.
