@@ -75,7 +75,7 @@ const CollectionPage = () => {
 
   useSEO({
     title: 'Produtos LOF Professional — Cosméticos Capilares',
-    description: 'Explore todos os produtos LOF Professional: shampoos, condicionadores, máscaras, leave-ins e finalizadores. Linhas Repair, Nutritive, Silver, Wavy, Hydrate e Purifying.',
+    description: 'Todos os produtos LOF Professional: shampoos, condicionadores, máscaras, leave-ins e finalizadores das linhas Repair, Nutritive, Silver e mais.',
     keywords: 'produtos capilares, shampoo sem parabenos, condicionador profissional, máscara capilar, leave-in profissional, sérum capilar, LOF Professional',
     breadcrumbs: [
       { name: 'LOF Professional', url: '/' },
