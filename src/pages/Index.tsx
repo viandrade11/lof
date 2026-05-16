@@ -22,7 +22,7 @@ const Index = () => {
   return (
     <div className="min-h-screen overflow-x-hidden">
       <Header />
-      <div className="pt-[88px] md:pt-[108px]">
+      <main className="pt-[88px] md:pt-[108px]">
         <MainPromoBanner />
         <PromoBanner />
         <ProductLinesSection />
@@ -40,7 +40,7 @@ const Index = () => {
         <LazySection>
           <AboutSection />
         </LazySection>
-      </div>
+      </main>
       <Footer />
       <FloatingCTA />
     </div>

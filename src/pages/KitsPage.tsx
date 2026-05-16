@@ -135,6 +135,7 @@ const KitsPage = () => {
       { name: 'LOF Professional', url: '/' },
       { name: 'Kits', url: '/kits' },
     ],
+    faq: faqItems.map(f => ({ question: f.q, answer: f.a })),
   });
 
   return (

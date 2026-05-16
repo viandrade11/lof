@@ -66,7 +66,8 @@ const CrystalOilPage = () => {
 
   useSEO({
     title: 'Crystal Oil Sérum Multi Óleos — LOF Professional',
-    description: 'Sérum Crystal Oil LOF Professional: blend de 5 óleos (Argan, Ojon, Macadâmia, Semente de Linho e Monoi). Nutre, sela as pontas, dá brilho e protege. Livre de parabenos.',
+    description: 'Sérum Crystal Oil: blend de 5 óleos (Argan, Ojon, Macadâmia, Linho e Monoi). Nutre, sela pontas, dá brilho e protege.',
+    canonical: 'https://lof.com.br/crystal-oil',
     keywords: 'sérum capilar, óleo de argan, crystal oil, finalizador capilar, LOF Professional, óleo capilar, anti-frizz, brilho cabelo',
     type: 'product',
     image: heroImage,

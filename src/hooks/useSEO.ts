@@ -23,6 +23,7 @@ interface SEOProps {
   };
   breadcrumbs?: { name: string; url: string }[];
   faq?: { question: string; answer: string }[];
+  itemList?: { name: string; url: string; image?: string }[];
   article?: {
     datePublished?: string;
     dateModified?: string;
@@ -31,10 +32,10 @@ interface SEOProps {
 }
 
 const SITE_NAME = 'LOF Professional';
-const SITE_URL = 'https://lof.lovable.app';
+const SITE_URL = 'https://lof.com.br';
 const DEFAULT_IMAGE = `${SITE_URL}/favicon.png`;
 
-export function useSEO({ title, description, canonical, type = 'website', image, keywords, product, breadcrumbs, faq, article }: SEOProps) {
+export function useSEO({ title, description, canonical, type = 'website', image, keywords, product, breadcrumbs, faq, itemList, article }: SEOProps) {
   useEffect(() => {
     const fullTitle = title.includes('LOF') ? title : `${title} | LOF Professional`;
     document.title = fullTitle;
@@ -178,8 +179,23 @@ export function useSEO({ title, description, canonical, type = 'website', image,
       });
     }
 
+    // ItemList schema (for collection / listing pages)
+    if (itemList && itemList.length > 0) {
+      addLdJson({
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        itemListElement: itemList.map((it, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: it.name,
+          url: it.url.startsWith('http') ? it.url : `${SITE_URL}${it.url}`,
+          ...(it.image ? { image: it.image } : {}),
+        })),
+      });
+    }
+
     return () => {
       document.querySelectorAll('script[data-seo-ld]').forEach(el => el.remove());
     };
-  }, [title, description, canonical, type, image, keywords, product, breadcrumbs, faq, article]);
+  }, [title, description, canonical, type, image, keywords, product, breadcrumbs, faq, itemList, article]);
 }
