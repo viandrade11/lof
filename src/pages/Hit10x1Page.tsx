@@ -59,7 +59,8 @@ const Hit10x1Page = () => {
 
   useSEO({
     title: 'Hit 10x1 Leave-in — 10 Benefícios em 1 Produto',
-    description: 'Leave-in Hit 10x1 LOF Professional: proteção térmica até 230°C, hidratação, anti-frizz, brilho, reconstrução e mais. 10 benefícios em uma aplicação. Para todos os tipos de cabelo.',
+    description: 'Leave-in Hit 10x1: proteção térmica 230°C, hidratação, anti-frizz, brilho e reconstrução. 10 benefícios em uma aplicação.',
+    canonical: 'https://lof.com.br/hit-10x1',
     keywords: 'leave-in profissional, proteção térmica cabelo, anti-frizz, hit 10x1, LOF Professional, leave-in 10 benefícios, reconstrução capilar',
     type: 'product',
     image: heroImage,
