@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import heroRepairHitDesktop from '@/assets/hero-repair-hit-desktop.png';
-import heroRepairHitMobile from '@/assets/hero-repair-hit-mobile.png';
+import heroRepairHitDesktop from '@/assets/hero-repair-hit-desktop.webp';
+import heroRepairHitMobile from '@/assets/hero-repair-hit-mobile.webp';
 
 export function MainPromoBanner() {
   return (
@@ -12,7 +12,10 @@ export function MainPromoBanner() {
             src={heroRepairHitMobile}
             alt="Seu cabelo com reparação de salão — Kit Repair + Hit 10x1 com 5% OFF, cupom MAIS5."
             className="w-full h-auto block"
+            width={828}
+            height={1242}
             fetchPriority="high"
+            decoding="async"
           />
         </picture>
       </Link>
