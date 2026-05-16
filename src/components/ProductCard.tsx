@@ -4,6 +4,7 @@ import { ShoppingBag, Loader2, Eye } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
 import { formatPrice, type ShopifyProduct } from '@/lib/shopify';
 import { applyCheckoutDiscount, CHECKOUT_DISCOUNT_PCT } from '@/lib/checkoutDiscount';
+import { shopifyImg } from '@/lib/shopifyImage';
 import { toast } from 'sonner';
 import { QuickViewModal } from './QuickViewModal';
 
