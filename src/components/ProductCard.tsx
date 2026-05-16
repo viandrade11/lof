@@ -4,6 +4,7 @@ import { ShoppingBag, Loader2, Eye } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
 import { formatPrice, type ShopifyProduct } from '@/lib/shopify';
 import { applyCheckoutDiscount, CHECKOUT_DISCOUNT_PCT } from '@/lib/checkoutDiscount';
+import { shopifyImg } from '@/lib/shopifyImage';
 import { toast } from 'sonner';
 import { QuickViewModal } from './QuickViewModal';
 
@@ -54,17 +55,23 @@ export function ProductCard({ product }: ProductCardProps) {
           {images[0] ? (
             <>
               <img
-                src={images[0].node.url}
+                src={shopifyImg(images[0].node.url, 600)}
                 alt={images[0].node.altText || node.title}
                 className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${hovered && images[1] ? 'opacity-0' : 'opacity-100'}`}
                 loading="lazy"
+                decoding="async"
+                width={600}
+                height={600}
               />
               {images[1] && (
                 <img
-                  src={images[1].node.url}
+                  src={shopifyImg(images[1].node.url, 600)}
                   alt={images[1].node.altText || node.title}
                   className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${hovered ? 'opacity-100' : 'opacity-0'}`}
                   loading="lazy"
+                  decoding="async"
+                  width={600}
+                  height={600}
                 />
               )}
             </>
