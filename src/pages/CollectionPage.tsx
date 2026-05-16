@@ -73,14 +73,56 @@ const CollectionPage = () => {
 
   const { data: products, isLoading } = useProducts(50);
 
+  const filteredForSeo = useMemo(() => {
+    if (!products) return [];
+    return products.filter(p => {
+      const title = p.node.title;
+      const productType = (p.node as any).productType || '';
+      const lineOk = activeLines.length === 0 || activeLines.some(l => matchesLine(title, productType, l));
+      const typeOk = activeTypes.length === 0 || activeTypes.some(t => matchesType(title, t));
+      return lineOk && typeOk;
+    });
+  }, [products, activeLines, activeTypes]);
+
+  const seoLine = activeLines[0];
+  const seoType = activeTypes[0];
+  const seoTitle = seoLine && seoType
+    ? `${seoType} ${seoLine} — LOF Professional`
+    : seoLine
+    ? `Linha ${seoLine} — LOF Professional`
+    : seoType
+    ? `${seoType} — LOF Professional`
+    : 'Produtos LOF Professional — Cosméticos Capilares';
+  const seoDescription = seoLine && seoType
+    ? `${seoType} da linha ${seoLine} LOF Professional. Cosméticos capilares profissionais para resultados de salão.`
+    : seoLine
+    ? `Linha ${seoLine} LOF Professional: shampoo, condicionador, máscara e tratamentos para resultados de salão.`
+    : seoType
+    ? `${seoType} LOF Professional das linhas Repair, Nutritive, Silver, Wavy e mais. Cosméticos capilares profissionais.`
+    : 'Produtos LOF Professional: shampoos, condicionadores, máscaras, leave-ins e finalizadores. Cosméticos capilares profissionais.';
+  const seoCanonical = (() => {
+    const params = new URLSearchParams();
+    if (seoLine) params.set('linha', seoLine);
+    if (seoType) params.set('tipo', seoType);
+    const q = params.toString();
+    return `https://lof.com.br/collections/all${q ? `?${q}` : ''}`;
+  })();
+
   useSEO({
-    title: 'Produtos LOF Professional — Cosméticos Capilares',
-    description: 'Todos os produtos LOF Professional: shampoos, condicionadores, máscaras, leave-ins e finalizadores das linhas Repair, Nutritive, Silver e mais.',
+    title: seoTitle,
+    description: seoDescription,
+    canonical: seoCanonical,
     keywords: 'produtos capilares, shampoo sem parabenos, condicionador profissional, máscara capilar, leave-in profissional, sérum capilar, LOF Professional',
     breadcrumbs: [
       { name: 'LOF Professional', url: '/' },
       { name: 'Todos os Produtos', url: '/collections/all' },
+      ...(seoLine ? [{ name: seoLine, url: `/collections/all?linha=${seoLine}` }] : []),
     ],
+    itemList: filteredForSeo.slice(0, 30).map(p => ({
+      name: p.node.title,
+      url: `/products/${p.node.handle}`,
+      image: p.node.images?.edges?.[0]?.node?.url,
+    })),
   });
 
   // Compute counts
