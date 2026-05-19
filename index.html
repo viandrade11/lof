@@ -9,6 +9,10 @@
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="dns-prefetch" href="https://connect.facebook.net" />
 
+    <!-- Preload LCP hero (mobile-first) -->
+    <link rel="preload" as="image" href="/src/assets/hero-repair-hit-mobile-640.webp" media="(max-width: 767px)" fetchpriority="high" />
+    <link rel="preload" as="image" href="/src/assets/hero-repair-hit-desktop.webp" media="(min-width: 768px)" fetchpriority="high" />
+
     <!-- Google Tag Manager (carregado após load para não bloquear LCP) -->
     <script>
       window.dataLayer = window.dataLayer || [];
