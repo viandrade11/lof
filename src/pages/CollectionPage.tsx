@@ -4,9 +4,11 @@ import { useProducts } from '@/hooks/useProducts';
 import { ProductCard } from '@/components/ProductCard';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { Loader2, SlidersHorizontal, X, ChevronDown, Sparkles, Droplets, Shield } from 'lucide-react';
+import { SlidersHorizontal, X, ChevronDown, Sparkles, Droplets, Shield, Tag } from 'lucide-react';
 import { useSEO } from '@/hooks/useSEO';
 import { lineData } from '@/data/lineData';
+
+const PAGE_SIZE = 12;
 const LINE_COLORS: Record<string, string> = {
   Repair: 'bg-lof-repair',
   Nutritive: 'bg-lof-nutritive',
@@ -31,7 +33,7 @@ const TYPE_MAP: Record<string, string[]> = {
 };
 
 const SORT_OPTIONS = [
-  { label: 'Relevância', value: 'relevance' },
+  { label: 'Em destaque', value: 'relevance' },
   { label: 'Menor preço', value: 'price-asc' },
   { label: 'Maior preço', value: 'price-desc' },
   { label: 'A–Z', value: 'alpha-asc' },
@@ -50,26 +52,24 @@ function matchesType(title: string, type: string) {
 
 const CollectionPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const activeLinhaParam = searchParams.get('linha') || '';
-  const activeTipoParam = searchParams.get('tipo') || '';
-
-  const [activeLines, setActiveLines] = useState<string[]>(activeLinhaParam ? [activeLinhaParam] : []);
-  const [activeTypes, setActiveTypes] = useState<string[]>(activeTipoParam ? [activeTipoParam] : []);
-  const [sort, setSort] = useState('relevance');
+  const [activeLines, setActiveLines] = useState<string[]>(() => searchParams.getAll('linha'));
+  const [activeTypes, setActiveTypes] = useState<string[]>(() => searchParams.getAll('tipo'));
+  const [onlySale, setOnlySale] = useState<boolean>(() => searchParams.get('promo') === '1');
+  const [sort, setSort] = useState(() => searchParams.get('sort') || 'relevance');
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [expandedSections, setExpandedSections] = useState({ linha: true, tipo: true });
 
-  // Sync URL params
+  // Sync state -> URL
   useEffect(() => {
-    const linhaParam = searchParams.get('linha');
-    const tipoParam = searchParams.get('tipo');
-    if (linhaParam && !activeLines.includes(linhaParam)) {
-      setActiveLines([linhaParam]);
-    }
-    if (tipoParam && !activeTypes.includes(tipoParam)) {
-      setActiveTypes([tipoParam]);
-    }
-  }, [searchParams]);
+    const next = new URLSearchParams();
+    activeLines.forEach(l => next.append('linha', l));
+    activeTypes.forEach(t => next.append('tipo', t));
+    if (onlySale) next.set('promo', '1');
+    if (sort !== 'relevance') next.set('sort', sort);
+    setSearchParams(next, { replace: true });
+    setVisibleCount(PAGE_SIZE);
+  }, [activeLines, activeTypes, onlySale, sort, setSearchParams]);
 
   const { data: products, isLoading } = useProducts(50);
 
@@ -158,6 +158,12 @@ const CollectionPage = () => {
         if (!activeTypes.some(type => matchesType(title, type))) return false;
       }
 
+      if (onlySale) {
+        const cmp = p.node.compareAtPriceRange?.minVariantPrice?.amount;
+        const cur = p.node.priceRange.minVariantPrice.amount;
+        if (!cmp || parseFloat(cmp) <= parseFloat(cur)) return false;
+      }
+
       return true;
     });
 
@@ -171,18 +177,10 @@ const CollectionPage = () => {
     }
 
     return result;
-  }, [products, activeLines, activeTypes, sort]);
+  }, [products, activeLines, activeTypes, onlySale, sort]);
 
   const toggleLine = (line: string) => {
-    setActiveLines(prev => {
-      const next = prev.includes(line) ? prev.filter(l => l !== line) : [...prev, line];
-      if (next.length === 0) {
-        setSearchParams({});
-      } else if (next.length === 1) {
-        setSearchParams({ linha: next[0] });
-      }
-      return next;
-    });
+    setActiveLines(prev => prev.includes(line) ? prev.filter(l => l !== line) : [...prev, line]);
   };
 
   const toggleType = (type: string) => {
@@ -192,10 +190,10 @@ const CollectionPage = () => {
   const clearAll = () => {
     setActiveLines([]);
     setActiveTypes([]);
-    setSearchParams({});
+    setOnlySale(false);
   };
 
-  const hasFilters = activeLines.length > 0 || activeTypes.length > 0;
+  const hasFilters = activeLines.length > 0 || activeTypes.length > 0 || onlySale;
 
   const toggleSection = (s: 'linha' | 'tipo') => {
     setExpandedSections(prev => ({ ...prev, [s]: !prev[s] }));
@@ -223,8 +221,22 @@ const CollectionPage = () => {
               {t} <X className="h-2.5 w-2.5" />
             </button>
           ))}
+          {onlySale && (
+            <button onClick={() => setOnlySale(false)} className="flex items-center gap-1.5 px-2.5 py-1 bg-red-600 text-white text-[11px] uppercase tracking-wider font-medium">
+              Promoção <X className="h-2.5 w-2.5" />
+            </button>
+          )}
         </div>
       )}
+
+      {/* Promo toggle */}
+      <button
+        onClick={() => setOnlySale(v => !v)}
+        className={`flex items-center gap-2 w-full py-2 text-xs uppercase tracking-[0.15em] font-semibold transition-colors ${onlySale ? 'text-red-600' : 'text-muted-foreground hover:text-foreground'}`}
+      >
+        <Tag className="h-3.5 w-3.5" />
+        Apenas em promoção
+      </button>
 
       {/* Linha filter */}
       <div>
@@ -425,22 +437,42 @@ const CollectionPage = () => {
 
             {/* Products grid */}
             <div className="flex-1 min-w-0">
-              {isLoading ? (
-                <div className="flex items-center justify-center py-20">
-                  <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-                </div>
-              ) : filteredProducts.length === 0 ? (
-                <div className="text-center py-20 text-muted-foreground">
-                  <p className="text-lg">Nenhum produto encontrado.</p>
-                  <p className="text-sm mt-2">Tente alterar os filtros.</p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-8 md:gap-x-5 md:gap-y-12">
-                  {filteredProducts.map(product => (
-                    <ProductCard key={product.node.id} product={product} />
-                  ))}
-                </div>
-              )}
+              <div className="min-h-[80vh]">
+                {isLoading ? (
+                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-8 md:gap-x-5 md:gap-y-12">
+                    {Array.from({ length: 6 }).map((_, i) => (
+                      <div key={i} className="animate-pulse">
+                        <div className="aspect-square bg-muted mb-3" />
+                        <div className="h-4 bg-muted w-3/4 mb-2" />
+                        <div className="h-4 bg-muted w-1/3" />
+                      </div>
+                    ))}
+                  </div>
+                ) : filteredProducts.length === 0 ? (
+                  <div className="text-center py-20 text-muted-foreground">
+                    <p className="text-lg">Nenhum produto encontrado.</p>
+                    <p className="text-sm mt-2">Tente alterar os filtros.</p>
+                  </div>
+                ) : (
+                  <>
+                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-8 md:gap-x-5 md:gap-y-12">
+                      {filteredProducts.slice(0, visibleCount).map((product, idx) => (
+                        <ProductCard key={product.node.id} product={product} priority={idx < 4} />
+                      ))}
+                    </div>
+                    {visibleCount < filteredProducts.length && (
+                      <div className="flex justify-center mt-10">
+                        <button
+                          onClick={() => setVisibleCount(c => c + PAGE_SIZE)}
+                          className="px-8 py-3 border border-foreground text-xs uppercase tracking-[0.2em] font-semibold hover:bg-foreground hover:text-background transition-colors"
+                        >
+                          Carregar mais ({filteredProducts.length - visibleCount} restantes)
+                        </button>
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>
