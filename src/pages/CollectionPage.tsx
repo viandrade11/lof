@@ -39,6 +39,47 @@ const SORT_OPTIONS = [
   { label: 'A–Z', value: 'alpha-asc' },
 ];
 
+// SEO otimizado por linha (baseado em dados do Google Search Console)
+// Título: benefício + linha + CTA/diferencial (máx ~60 chars)
+// Descrição: benefício + ativos + CTA + frete (máx ~155 chars)
+const LINE_SEO: Record<string, { title: string; description: string; keywords: string }> = {
+  Repair: {
+    title: 'Repair LOF — Reconstrução Capilar para Cabelos Danificados',
+    description: 'Linha Repair LOF Professional: shampoo, condicionador e máscara de reconstrução com queratina vegetal. Recupere cabelos quebradiços. Frete grátis acima de R$ 199.',
+    keywords: 'reconstrução capilar, shampoo reconstrutor, máscara reparadora, queratina vegetal, cabelos danificados, LOF Repair',
+  },
+  Nutritive: {
+    title: 'Nutritive LOF — Shampoo e Condicionador Nutritivo Profissional',
+    description: 'Linha Nutritive LOF: shampoo e condicionador nutritivo com óleo de macadâmia e karité. Nutrição profunda para cabelos secos. Frete grátis acima de R$ 199.',
+    keywords: 'condicionador nutritivo, shampoo nutritivo, nutrição capilar, máscara de nutrição, óleo de macadâmia, cabelos secos, LOF Nutritive',
+  },
+  Silver: {
+    title: 'Silver LOF — Shampoo Matizador Violeta para Loiros e Grisalhos',
+    description: 'Linha Silver LOF Professional: shampoo e máscara matizadora violeta que neutraliza o amarelado e hidrata loiros e grisalhos. Frete grátis acima de R$ 199.',
+    keywords: 'shampoo matizador, matizador violeta, shampoo para loiros, máscara matizadora, cabelos grisalhos, LOF Silver',
+  },
+  Purifying: {
+    title: 'Purifying LOF — Shampoo Vegano Sem Sulfato para Cabelos Oleosos',
+    description: 'Linha Purifying LOF: shampoo e condicionador veganos, sem sulfatos e parabenos. Limpeza profunda e suave para uso diário. Frete grátis acima de R$ 199.',
+    keywords: 'shampoo vegano, shampoo sem sulfato, shampoo antirresíduo, cosméticos veganos capilares, cabelos oleosos, LOF Purifying',
+  },
+  Wavy: {
+    title: 'Wavy LOF — Ativador de Cachos e Leave-in para Ondas Definidas',
+    description: 'Linha Wavy LOF Professional: shampoo, condicionador e ativador de cachos leave-in. Definição sem frizz para cabelos cacheados e ondulados. Frete grátis acima de R$ 199.',
+    keywords: 'ativador de cachos, ativador de cachos leave in, shampoo para cachos, creme para cabelo cacheado, definição de cachos, LOF Wavy',
+  },
+  Hydrate: {
+    title: 'Hydrate LOF — Hidratação Profunda para Cabelos Ressecados',
+    description: 'Linha Hydrate LOF: shampoo, condicionador e máscara de hidratação com ácido hialurônico. Devolve maciez e brilho a cabelos porosos. Frete grátis acima de R$ 199.',
+    keywords: 'máscara de hidratação, shampoo hidratante, hidratação capilar profunda, ácido hialurônico capilar, cabelos ressecados, LOF Hydrate',
+  },
+  Finalizadores: {
+    title: 'Finalizadores LOF — Leave-in, Sérum e Crystal Oil Profissional',
+    description: 'Finalizadores LOF Professional: leave-in Hit 10x1, Crystal Oil e séruns com proteção térmica e brilho intenso. Frete grátis acima de R$ 199.',
+    keywords: 'leave-in profissional, sérum capilar, óleo capilar, Crystal Oil, Hit 10x1, proteção térmica, finalizadores capilares',
+  },
+};
+
 function matchesLine(title: string, productType: string, line: string) {
   const l = line.toLowerCase();
   return productType.toLowerCase().includes(l) || title.toLowerCase().includes(l);
@@ -86,20 +127,24 @@ const CollectionPage = () => {
 
   const seoLine = activeLines[0];
   const seoType = activeTypes[0];
-  const seoTitle = seoLine && seoType
-    ? `${seoType} ${seoLine} — LOF Professional`
-    : seoLine
-    ? `Linha ${seoLine} — LOF Professional`
+  const lineSeo = seoLine ? LINE_SEO[seoLine] : undefined;
+  const seoTitle = seoLine && seoType && lineSeo
+    ? `${seoType} ${seoLine} LOF — ${seoType === 'Shampoo' ? 'Lavagem' : 'Tratamento'} Profissional | Frete Grátis R$199`
+    : lineSeo
+    ? lineSeo.title
     : seoType
-    ? `${seoType} — LOF Professional`
-    : 'Produtos LOF Professional — Cosméticos Capilares';
-  const seoDescription = seoLine && seoType
-    ? `${seoType} da linha ${seoLine} LOF Professional. Cosméticos capilares profissionais para resultados de salão.`
-    : seoLine
-    ? `Linha ${seoLine} LOF Professional: shampoo, condicionador, máscara e tratamentos para resultados de salão.`
+    ? `${seoType} Profissional LOF — Cosméticos Capilares | Frete Grátis R$199`
+    : 'Cosméticos Capilares Profissionais LOF — Haircare Sofisticado | Frete Grátis';
+  const seoDescription = seoLine && seoType && lineSeo
+    ? `${seoType} da linha ${seoLine} LOF Professional. ${lineSeo.description.split('. ').slice(1).join('. ')}`
+    : lineSeo
+    ? lineSeo.description
     : seoType
-    ? `${seoType} LOF Professional das linhas Repair, Nutritive, Silver, Wavy e mais. Cosméticos capilares profissionais.`
-    : 'Produtos LOF Professional: shampoos, condicionadores, máscaras, leave-ins e finalizadores. Cosméticos capilares profissionais.';
+    ? `${seoType} profissional LOF das linhas Repair, Nutritive, Silver, Wavy, Hydrate e Purifying. Resultados de salão em casa. Frete grátis acima de R$ 199.`
+    : 'Cosméticos capilares profissionais LOF: shampoos, condicionadores, máscaras, leave-ins e finalizadores das linhas Repair, Nutritive, Silver, Wavy e Hydrate. Frete grátis acima de R$ 199.';
+  const seoKeywords = lineSeo
+    ? lineSeo.keywords
+    : 'cosméticos capilares profissionais, shampoo profissional, condicionador profissional, máscara capilar, leave-in profissional, sérum capilar, LOF Professional, haircare profissional';
   const seoCanonical = (() => {
     const params = new URLSearchParams();
     if (seoLine) params.set('linha', seoLine);
@@ -112,7 +157,7 @@ const CollectionPage = () => {
     title: seoTitle,
     description: seoDescription,
     canonical: seoCanonical,
-    keywords: 'produtos capilares, shampoo sem parabenos, condicionador profissional, máscara capilar, leave-in profissional, sérum capilar, LOF Professional',
+    keywords: seoKeywords,
     breadcrumbs: [
       { name: 'LOF Professional', url: '/' },
       { name: 'Todos os Produtos', url: '/collections/all' },
