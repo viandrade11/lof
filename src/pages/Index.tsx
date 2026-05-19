@@ -14,9 +14,9 @@ import { useSEO } from '@/hooks/useSEO';
 
 const Index = () => {
   useSEO({
-    title: 'LOF Professional — Cosméticos Capilares Profissionais',
-    description: 'Cosméticos capilares profissionais com ingredientes naturais. Linhas Repair, Nutritive, Silver, Wavy, Hydrate e o icônico Hit 10x1.',
-    keywords: 'cosméticos capilares, shampoo profissional, condicionador profissional, máscara capilar, leave-in, LOF Professional, tratamento capilar, cabelos danificados, proteção térmica',
+    title: 'LOF Professional — Haircare Profissional Sofisticadamente Simples',
+    description: 'Cosméticos capilares profissionais LOF: shampoos, condicionadores, máscaras e finalizadores. Repair, Nutritive, Silver, Wavy, Hydrate e o icônico Hit 10x1. Frete grátis acima de R$ 199.',
+    keywords: 'cosméticos capilares profissionais, haircare profissional, shampoo profissional, condicionador nutritivo, máscara capilar, leave-in, ativador de cachos, LOF Professional, Hit 10x1, Crystal Oil',
   });
   return (
     <div className="min-h-screen overflow-x-hidden">
