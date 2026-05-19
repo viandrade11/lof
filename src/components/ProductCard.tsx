@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingBag, Loader2, Eye } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
@@ -6,13 +6,14 @@ import { formatPrice, type ShopifyProduct } from '@/lib/shopify';
 import { applyCheckoutDiscount, CHECKOUT_DISCOUNT_PCT } from '@/lib/checkoutDiscount';
 import { shopifyImg } from '@/lib/shopifyImage';
 import { toast } from 'sonner';
-import { QuickViewModal } from './QuickViewModal';
+const QuickViewModal = lazy(() => import('./QuickViewModal').then(m => ({ default: m.QuickViewModal })));
 
 interface ProductCardProps {
   product: ShopifyProduct;
+  priority?: boolean;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, priority = false }: ProductCardProps) {
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
   const { node } = product;
@@ -21,6 +22,12 @@ export function ProductCard({ product }: ProductCardProps) {
   const price = node.priceRange.minVariantPrice;
   const [hovered, setHovered] = useState(false);
   const [quickViewOpen, setQuickViewOpen] = useState(false);
+
+  const compareAt = node.compareAtPriceRange?.minVariantPrice;
+  const hasDiscount = compareAt && parseFloat(compareAt.amount) > parseFloat(price.amount);
+  const discountPct = hasDiscount
+    ? Math.round((1 - parseFloat(price.amount) / parseFloat(compareAt!.amount)) * 100)
+    : 0;
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -58,7 +65,8 @@ export function ProductCard({ product }: ProductCardProps) {
                 src={shopifyImg(images[0].node.url, 600)}
                 alt={images[0].node.altText || node.title}
                 className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${hovered && images[1] ? 'opacity-0' : 'opacity-100'}`}
-                loading="lazy"
+                loading={priority ? 'eager' : 'lazy'}
+                fetchPriority={priority ? 'high' : 'low'}
                 decoding="async"
                 width={600}
                 height={600}
@@ -67,7 +75,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 <img
                   src={shopifyImg(images[1].node.url, 600)}
                   alt={images[1].node.altText || node.title}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${hovered ? 'opacity-100' : 'opacity-0'}`}
+                  className={`hidden md:block absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${hovered ? 'opacity-100' : 'opacity-0'}`}
                   loading="lazy"
                   decoding="async"
                   width={600}
@@ -79,6 +87,13 @@ export function ProductCard({ product }: ProductCardProps) {
             <div className="w-full h-full flex items-center justify-center text-muted-foreground">
               <ShoppingBag className="h-12 w-12" />
             </div>
+          )}
+
+          {/* Discount badge */}
+          {hasDiscount && discountPct > 0 && (
+            <span className="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1">
+              −{discountPct}%
+            </span>
           )}
 
           {/* Desktop: hover buttons */}
@@ -146,7 +161,11 @@ export function ProductCard({ product }: ProductCardProps) {
         </button>
       </Link>
 
-      <QuickViewModal product={product} open={quickViewOpen} onClose={() => setQuickViewOpen(false)} />
+      {quickViewOpen && (
+        <Suspense fallback={null}>
+          <QuickViewModal product={product} open={quickViewOpen} onClose={() => setQuickViewOpen(false)} />
+        </Suspense>
+      )}
     </>
   );
 }
