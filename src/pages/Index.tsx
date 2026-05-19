@@ -23,12 +23,12 @@ const Index = () => {
       <Header />
       <main className="pt-[88px] md:pt-[108px]">
         <MainPromoBanner />
+        <SocialProofBar />
         <ProductLinesSection />
         <HighlightBlocks />
         <LazySection>
           <HeroBanner />
         </LazySection>
-        <SocialProofBar />
         <LazySection>
           <LineScienceSection />
         </LazySection>
