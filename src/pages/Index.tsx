@@ -6,7 +6,6 @@ import { LineScienceSection } from '@/components/LineScienceSection';
 import { RoutineSection } from '@/components/RoutineSection';
 import { AboutSection } from '@/components/AboutSection';
 import { Footer } from '@/components/Footer';
-import { PromoBanner } from '@/components/PromoBanner';
 import { MainPromoBanner } from '@/components/MainPromoBanner';
 import { FloatingCTA } from '@/components/FloatingCTA';
 import { SocialProofBar } from '@/components/SocialProofBar';
@@ -24,7 +23,6 @@ const Index = () => {
       <Header />
       <main className="pt-[88px] md:pt-[108px]">
         <MainPromoBanner />
-        <PromoBanner />
         <ProductLinesSection />
         <HighlightBlocks />
         <LazySection>

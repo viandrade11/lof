@@ -10,7 +10,7 @@ export function MainPromoBanner() {
           <source media="(min-width: 768px)" srcSet={heroRepairHitDesktop} />
           <img
             src={heroRepairHitMobile}
-            alt="Seu cabelo com reparação de salão — Kit Repair + Hit 10x1 com 5% OFF, cupom MAIS5."
+            alt="Seu cabelo com reparação de salão — Kit Repair + Hit 10x1."
             className="w-full h-auto block"
             width={828}
             height={1242}
