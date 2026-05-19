@@ -10,10 +10,10 @@ export function MainPromoBanner() {
           <source media="(min-width: 768px)" srcSet={heroRepairHitDesktop} />
           <img
             src={heroRepairHitMobile}
-            alt="Seu cabelo com reparação de salão — Kit Repair + Hit 10x1."
+            alt="A linha certa para o seu cabelo — LOF Professional Nutritive."
             className="w-full h-auto block"
-            width={828}
-            height={1242}
+            width={1280}
+            height={1920}
             fetchPriority="high"
             decoding="async"
           />
