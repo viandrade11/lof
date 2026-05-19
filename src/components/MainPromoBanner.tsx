@@ -22,9 +22,6 @@ export function MainPromoBanner() {
             decoding="async"
           />
         </picture>
-        <span className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 md:bottom-10 inline-flex items-center justify-center bg-white text-foreground text-[11px] md:text-sm font-semibold uppercase tracking-[0.15em] px-5 py-2.5 md:px-7 md:py-3 shadow-lg">
-          Comprar Kit Repair
-        </span>
       </Link>
     </section>
   );
