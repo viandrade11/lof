@@ -2,7 +2,7 @@
  * Unified client-side tracking: Meta Pixel + GA4 (via GTM dataLayer) + Meta CAPI server-side.
  * Every event carries a shared event_id so Pixel + CAPI are deduplicated by Meta.
  */
-import { sendCAPIEvent } from './metaCapi';
+import { sendCAPIEvent, capiPurchase } from './metaCapi';
 
 declare global {
   interface Window {
