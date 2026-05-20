@@ -10,6 +10,23 @@ function getCookie(name: string): string | undefined {
   return match?.[2];
 }
 
+// SHA-256 hash para user_data (exigido pela Meta)
+async function sha256(value: string): Promise<string> {
+  const normalized = value.trim().toLowerCase();
+  const buffer = await crypto.subtle.digest(
+    'SHA-256',
+    new TextEncoder().encode(normalized)
+  );
+  return Array.from(new Uint8Array(buffer))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+interface UserData {
+  email?: string;
+  phone?: string; // formato E.164 sem +, ex: "5511999999999"
+}
+
 interface CAPIEvent {
   event_name: string;
   event_id?: string;
@@ -21,15 +38,28 @@ interface CAPIEvent {
   value?: number;
   currency?: string;
   num_items?: number;
+  order_id?: string;
+  user_data?: UserData;
 }
 
-export function sendCAPIEvent(event: CAPIEvent) {
+export async function sendCAPIEvent(event: CAPIEvent) {
+  const hashedUserData: Record<string, string> = {};
+  if (event.user_data?.email) {
+    hashedUserData.em = await sha256(event.user_data.email);
+  }
+  if (event.user_data?.phone) {
+    hashedUserData.ph = await sha256(event.user_data.phone);
+  }
+
+  const { user_data, ...rest } = event;
+
   const payload = {
-    ...event,
+    ...rest,
     event_source_url: event.event_source_url || window.location.href,
     user_agent: navigator.userAgent,
     fbc: getCookie('_fbc') || undefined,
     fbp: getCookie('_fbp') || undefined,
+    ...(Object.keys(hashedUserData).length > 0 && { user_data: hashedUserData }),
   };
 
   // Fire-and-forget — don't block UI
@@ -93,5 +123,27 @@ export function capiInitiateCheckout(params: {
     value: params.value,
     num_items: params.numItems,
     currency: params.currency || 'BRL',
+  });
+}
+
+export function capiPurchase(params: {
+  orderId: string;
+  contentIds: string[];
+  contents: Array<{ id: string; quantity: number }>;
+  value: number;
+  numItems: number;
+  currency?: string;
+  userData?: UserData;
+}) {
+  sendCAPIEvent({
+    event_name: 'Purchase',
+    order_id: params.orderId,
+    content_ids: params.contentIds,
+    contents: params.contents,
+    content_type: 'product',
+    value: params.value,
+    num_items: params.numItems,
+    currency: params.currency || 'BRL',
+    user_data: params.userData,
   });
 }
