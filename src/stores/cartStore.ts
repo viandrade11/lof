@@ -1,6 +1,5 @@
-declare global { interface Window { fbq?: (...args: unknown[]) => void } }
 import { create } from 'zustand';
-import { capiAddToCart } from '@/lib/metaCapi';
+import { trackAddToCart } from '@/lib/tracking';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import {
   type ShopifyProduct,
@@ -82,22 +81,14 @@ export const useCartStore = create<CartStore>()(
           console.error('Failed to add item:', error);
         } finally {
           set({ isLoading: false });
-          // Fire Meta Pixel AddToCart event
-          if (typeof window !== 'undefined' && window.fbq) {
-            window.fbq('track', 'AddToCart', {
-              content_name: item.product.node?.title ?? '',
-              content_ids: [item.variantId],
-              content_type: 'product',
-              value: parseFloat(item.price.amount) * item.quantity,
-              currency: item.price.currencyCode || 'BRL',
-            });
-          }
-          // Server-side CAPI
-          capiAddToCart({
-            contentIds: [item.variantId],
-            contentName: item.product.node?.title ?? '',
-            value: parseFloat(item.price.amount) * item.quantity,
+          // Unified tracking: Pixel + GA4 (dataLayer) + CAPI with shared event_id
+          trackAddToCart({
+            id: item.variantId,
+            name: item.product.node?.title ?? '',
+            price: parseFloat(item.price.amount),
+            quantity: item.quantity,
             currency: item.price.currencyCode || 'BRL',
+            category: item.product.node?.productType,
           });
           set({ isDrawerOpen: true });
         }
