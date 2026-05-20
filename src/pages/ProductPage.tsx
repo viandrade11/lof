@@ -13,7 +13,7 @@ import { Loader2, ChevronLeft, ShoppingBag, Minus, Plus, Truck } from 'lucide-re
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useSEO } from '@/hooks/useSEO';
-import { capiViewContent } from '@/lib/metaCapi';
+import { trackViewContent } from '@/lib/tracking';
 import { applyCheckoutDiscount, CHECKOUT_DISCOUNT_PCT } from '@/lib/checkoutDiscount';
 
 function PriceDisplay({ variant, size = 'lg' }: { variant: any; size?: 'lg' | 'xl' }) {
@@ -140,20 +140,12 @@ const ProductPage = () => {
 
   useEffect(() => {
     if (product && selectedVariant) {
-      if (typeof window !== 'undefined' && (window as any).fbq) {
-        (window as any).fbq('track', 'ViewContent', {
-          content_name: product.title,
-          content_ids: [selectedVariant.id],
-          content_type: 'product',
-          value: parseFloat(selectedVariant.price.amount),
-          currency: selectedVariant.price.currencyCode || 'BRL',
-        });
-      }
-      capiViewContent({
-        contentIds: [selectedVariant.id],
-        contentName: product.title,
-        value: parseFloat(selectedVariant.price.amount),
+      trackViewContent({
+        id: selectedVariant.id,
+        name: product.title,
+        price: parseFloat(selectedVariant.price.amount),
         currency: selectedVariant.price.currencyCode || 'BRL',
+        category: product.productType,
       });
     }
   }, [product?.id]);

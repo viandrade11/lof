@@ -9,7 +9,7 @@ import { applyCheckoutDiscount, CHECKOUT_DISCOUNT_PCT } from "@/lib/checkoutDisc
 import { useProducts } from "@/hooks/useProducts";
 import { CartUpsellBlock } from "@/components/UpsellBlock";
 import { getCartRecommendations } from "@/lib/productRecommendations";
-import { capiInitiateCheckout } from "@/lib/metaCapi";
+import { trackBeginCheckout } from "@/lib/tracking";
 
 export const CartDrawer = () => {
   const { items, isLoading, isSyncing, updateQuantity, removeItem, getCheckoutUrl, syncCart, isDrawerOpen, setDrawerOpen } = useCartStore();
@@ -25,22 +25,16 @@ export const CartDrawer = () => {
   const handleCheckout = () => {
     const checkoutUrl = getCheckoutUrl();
     if (checkoutUrl) {
-      // Fire Meta Pixel InitiateCheckout event
-      if (typeof window !== 'undefined' && (window as any).fbq) {
-        (window as any).fbq('track', 'InitiateCheckout', {
-          content_ids: items.map(i => i.variantId),
-          contents: items.map(i => ({ id: i.variantId, quantity: i.quantity })),
-          num_items: totalItems,
-          value: totalPrice,
-          currency: items[0]?.price.currencyCode || 'BRL',
-        });
-      }
-      // Server-side CAPI
-      capiInitiateCheckout({
-        contentIds: items.map(i => i.variantId),
-        contents: items.map(i => ({ id: i.variantId, quantity: i.quantity })),
+      // Unified tracking: Pixel + GA4 (begin_checkout) + CAPI with shared event_id
+      trackBeginCheckout({
+        items: items.map(i => ({
+          id: i.variantId,
+          name: i.product.node.title,
+          price: parseFloat(i.price.amount),
+          quantity: i.quantity,
+          category: i.product.node.productType,
+        })),
         value: totalPrice,
-        numItems: totalItems,
         currency: items[0]?.price.currencyCode || 'BRL',
       });
       window.open(checkoutUrl, '_blank');

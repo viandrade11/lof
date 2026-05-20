@@ -8,6 +8,7 @@ const API_VERSION = "v21.0";
 
 interface EventData {
   event_name: string;
+  event_id?: string;
   event_time?: number;
   event_source_url?: string;
   user_agent?: string;
@@ -74,6 +75,7 @@ Deno.serve(async (req) => {
       data: [
         {
           event_name: body.event_name,
+          event_id: body.event_id,
           event_time: eventTime,
           event_source_url: body.event_source_url || "",
           action_source: "website",
