@@ -12,6 +12,7 @@ function getCookie(name: string): string | undefined {
 
 interface CAPIEvent {
   event_name: string;
+  event_id?: string;
   event_source_url?: string;
   content_ids?: string[];
   content_name?: string;

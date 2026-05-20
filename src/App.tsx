@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useCartSync } from "@/hooks/useCartSync";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { RouteTracker } from "@/components/RouteTracker";
 import { WhatsAppWidget } from "@/components/WhatsAppWidget";
 
 import Index from "./pages/Index.tsx";
@@ -22,6 +23,7 @@ function AppContent() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <RouteTracker />
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/collections/all" element={<CollectionPage />} />
