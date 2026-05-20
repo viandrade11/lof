@@ -7,7 +7,7 @@ import heroRepairHitMobile828 from '@/assets/hero-repair-hit-mobile-828.webp';
 export function MainPromoBanner() {
   return (
     <section className="relative w-full overflow-hidden bg-[#b8675a]">
-      <Link to="/products/kit-reparacao-definitiva-repair-336060528" aria-label="Kit Reparação Definitiva Repair — Shampoo, Condicionador, Booster e Hit 10x1" className="block">
+      <Link to="/products/kit-linha-nutritive-336060455" aria-label="Kit Linha Nutritive — Shampoo, Condicionador e Máscara Líquida Booster" className="block">
         <picture>
           <source media="(min-width: 768px)" srcSet={heroRepairHitDesktop} />
           <img
