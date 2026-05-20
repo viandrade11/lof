@@ -173,3 +173,51 @@ export function trackBeginCheckout(params: {
     currency,
   });
 }
+
+// ---------- Purchase ----------
+export function trackPurchase(params: {
+  orderId: string;
+  items: ProductTrackingItem[];
+  value: number;
+  currency?: string;
+  userData?: { email?: string; phone?: string };
+}) {
+  const eventID = uuid();
+  const currency = params.currency || 'BRL';
+  const numItems = params.items.reduce((s, i) => s + (i.quantity ?? 1), 0);
+
+  fbqTrack('Purchase', {
+    content_ids: params.items.map(i => i.id),
+    contents: params.items.map(i => ({ id: i.id, quantity: i.quantity ?? 1 })),
+    value: params.value,
+    currency,
+    num_items: numItems,
+  }, eventID);
+
+  pushDL({
+    event: 'purchase',
+    ecommerce: {
+      transaction_id: params.orderId,
+      currency,
+      value: params.value,
+      items: params.items.map(i => ({
+        item_id: i.id,
+        item_name: i.name,
+        item_brand: i.brand || 'LOF Professional',
+        item_category: i.category,
+        price: i.price,
+        quantity: i.quantity ?? 1,
+      })),
+    },
+  });
+
+  capiPurchase({
+    orderId: params.orderId,
+    contentIds: params.items.map(i => i.id),
+    contents: params.items.map(i => ({ id: i.id, quantity: i.quantity ?? 1 })),
+    value: params.value,
+    numItems,
+    currency,
+    userData: params.userData,
+  });
+}
