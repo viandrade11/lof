@@ -37,8 +37,8 @@ export const CartDrawer = () => {
         value: totalPrice,
         currency: items[0]?.price.currencyCode || 'BRL',
       });
-      window.open(checkoutUrl, '_blank');
       setIsOpen(false);
+      window.location.href = checkoutUrl;
     }
   };
 
