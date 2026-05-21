@@ -22,3 +22,4 @@ User-agent: Amazonbot
 Allow: /
 
 Sitemap: https://lof.com.br/sitemap.xml
+Sitemap: https://jslyivpcfokacacpklcl.supabase.co/functions/v1/sitemap-products
