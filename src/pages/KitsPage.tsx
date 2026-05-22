@@ -186,6 +186,40 @@ const KitsPage = () => {
           </div>
         </section>
 
+        {/* ═══════ PRODUCT GRID ═══════ */}
+        <section className="container py-16 md:py-24">
+          <div className="text-center mb-10 md:mb-14">
+            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">Escolha o seu</p>
+            <h2 className="font-display text-3xl md:text-4xl font-light">
+              Nossos <span className="italic">Kits</span>
+            </h2>
+          </div>
+
+          {isLoading ? (
+            <div className="flex items-center justify-center py-20">
+              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+            </div>
+          ) : kitProducts.length === 0 ? (
+            <div className="text-center py-20 text-muted-foreground">
+              <Package className="h-12 w-12 mx-auto mb-4 opacity-30" />
+              <p className="text-lg">Nenhum kit disponível no momento.</p>
+              <p className="text-sm mt-2">Novos kits estão chegando em breve!</p>
+              <Link
+                to="/collections/all"
+                className="inline-block mt-6 text-xs uppercase tracking-[0.15em] font-semibold border-b border-foreground pb-0.5 hover:opacity-70 transition-opacity"
+              >
+                Ver todos os produtos
+              </Link>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-3 gap-y-8 md:gap-x-5 md:gap-y-12">
+              {kitProducts.map((product) => (
+                <ProductCard key={product.node.id} product={product} />
+              ))}
+            </div>
+          )}
+        </section>
+
         {/* ═══════ HIT 10x1 + LINHAS ═══════ */}
         <section className="py-16 md:py-24">
           <div className="container">
@@ -311,39 +345,6 @@ const KitsPage = () => {
         </section>
 
         {/* ═══════ PRODUCT GRID ═══════ */}
-        <section className="container py-16 md:py-24">
-          <div className="text-center mb-10 md:mb-14">
-            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">Escolha o seu</p>
-            <h2 className="font-display text-3xl md:text-4xl font-light">
-              Nossos <span className="italic">Kits</span>
-            </h2>
-          </div>
-
-          {isLoading ? (
-            <div className="flex items-center justify-center py-20">
-              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-            </div>
-          ) : kitProducts.length === 0 ? (
-            <div className="text-center py-20 text-muted-foreground">
-              <Package className="h-12 w-12 mx-auto mb-4 opacity-30" />
-              <p className="text-lg">Nenhum kit disponível no momento.</p>
-              <p className="text-sm mt-2">Novos kits estão chegando em breve!</p>
-              <Link
-                to="/collections/all"
-                className="inline-block mt-6 text-xs uppercase tracking-[0.15em] font-semibold border-b border-foreground pb-0.5 hover:opacity-70 transition-opacity"
-              >
-                Ver todos os produtos
-              </Link>
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-3 gap-y-8 md:gap-x-5 md:gap-y-12">
-              {kitProducts.map((product) => (
-                <ProductCard key={product.node.id} product={product} />
-              ))}
-            </div>
-          )}
-        </section>
-
         {/* ═══════ FAQ ═══════ */}
         <section className="border-t border-border py-16 md:py-24">
           <div className="container max-w-3xl">
