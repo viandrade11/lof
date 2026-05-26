@@ -1,19 +1,17 @@
 import { Link } from 'react-router-dom';
-import heroRepairHitDesktop from '@/assets/hero-repair-hit-desktop.webp';
-import heroRepairHitNew from '/hero-repair-hit.png';
+import heroKitsDesktop from '@/assets/hero-kits-desktop.png';
+import heroKitsMobile from '@/assets/hero-kits-mobile.png';
 
 export function MainPromoBanner() {
   return (
-    <section className="relative w-full overflow-hidden bg-[#b8675a]">
-      <Link to="/products/kit-linha-nutritive-336060455" aria-label="Kit Linha Nutritive — Shampoo, Condicionador e Máscara Líquida Booster" className="block">
+    <section className="relative w-full overflow-hidden bg-[#f3f1ee]">
+      <Link to="/kits" aria-label="Kits LOF Professional — Seu cabelo merece um tratamento completo" className="block">
         <picture>
-          <source media="(min-width: 768px)" srcSet={heroRepairHitDesktop} />
+          <source media="(min-width: 768px)" srcSet={heroKitsDesktop} />
           <img
-            src={heroRepairHitNew}
-            alt="A linha certa para o seu cabelo — LOF Professional Nutritive."
-            className="w-full h-auto block max-h-[70vh] md:max-h-none object-cover object-top"
-            width={1280}
-            height={1920}
+            src={heroKitsMobile}
+            alt="Seu cabelo merece um tratamento completo — Conheça os novos Kits LOF."
+            className="w-full h-auto block"
             fetchPriority="high"
             decoding="async"
           />
