@@ -112,6 +112,20 @@ const CollectionPage = () => {
     setVisibleCount(PAGE_SIZE);
   }, [activeLines, activeTypes, onlySale, sort, setSearchParams]);
 
+  // Sync URL -> state (when user navigates via menu links changing the query string)
+  useEffect(() => {
+    const urlLines = searchParams.getAll('linha');
+    const urlTypes = searchParams.getAll('tipo');
+    const urlPromo = searchParams.get('promo') === '1';
+    const urlSort = searchParams.get('sort') || 'relevance';
+    const sameArr = (a: string[], b: string[]) => a.length === b.length && a.every((v, i) => v === b[i]);
+    if (!sameArr(urlLines, activeLines)) setActiveLines(urlLines);
+    if (!sameArr(urlTypes, activeTypes)) setActiveTypes(urlTypes);
+    if (urlPromo !== onlySale) setOnlySale(urlPromo);
+    if (urlSort !== sort) setSort(urlSort);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
   const { data: products, isLoading } = useProducts(50);
 
   const filteredForSeo = useMemo(() => {
