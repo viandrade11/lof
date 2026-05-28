@@ -93,41 +93,39 @@ function matchesType(title: string, type: string) {
 
 const CollectionPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [activeLines, setActiveLines] = useState<string[]>(() => searchParams.getAll('linha'));
-  const [activeTypes, setActiveTypes] = useState<string[]>(() => searchParams.getAll('tipo'));
-  const [onlySale, setOnlySale] = useState<boolean>(() => searchParams.get('promo') === '1');
-  const [sort, setSort] = useState(() => searchParams.get('sort') || 'relevance');
+  const activeLines = useMemo(() => searchParams.getAll('linha'), [searchParams]);
+  const activeTypes = useMemo(() => searchParams.getAll('tipo'), [searchParams]);
+  const onlySale = searchParams.get('promo') === '1';
+  const sort = searchParams.get('sort') || 'relevance';
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [expandedSections, setExpandedSections] = useState({ linha: true, tipo: true });
 
-  // Sync state -> URL
+  // Reset pagination when filters/sort change
   useEffect(() => {
-    const next = new URLSearchParams();
-    activeLines.forEach(l => next.append('linha', l));
-    activeTypes.forEach(t => next.append('tipo', t));
-    if (onlySale) next.set('promo', '1');
-    if (sort !== 'relevance') next.set('sort', sort);
-    if (next.toString() !== searchParams.toString()) {
-      setSearchParams(next, { replace: true });
-    }
     setVisibleCount(PAGE_SIZE);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeLines, activeTypes, onlySale, sort, setSearchParams]);
-
-  // Sync URL -> state (when user navigates via menu links changing the query string)
-  useEffect(() => {
-    const urlLines = searchParams.getAll('linha');
-    const urlTypes = searchParams.getAll('tipo');
-    const urlPromo = searchParams.get('promo') === '1';
-    const urlSort = searchParams.get('sort') || 'relevance';
-    const sameArr = (a: string[], b: string[]) => a.length === b.length && a.every((v, i) => v === b[i]);
-    if (!sameArr(urlLines, activeLines)) setActiveLines(urlLines);
-    if (!sameArr(urlTypes, activeTypes)) setActiveTypes(urlTypes);
-    if (urlPromo !== onlySale) setOnlySale(urlPromo);
-    if (urlSort !== sort) setSort(urlSort);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
+
+  const updateParams = (mutate: (p: URLSearchParams) => void) => {
+    const next = new URLSearchParams(searchParams);
+    mutate(next);
+    setSearchParams(next, { replace: true });
+  };
+
+  const setActiveLines = (lines: string[]) => updateParams(p => {
+    p.delete('linha');
+    lines.forEach(l => p.append('linha', l));
+  });
+  const setActiveTypes = (types: string[]) => updateParams(p => {
+    p.delete('tipo');
+    types.forEach(t => p.append('tipo', t));
+  });
+  const setOnlySale = (v: boolean) => updateParams(p => {
+    if (v) p.set('promo', '1'); else p.delete('promo');
+  });
+  const setSort = (s: string) => updateParams(p => {
+    if (s && s !== 'relevance') p.set('sort', s); else p.delete('sort');
+  });
 
   const { data: products, isLoading } = useProducts(50);
 
@@ -242,11 +240,11 @@ const CollectionPage = () => {
   }, [products, activeLines, activeTypes, onlySale, sort]);
 
   const toggleLine = (line: string) => {
-    setActiveLines(prev => prev.includes(line) ? prev.filter(l => l !== line) : [...prev, line]);
+    setActiveLines(activeLines.includes(line) ? activeLines.filter(l => l !== line) : [...activeLines, line]);
   };
 
   const toggleType = (type: string) => {
-    setActiveTypes(prev => prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]);
+    setActiveTypes(activeTypes.includes(type) ? activeTypes.filter(t => t !== type) : [...activeTypes, type]);
   };
 
   const clearAll = () => {
@@ -293,7 +291,7 @@ const CollectionPage = () => {
 
       {/* Promo toggle */}
       <button
-        onClick={() => setOnlySale(v => !v)}
+        onClick={() => setOnlySale(!onlySale)}
         className={`flex items-center gap-2 w-full py-2 text-xs uppercase tracking-[0.15em] font-semibold transition-colors ${onlySale ? 'text-red-600' : 'text-muted-foreground hover:text-foreground'}`}
       >
         <Tag className="h-3.5 w-3.5" />
