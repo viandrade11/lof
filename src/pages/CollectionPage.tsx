@@ -291,7 +291,7 @@ const CollectionPage = () => {
 
       {/* Promo toggle */}
       <button
-        onClick={() => setOnlySale(v => !v)}
+        onClick={() => setOnlySale(!onlySale)}
         className={`flex items-center gap-2 w-full py-2 text-xs uppercase tracking-[0.15em] font-semibold transition-colors ${onlySale ? 'text-red-600' : 'text-muted-foreground hover:text-foreground'}`}
       >
         <Tag className="h-3.5 w-3.5" />
