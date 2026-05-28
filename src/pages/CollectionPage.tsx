@@ -108,8 +108,11 @@ const CollectionPage = () => {
     activeTypes.forEach(t => next.append('tipo', t));
     if (onlySale) next.set('promo', '1');
     if (sort !== 'relevance') next.set('sort', sort);
-    setSearchParams(next, { replace: true });
+    if (next.toString() !== searchParams.toString()) {
+      setSearchParams(next, { replace: true });
+    }
     setVisibleCount(PAGE_SIZE);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeLines, activeTypes, onlySale, sort, setSearchParams]);
 
   // Sync URL -> state (when user navigates via menu links changing the query string)
