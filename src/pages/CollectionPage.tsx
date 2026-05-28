@@ -240,11 +240,11 @@ const CollectionPage = () => {
   }, [products, activeLines, activeTypes, onlySale, sort]);
 
   const toggleLine = (line: string) => {
-    setActiveLines(prev => prev.includes(line) ? prev.filter(l => l !== line) : [...prev, line]);
+    setActiveLines(activeLines.includes(line) ? activeLines.filter(l => l !== line) : [...activeLines, line]);
   };
 
   const toggleType = (type: string) => {
-    setActiveTypes(prev => prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]);
+    setActiveTypes(activeTypes.includes(type) ? activeTypes.filter(t => t !== type) : [...activeTypes, type]);
   };
 
   const clearAll = () => {
